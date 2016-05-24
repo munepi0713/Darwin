@@ -1,0 +1,144 @@
+#
+#  Binarize Test
+#
+
+### System Flags ###
+
+EnableOpenCL     False
+NumVerticesLimit 8000
+NumThreads       7
+NumMaxCPUs       8
+Trace            False
+
+
+### GP Parameters ###
+
+MaxGeneration	1000
+PopulationSize	100
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed	    675556231
+#RandomSeed	    123456789
+RandomAlgorithm	MT19977
+ReportInterval	1
+PreserveElite   True
+MinInitialSize  20
+Engine          NGSA-II-SP-Fooding
+
+
+### Problem Parameters ###
+
+ImageWidth      128
+ImageHeight     128
+NumChromosomes  1
+Evaluator       "(PSNR(Tree0)(Gray1))"
+Fitness         "(Invert(AverageA(RawFit0)))", "(Invert(MinA(RawFit0)))", "(Nodes)"
+
+
+### Tasks ###
+# Leave one out
+# [0] Challenge, [1] Answer
+
+#Task 1, 0, images/1.png, 0, images/Answer_1.png, 0
+Task 1, 0, images/2.png, 0, images/Answer_2.png, 0
+Task 1, 0, images/3.png, 0, images/Answer_3.png, 0
+Task 1, 0, images/4.png, 0, images/Answer_4.png, 0
+Task 1, 0, images/5.png, 0, images/Answer_5.png, 0
+Task 1, 0, images/6.png, 0, images/Answer_6.png, 0
+Task 1, 0, images/7.png, 0, images/Answer_7.png, 0
+Task 1, 0, images/8.png, 0, images/Answer_8.png, 0
+Task 1, 0, images/9.png, 0, images/Answer_9.png, 0
+
+Test 1, 0, images/1.png, 0, images/Answer_1.png, 0
+
+
+### Alias ###
+Include "Default.aliases"
+# Alias	(InvertC(?)), (Invert(VAdd(?)(Const_0.0001)))
+
+
+### Units ###
+#Unit    (Const_0.16666)
+#Unit    (Diff(Hue0)(Const_0.16666))  # Yellow for Hue
+#Unit    (Dilate3x3(Erode3x3(?)))
+
+#Unit	(Gray(Src0))
+#Unit	(Red(Src0))
+#Unit	(Green(Src0))
+#Unit	(Blue(Src0))
+Unit    (Gray0)
+Unit    (Red0)
+Unit    (Green0)
+Unit    (Blue0)
+##Unit	(Hue0)
+##Unit	(Saturation0)
+
+Unit	(Dilate3x3(?))
+Unit	(Erode3x3(?))
+#Unit    (Thin(?))
+Unit	(Laplacian3x3(?))
+#Unit	(Laplacian2nd3x3(?))
+Unit	(Median3x3(?))
+Unit	(Sharpen3x3(?))
+Unit	(Smooth3x3(?))
+Unit	(Sobel3x3(?))
+Unit	(SobelX3x3(?))
+Unit	(SobelY3x3(?))
+Unit	(Negate(?))
+Unit	(ProjectionX(?))
+Unit	(ProjectionY(?))
+#Unit	(Connection4(?))
+#Unit	(Connection8(?))
+Unit	(Threshold(?))
+Unit	(ThresholdInv(?))
+Unit	(Binarize(?))
+Unit	(BinarizeInv(?))
+Unit	(Add(?)(?))
+Unit	(AlgebraicProd(?)(?))
+Unit	(AlgebraicSum(?)(?))
+Unit	(BoundedProd(?)(?))
+Unit	(Diff(?)(?))
+Unit	(LogicalProd(?)(?))
+Unit	(LogicalSum(?)(?))
+Unit	(Subtract(?)(?))
+Unit	(HighPass(?)(?))
+Unit	(LowPass(?)(?))
+Unit	(ThresholdV(?)(?))
+Unit	(ThresholdInvV(?)(?))
+Unit	(BinarizeV(?)(?))
+Unit	(BinarizeInvV(?)(?))
+#Unit	(BigBlob4(?)(?))
+#Unit	(BigBlob8(?)(?))
+Unit	(AddV(?)(?))
+Unit	(ModAvgV(?)(?))
+Unit	(MultiplyV(?)(?))
+Unit	(SubtractV(?)(?))
+Unit	(FillV(?))
+#Unit	(NoiseV(?))
+Unit	(AvgPixel(?))
+Unit	(MaxPixel(?))
+Unit	(MinPixel(?))
+#Unit	(PSNR(?)(?))
+Unit	(VNegate(?))
+Unit	(VAdd(?)(?))
+Unit	(VAlgebraicProd(?)(?))
+Unit	(VAlgebraicSum(?)(?))
+Unit	(VDiff(?)(?))
+Unit	(VLogicalProd(?)(?))
+Unit	(VLogicalSum(?)(?))
+Unit	(VSubtract(?)(?))
+Unit	(Select(?)(?))
+Unit	(SelectV(?)(?)(?)(?))
+
+
+### Obsolete but can't omit ###
+ScoringMethod   Minimum
+FilterCountPenaltyWeight 0.000256466
+SimpleComparator True
+LeafCache              False
+SubtreeReduction       True
+SubtreeReductionDepth  50
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300

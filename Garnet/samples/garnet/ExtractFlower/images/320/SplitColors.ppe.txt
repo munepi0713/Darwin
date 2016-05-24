@@ -1,0 +1,161 @@
+#
+# Split Colors
+#
+
+Size	320, 214
+
+Begin Archive
+	SI3B(100)	 @PHM02_0114.png
+	SI3B(101)	 @PHM02_0120.png
+	SI3B(102)	 @PHM02_0126.png
+	SI3B(103)	 @PHM02_0678.png
+	SI3B(104)	 @PHM02_0717.png
+	SI3B(105)	 @PHM02_0733.png
+	SI3B(106)	 @PHM02_0790.png
+	SI3B(107)	 @PHM08_0093.png
+	SI3B(108)	 @PHM08_0099.png
+	SI3B(109)	 @PHM08_0108.png
+	SI3B(110)	 @PHM08_0169.png
+	SI3B(111)	 @PHM08_0171.png
+	SI3B(112)	 @PHM08_0182.png
+	SI3B(113)	 @PHM08_0189.png
+	SI3B(114)	 @PHM13_0285.png
+
+	RI1B(100)	 @PHM02_0114_red.png
+	RI1B(101)	 @PHM02_0120_red.png
+	RI1B(102)	 @PHM02_0126_red.png
+	RI1B(103)	 @PHM02_0678_red.png
+	RI1B(104)	 @PHM02_0717_red.png
+	RI1B(105)	 @PHM02_0733_red.png
+	RI1B(106)	 @PHM02_0790_red.png
+	RI1B(107)	 @PHM08_0093_red.png
+	RI1B(108)	 @PHM08_0099_red.png
+	RI1B(109)	 @PHM08_0108_red.png
+	RI1B(110)	 @PHM08_0169_red.png
+	RI1B(111)	 @PHM08_0171_red.png
+	RI1B(112)	 @PHM08_0182_red.png
+	RI1B(113)	 @PHM08_0189_red.png
+	RI1B(114)	 @PHM13_0285_red.png
+
+	RI1B(200)	 @PHM02_0114_green.png
+	RI1B(201)	 @PHM02_0120_green.png
+	RI1B(202)	 @PHM02_0126_green.png
+	RI1B(203)	 @PHM02_0678_green.png
+	RI1B(204)	 @PHM02_0717_green.png
+	RI1B(205)	 @PHM02_0733_green.png
+	RI1B(206)	 @PHM02_0790_green.png
+	RI1B(207)	 @PHM08_0093_green.png
+	RI1B(208)	 @PHM08_0099_green.png
+	RI1B(209)	 @PHM08_0108_green.png
+	RI1B(210)	 @PHM08_0169_green.png
+	RI1B(211)	 @PHM08_0171_green.png
+	RI1B(212)	 @PHM08_0182_green.png
+	RI1B(213)	 @PHM08_0189_green.png
+	RI1B(214)	 @PHM13_0285_green.png
+
+	RI1B(300)	 @PHM02_0114_blue.png
+	RI1B(301)	 @PHM02_0120_blue.png
+	RI1B(302)	 @PHM02_0126_blue.png
+	RI1B(303)	 @PHM02_0678_blue.png
+	RI1B(304)	 @PHM02_0717_blue.png
+	RI1B(305)	 @PHM02_0733_blue.png
+	RI1B(306)	 @PHM02_0790_blue.png
+	RI1B(307)	 @PHM08_0093_blue.png
+	RI1B(308)	 @PHM08_0099_blue.png
+	RI1B(309)	 @PHM08_0108_blue.png
+	RI1B(310)	 @PHM08_0169_blue.png
+	RI1B(311)	 @PHM08_0171_blue.png
+	RI1B(312)	 @PHM08_0182_blue.png
+	RI1B(313)	 @PHM08_0189_blue.png
+	RI1B(314)	 @PHM13_0285_blue.png
+
+	RI1B(400)	 @PHM02_0114_gray.png
+	RI1B(401)	 @PHM02_0120_gray.png
+	RI1B(402)	 @PHM02_0126_gray.png
+	RI1B(403)	 @PHM02_0678_gray.png
+	RI1B(404)	 @PHM02_0717_gray.png
+	RI1B(405)	 @PHM02_0733_gray.png
+	RI1B(406)	 @PHM02_0790_gray.png
+	RI1B(407)	 @PHM08_0093_gray.png
+	RI1B(408)	 @PHM08_0099_gray.png
+	RI1B(409)	 @PHM08_0108_gray.png
+	RI1B(410)	 @PHM08_0169_gray.png
+	RI1B(411)	 @PHM08_0171_gray.png
+	RI1B(412)	 @PHM08_0182_gray.png
+	RI1B(413)	 @PHM08_0189_gray.png
+	RI1B(414)	 @PHM13_0285_gray.png
+End Archive
+
+Begin Execution
+	Start
+
+	# Red
+	I1B_Split3rd_I3B             RI1B(100), SI3B(100)
+	I1B_Split3rd_I3B             RI1B(101), SI3B(101)
+	I1B_Split3rd_I3B             RI1B(102), SI3B(102)
+	I1B_Split3rd_I3B             RI1B(103), SI3B(103)
+	I1B_Split3rd_I3B             RI1B(104), SI3B(104)
+	I1B_Split3rd_I3B             RI1B(105), SI3B(105)
+	I1B_Split3rd_I3B             RI1B(106), SI3B(106)
+	I1B_Split3rd_I3B             RI1B(107), SI3B(107)
+	I1B_Split3rd_I3B             RI1B(108), SI3B(108)
+	I1B_Split3rd_I3B             RI1B(109), SI3B(109)
+	I1B_Split3rd_I3B             RI1B(110), SI3B(110)
+	I1B_Split3rd_I3B             RI1B(111), SI3B(111)
+	I1B_Split3rd_I3B             RI1B(112), SI3B(112)
+	I1B_Split3rd_I3B             RI1B(113), SI3B(113)
+	I1B_Split3rd_I3B             RI1B(114), SI3B(114)
+
+	# Green
+	I1B_Split2nd_I3B             RI1B(200), SI3B(100)
+	I1B_Split2nd_I3B             RI1B(201), SI3B(101)
+	I1B_Split2nd_I3B             RI1B(202), SI3B(102)
+	I1B_Split2nd_I3B             RI1B(203), SI3B(103)
+	I1B_Split2nd_I3B             RI1B(204), SI3B(104)
+	I1B_Split2nd_I3B             RI1B(205), SI3B(105)
+	I1B_Split2nd_I3B             RI1B(206), SI3B(106)
+	I1B_Split2nd_I3B             RI1B(207), SI3B(107)
+	I1B_Split2nd_I3B             RI1B(208), SI3B(108)
+	I1B_Split2nd_I3B             RI1B(209), SI3B(109)
+	I1B_Split2nd_I3B             RI1B(210), SI3B(110)
+	I1B_Split2nd_I3B             RI1B(211), SI3B(111)
+	I1B_Split2nd_I3B             RI1B(212), SI3B(112)
+	I1B_Split2nd_I3B             RI1B(213), SI3B(113)
+	I1B_Split2nd_I3B             RI1B(214), SI3B(114)
+
+	# Blue
+	I1B_Split1st_I3B             RI1B(300), SI3B(100)
+	I1B_Split1st_I3B             RI1B(301), SI3B(101)
+	I1B_Split1st_I3B             RI1B(302), SI3B(102)
+	I1B_Split1st_I3B             RI1B(303), SI3B(103)
+	I1B_Split1st_I3B             RI1B(304), SI3B(104)
+	I1B_Split1st_I3B             RI1B(305), SI3B(105)
+	I1B_Split1st_I3B             RI1B(306), SI3B(106)
+	I1B_Split1st_I3B             RI1B(307), SI3B(107)
+	I1B_Split1st_I3B             RI1B(308), SI3B(108)
+	I1B_Split1st_I3B             RI1B(309), SI3B(109)
+	I1B_Split1st_I3B             RI1B(310), SI3B(110)
+	I1B_Split1st_I3B             RI1B(311), SI3B(111)
+	I1B_Split1st_I3B             RI1B(312), SI3B(112)
+	I1B_Split1st_I3B             RI1B(313), SI3B(113)
+	I1B_Split1st_I3B             RI1B(314), SI3B(114)
+
+	# Gray
+	I1B_BGR2Gray_I3B             RI1B(400), SI3B(100)
+	I1B_BGR2Gray_I3B             RI1B(401), SI3B(101)
+	I1B_BGR2Gray_I3B             RI1B(402), SI3B(102)
+	I1B_BGR2Gray_I3B             RI1B(403), SI3B(103)
+	I1B_BGR2Gray_I3B             RI1B(404), SI3B(104)
+	I1B_BGR2Gray_I3B             RI1B(405), SI3B(105)
+	I1B_BGR2Gray_I3B             RI1B(406), SI3B(106)
+	I1B_BGR2Gray_I3B             RI1B(407), SI3B(107)
+	I1B_BGR2Gray_I3B             RI1B(408), SI3B(108)
+	I1B_BGR2Gray_I3B             RI1B(409), SI3B(109)
+	I1B_BGR2Gray_I3B             RI1B(410), SI3B(110)
+	I1B_BGR2Gray_I3B             RI1B(411), SI3B(111)
+	I1B_BGR2Gray_I3B             RI1B(412), SI3B(112)
+	I1B_BGR2Gray_I3B             RI1B(413), SI3B(113)
+	I1B_BGR2Gray_I3B             RI1B(414), SI3B(114)
+	
+	End
+End Execution

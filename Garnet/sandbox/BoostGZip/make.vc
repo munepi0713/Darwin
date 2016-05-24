@@ -1,0 +1,35 @@
+TARGET=BoostGZip.exe
+SRCDIR=../../src/Garnet
+OBJS=main.obj
+INCLUDES=/I../../include
+LIBDIR=../../lib
+CPP=cl
+CPPFLAGS=/EHsc /Ox $(INCLUDES) /MD
+IMPORTS=/link /LIBPATH:$(LIBDIR)/boost
+
+all: $(TARGET)
+	
+$(TARGET): $(OBJS)
+	$(CPP) $(CPPFLAGS) /Fe$(TARGET) $(OBJS) $(IMPORTS)
+
+main.obj: main.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+Tree.obj: $(SRCDIR)/Tree.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+ThreadPool.obj: $(SRCDIR)/ThreadPool.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+TraceLevel.obj: $(SRCDIR)/TraceLevel.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+Dictionary.obj: $(SRCDIR)/Dictionary.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+RandomGenerator.obj: $(SRCDIR)/RandomGenerator.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+clean:
+	del $(OBJS)
+	del $(TARGET)

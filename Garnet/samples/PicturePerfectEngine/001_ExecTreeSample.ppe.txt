@@ -1,0 +1,27 @@
+#
+# 001_ExecTreeSample
+#
+
+Size	320, 240
+
+Begin Archive
+	SV1D(0)	 0.5
+	SV1D(1)	 0.4
+
+	SI1B(0)	 @1.jpg
+	SI1B(1)	 @2.jpg
+
+	RI1B(0)  @Result0.png
+	RI1B(1)  @Result1.png
+End Archive
+
+Begin Execution
+	Start
+        Erode3x3   0x10600001 0x11600000
+        Add        0x10600000 0x10600001 0x11600001
+        Move       0x12600000 0x10600000
+        Move       0x12000000 0x11000000
+        Move       0x12600001 0x10600001
+        Move       0x12000001 0x11000000
+	End
+End Execution

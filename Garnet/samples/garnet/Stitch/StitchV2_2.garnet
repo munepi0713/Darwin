@@ -1,0 +1,14 @@
+Include StitchV2.common
+
+# Src0: Training Image.
+# Src1: Target Score. Image is not used.
+Task 1, 0, "Stitch.conf/Positive_0.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_1.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_3.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_4.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_5.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Negative_0.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_1.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_3.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_4.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_5.png", 0.0, "Stitch.conf/dummy.png", 0.0

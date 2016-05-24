@@ -1,0 +1,21 @@
+digraph G {
+0[label=S];
+1[label=HOGE];
+2[label=B];
+3[label=C];
+4[label=HOGE];
+5[label=E];
+6[label=F];
+7[label=X];
+8[label=Y];
+9[label=Z];
+0->1 ;
+1->2 ;
+2->3 ;
+2->5 ;
+2->4 ;
+4->6 ;
+4->8 ;
+5->7 ;
+5->9 ;
+}

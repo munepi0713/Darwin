@@ -1,0 +1,338 @@
+\documentclass{jsbook}
+
+\title{Garnet Specification}
+
+\begin{document}
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+
+\chapter{Components}
+
+\subsection{Garnet Engine}
+
+\subsubsection{要件仕様}
+
+GPによる画像フィルタツリーの自動生成をするエンジン。
+
+CPU対応、GPU対応など複数の実装ができるようにする。
+
+別の
+
+\subsubsection{開発言語}
+
+C++
+OpenCV
+OpenCL
+
+\subsubsection{入力}
+
+\subsubsection{出力}
+
+\subsubsection{前提}
+
+
+\begin{itemize}
+    \item
+\end{itemize}
+
+\subsection{Job Watcher}
+
+\subsubsection{}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+
+\subsection{Engine Monitor}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+
+\subsection{Intermediate Server}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+
+
+\subsection{User Command Interface}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+
+
+\subsection{User Web Interface}
+
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+\subsubsection{}
+
+
+
+\chapter{Development Notes}
+
+\section{Requirements}
+
+\subsection{機能要件}
+
+\begin{itemize}
+	\item ツリー評価ができる
+	\item 自動探索ができる
+	\item インターネット経由でジョブを投入できる
+	\item ローカルマシンでジョブを投入できる
+	\item コマンドでジョブを投入できる
+	\item ブラウザでジョブを投入できる
+	\item 自動探索の途中経過を確認できる
+	\item エンジンを途中で入れ替えられる
+	\item 自動探索結果はあとから全ての途中経過データも取得できる
+	\item
+	\item
+	\item
+\end{itemize}
+
+\subsubsection{インプット}
+
+
+\subsubsection{アウトプット}
+
+\subsection{構成要件}
+
+\begin{itemize}
+	\item 計算は自宅マシン CPUとGPU
+	\item 計算の途中経過も自宅マシン （2TB）
+	\item インターネットの窓口はmunepi.com  （10GB）
+	\item 計算マシンと窓口マシンの仲介はNAS  （2TB）
+	\item ジョブ投入ユーザーは、自宅マシン、インターネット経由マシン
+\end{itemize}
+
+\section{Use Cases}
+
+\subsection{ツリー評価ジョブをローカルマシンからコマンドで投入する}
+
+
+\subsubsection{シナリオ}
+
+\begin{enumerate}
+	\item (User) コマンドプロンプトから、ツリー評価コマンドに、適切なパラメータを与えて実行する
+	\item ツリー評価ジョブをローカルマシンからコマンドで投入する
+	\item ツリー評価ジョブをローカルマシンからコマンドで投入する
+	\item ツリー評価ジョブをローカルマシンからコマンドで投入する
+	\item ツリー評価ジョブをローカルマシンからコマンドで投入する
+\end{enumerate}
+
+
+\subsection{ツリー評価ジョブをローカルマシンからブラウザで投入する}
+
+\subsection{ツリー評価ジョブをインターネット経由でコマンドで投入する}
+
+\subsection{ツリー評価ジョブをインターネット経由でブラウザで投入する}
+
+\subsubsection{要件}
+\begin{itemize}
+	\item ツリー評価。Webで。（WebAPIのラッパーUI？）
+	\item ツリー評価。コマンドで。Web経由またはローカル。
+	\item トレーニングデータの送付はURLで指定できるようにする。（エンジン側が必要な時期にダウンロードする）
+\end{itemize}
+	
+
+\subsubsection{設計}
+\begin{itemize}
+	\item ジョブIDを発行する。
+	\item api.xxxx.com/garnet/<userid>に対してGETすると、新しいワンタイムパスワードと現在キューされているデータを返す
+	\item api.xxxx.com/garnet/<userid>に対してワンタイムパスワードを含めてPOSTすると、ジョブをキューしてジョブID発行する。
+\end{itemize}
+
+
+\subsection{ツリーの評価結果をローカルマシンからコマンドでダウンロードする}
+
+\subsubsection{要件}
+
+\begin{itemize}
+	\item ツリー評価。Webで。
+	\item ツリー評価。コマンドで。ファイルに保存。（ダウンロード）
+\end{itemize}
+
+\subsubsection{設計}
+\begin{itemize}
+	\item ジョブIDでチェック。
+	\item api.xxxx.com/garnet/<jobid>/<generation>/<individual>/<chromosome>/<input>/{image,value}
+	\item 途中で止めるとそこまでのレベルのサマリーを返す
+	\item www.xxxx.comにするとブラウザ用。api.xxxx.comはコマンド用。
+	\item <generation>は0～の数値またはlatestと指定すると最新のものになる。
+	\item <individual>は0～の数値またはbestと指定すると一番評価値が高いモノを返す。
+	\item ツリー評価の時は
+	\begin{itemize}
+		\item <generation>={0}
+		\item <individual>={0,...}
+		\item <chromosome>={0}
+		\item <input>={0,...}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{ツリーの評価結果をローカルマシンからブラウザでダウンロードする}
+
+\subsection{ツリーの評価結果をインターネット経由でコマンドでダウンロードする}
+
+
+\subsection{ツリーの評価結果をインターネット経由でブラウザでダウンロードする}
+
+
+\subsection{ツリーの評価結果をローカルマシンからブラウザでみる}
+
+\subsection{ツリーの評価結果をインターネット経由でブラウザでみる}
+
+\begin{itemize}
+	\item ツリーは結果IVがあればよい
+	\item ツリーでも入力が複数の場合は複数みたい
+	\item GPの場合は最終結果（現在までの最新結果）のほか、途中の結果も見たい。ただし、サイズがでかいのでZipするなどの工夫が必要
+\end{itemize}
+
+\subsection{自動探索ジョブをローカルマシンからブラウザで投入する}
+
+\subsection{自動探索ジョブをローカルマシンからコマンドで投入する}
+
+\subsubsection{要件}
+\begin{itemize}
+	\item 自動探索。Web UIで
+	\item 自動探索。Webでコマンドファイルを送る。
+	\item 自動探索。コマンドで。
+	\item トレーニングデータの送付はURLで指定できるようにする。（エンジン側が必要な時期にダウンロードする）
+\end{itemize}
+	
+
+\subsubsection{設計}
+\begin{itemize}
+	\item ジョブIDを発行する。
+	\item api.xxxx.com/garnet/<userid>に対してGETすると、新しいワンタイムパスワードと現在キューされているデータを返す
+	\item api.xxxx.com/garnet/<userid>に対してワンタイムパスワードを含めてPOSTすると、ジョブをキューしてジョブID発行する。
+\end{itemize}
+
+\subsection{自動探索ジョブをインターネット経由でブラウザで投入する}
+
+\subsection{自動探索ジョブをインターネット経由でコマンドで投入する}
+
+
+
+\subsection{自動探索結果の受け取り}
+
+\subsubsection{要件}
+
+\begin{itemize}
+	\item 自動探索。Webで。
+	\item 自動探索。コマンドで。ファイルに保存。（ダウンロード）
+\end{itemize}
+
+\subsubsection{設計}
+\begin{itemize}
+	\item ジョブIDでチェック。
+	\item api.xxxx.com/garnet/<jobid>/<generation>/<individual>/<chromosome>/<input>/{image,value}
+	\item 途中で止めるとそこまでのレベルのサマリーを返す
+	\item www.xxxx.comにするとブラウザ用。api.xxxx.comはコマンド用。
+	\item <generation>は0～の数値またはlatestと指定すると最新のものになる。
+	\item <individual>は0～の数値またはbestと指定すると一番評価値が高いモノを返す。
+	\item 自動探索の時は
+	\begin{itemize}
+		\item <generation>={0,...,latest}
+		\item <individual>={0,...,best}
+		\item <chromosome>={0,...}
+		\item <input>={0,...}
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{自動探索途中経過をブラウザでみる}
+
+
+\subsection{自動探索途中経過をコマンドでダウンロードする}
+
+
+\subsection{自動探索途中経過をブラウザでダウンロードする}
+
+
+
+\subsection{自動探索結果をコマンドでダウンロードする}
+
+
+\subsection{自動探索結果をブラウザでダウンロードする}
+
+
+\subsection{自動探索結果をブラウザでみる}
+
+
+\subsection{自分が投入しているジョブの実行状況をローカルマシンからブラウザでみる}
+
+\subsection{自分が投入しているジョブの実行状況をローカルマシンからコマンドで確認する}
+
+\subsection{自分が投入しているジョブの実行状況をインターネット経由でブラウザでみる}
+
+\subsection{自分が投入しているジョブの実行状況インターネット経由でをコマンドで確認する}
+
+
+\subsection{新しいエンジンを実装してみたので試験運転する}
+
+\subsubsection{要件}
+
+\begin{itemize}
+    \item 本番エンジンへの影響は少なくする。特に停止だけは絶対に避ける。CPUリソースの競合はある程度仕方ない。
+    \item 試験エンジンを優先実行したい
+    \item 試験エンジンはすぐ止めたい
+    \item 試験エンジンはCPUリソースを占有して実行したい
+\end{itemize}
+
+\subsubsection{設計}
+
+\begin{itemize}
+    \item 本番エンジンと試験エンジンは別のプロセスにする
+    \item 試験エンジン実行中は本番エンジンを実行中のジョブに影響することなく一時停止する
+\end{itemize}
+
+\subsection{新しいエンジンが検証OKとなったので切り替える}
+
+\subsubsection{要件}
+
+\begin{itemize}
+    \item 実行中のジョブに影響することなく切り替えたい
+    \item 待機中のジョブを新エンジンに移行したい
+\end{itemize}
+
+\subsubsection{設計}
+
+
+
+\subsubsection{要検討事項}
+
+\begin{itemize}
+    \item 初期起動モードは？(1)本番モードでスタート、(2)検証モードでスタート(切り替えが必要だが、本番が動いているときにうっかり起動しても問題が少ない)
+\end{itemize}
+
+\subsubsection{}
+
+
+\subsection{ジョブのポスト/モニター}
+
+\begin{itemize}
+    \item munepi.comとローカルマシン両方でやりたい
+    \item どちらからも同じことができるようにしたい
+	\item ユーザーIDでみればよいのでは
+\end{itemize}
+
+
+\subsection{}
+\subsubsection{}
+\subsubsection{}
+
+\end{document}

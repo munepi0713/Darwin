@@ -1,0 +1,68 @@
+# Garnet Configuration
+
+### Common ###
+MaxGeneration	100
+PopulationSize	100
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed		123456789
+RandomAlgorithm	MT19977
+ReportInterval	1
+NumChromosomes  1
+
+ImageWidth      640
+ImageHeight     427
+
+CPUAffinity     01*, 0
+Trace           False
+
+### Tasks ###
+Task 1, 0, "image/1.jpg", 0, image/2.jpg, 0.5, image/3.jpg, 1.0
+
+### Alias ###
+Include "Default.aliases"
+
+### Units ###
+Unit	(Gray0)
+Unit	(Red0)
+Unit	(Green0)
+Unit	(Blue0)
+
+Unit 	(__(?))
+Unit 	(_M(?))
+Unit 	(_m(?))
+Unit 	(_d(?))
+Unit 	(_E(?))
+Unit 	(_e(?))
+Unit 	(_T(?))
+Unit 	(_t(?))
+Unit 	(_S(?))
+Unit 	(_s(?))
+Unit 	(_i(?))
+#Unit 	(_K(?))
+Unit 	(_G(?))
+#Unit 	(_x(?))
+#Unit 	(_X(?))
+Unit 	(_z(?))
+Unit 	(_g(?))
+Unit 	(_F(?))
+Unit 	(_f(?))
+Unit 	(_P(?))
+Unit 	(_p(?))
+Unit 	(_R(?))
+Unit 	(_r(?))
+Unit 	(_C(?))
+Unit 	(_c(?))
+#Unit 	(_H(?))
+Unit 	(_N(?))
+Unit 	(_n(?))
+Unit 	(_L(?)(?))
+Unit 	(_l(?)(?))
+Unit 	(_A(?)(?))
+Unit 	(_a(?)(?))
+Unit 	(_B(?)(?))
+Unit 	(_b(?)(?))
+Unit 	(_u(?)(?))
+Unit 	(_U(?)(?))
+Unit 	(_D(?)(?))
+

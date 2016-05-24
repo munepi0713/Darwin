@@ -1,0 +1,161 @@
+DefineOp	0, End                       # End op must be 0.
+
+DefineOp	1, SetImageSize              # OpCode SrcX(Const), SrcY(Const)
+DefineOp	2, SetSizeFromImage          # OpCode Src(S)
+
+DefineOp        10, PrintHash_V1D             # OpCode Src
+DefineOp        14, PrintHash_I1B             # OpCode Src
+DefineOp        15, PrintHash_I3B             # OpCode Src
+
+DefineOp	20, V1D_Var                  # OpCode Dst(V1D)
+DefineOp	24, I1B_Var                  # OpCode Dst(I1B)
+DefineOp	25, I3B_Var                  # OpCode Dst(I3B)
+DefineOp	29, S_Var                    # OpCode Dst(S)
+
+DefineOp	30, V1D_Immediate             # OpCode Dst(V1D), Immediate(V1Di)
+DefineOp	39, S_Immediate               # OpCode Dst(S), Immediate(Si)
+
+DefineOp        40, V1D_MoveFrom_V1Ds        # OpCode Dst Src(V1Ds)
+DefineOp	44, I1B_MoveFrom_I1Bs        # OpCode Dst Src(I1Bs)
+DefineOp	45, I3B_MoveFrom_I3Bs        # OpCode Dst Src(I3Bs)
+
+DefineOp        50, V1Ds_MoveTo_V1D          # OpCode Dst(V1Ds) Src
+DefineOp	54, I1Bs_MoveTo_I1B          # OpCode Dst(I1Bs) Src
+DefineOp	55, I3Bs_MoveTo_I3B          # OpCode Dst(I3Bs) Src
+
+DefineOp	60, V1D_Zero                 # OpCode Dst
+DefineOp	64, I1B_Zero                 # OpCode Dst
+DefineOp	65, I3B_Zero                 # OpCode Dst
+
+DefineOp        70, V1D_Copy_V1D             # OpCode Dst Src
+DefineOp	74, I1B_Copy_I1B             # OpCode Dst Src
+
+DefineOp	84, I1B_Load_S               # OpCode Dst(I1B), Src(S)
+DefineOp	85, I3B_Load_S               # OpCode Dst(I3B), Src(S)
+
+DefineOp	94, Save_I1B_S               # OpCode Src1(I1B), Src2(S)
+DefineOp	95, Save_I3B_S               # OpCode Src2(I3B), Src2(S)
+
+DefineOp	100, I1B_Split1st_I3B         # OpCode Dst Src
+DefineOp	101, I1B_Split2nd_I3B         # OpCode Dst Src
+DefineOp	102, I1B_Split3rd_I3B         # OpCode Dst Src
+
+DefineOp        110, I3B_BGR2HSV_I3B          # OpCode Dst Src
+DefineOp        111, I3B_BGR2YUV_I3B          # OpCode Dst Src
+DefineOp        112, I1B_BGR2Gray_I3B         # OpCode Dst Src
+    
+DefineOp	120, I1B_Dilate3x3_I1B         # OpCode Dst Src
+DefineOp	121, I1B_Erode3x3_I1B         # OpCode Dst Src
+DefineOp	122, I1B_Thin_I1B         # OpCode Dst Src
+
+DefineOp	123, I1B_Laplacian3x3_I1B         # OpCode Dst Src
+DefineOp	124, I1B_Laplacian2nd3x3_I1B         # OpCode Dst Src
+DefineOp	126, I1B_Sharpen3x3_I1B         # OpCode Dst Src
+DefineOp	127, I1B_Smooth3x3_I1B         # OpCode Dst Src
+DefineOp	125, I1B_Median3x3_I1B         # OpCode Dst Src
+DefineOp	128, I1B_Sobel3x3_I1B         # OpCode Dst Src
+DefineOp	129, I1B_SobelX3x3_I1B         # OpCode Dst Src
+DefineOp	130, I1B_SobelY3x3_I1B         # OpCode Dst Src
+
+DefineOp	140, I1B_Negate_I1B         # OpCode Dst Src
+DefineOp	141, I1B_ProjectionX_I1B         # OpCode Dst Src
+DefineOp	142, I1B_ProjectionY_I1B         # OpCode Dst Src
+DefineOp	143, I1B_Connection4_I1B         # OpCode Dst Src
+DefineOp	144, I1B_Connection8_I1B         # OpCode Dst Src
+DefineOp	145, I1B_Outline4_I1B         # OpCode Dst Src
+DefineOp	146, I1B_Outline8_I1B         # OpCode Dst Src
+DefineOp	147, I1B_Segment_I1B         # OpCode Dst Src
+
+DefineOp	200, I1B_Add_I1B_I1B         # OpCode Dst Src1 Src2
+DefineOp	201, I1B_Diff_I1B_I1B         # OpCode Dst Src1 Src2
+DefineOp	202, I1B_AlgebraicProd_I1B_I1B # OpCode Dst Src1 Src2
+DefineOp	203, I1B_AlgebraicSum_I1B_I1B # OpCode Dst Src1 Src2
+DefineOp	204, I1B_BoundedProd_I1B_I1B # OpCode Dst Src1 Src2
+DefineOp	205, I1B_LogicalProd_I1B_I1B # OpCode Dst Src1 Src2
+DefineOp	206, I1B_LogicalSum_I1B_I1B # OpCode Dst Src1 Src2
+DefineOp	207, I1B_Subtract_I1B_I1B # OpCode Dst Src1 Src2
+
+DefineOp	300, I1B_HighPass_I1B_V1D           # HighPass, Image Element   # OpCode Dst Src1 Src2
+DefineOp	301, I1B_LowPass_I1B_V1D            # LowPass, Image Element # OpCode Dst Src1 Src2
+
+DefineOp	302, I1B_Threshold_I1B           # Threshold, Image Element # OpCode Dst Src
+DefineOp	303, I1B_ThresholdInv_I1B        # ThresholdInv, Image Element # OpCode Dst Src
+DefineOp	304, I1B_ThresholdV_I1B_V1D      # ThresholdV, Image Element # OpCode Dst Src1 Src2
+DefineOp	305, I1B_ThresholdInvV_I1B_V1D   # ThresholdInv, Image Element  # OpCode Dst Src1 Src2
+DefineOp	306, I1B_Binarize_I1B            # # OpCode Dst Src
+DefineOp	307, I1B_BinarizeInv_I1B             # OpCode Dst Src
+DefineOp	308, I1B_BinarizeV_I1B_V1D        # OpCode Dst Src1 Src2
+DefineOp	309, I1B_BinarizeInvV_I1B_V1D     # OpCode Dst Src1 Src2
+
+DefineOp	310, I1B_BigBlob4_I1B_V1D    # BigBlob4, Image Element   # OpCode Dst Src1 Src2
+DefineOp	311, I1B_BigBlob8_I1B_V1D    # BigBlob8, Image Element    # OpCode Dst Src1 Src2
+
+DefineOp	320, I1B_AddV_I1B_V1D        # AddV, Image Element    # OpCode Dst Src1 Src2
+DefineOp	321, I1B_FillV_I1D           # FillV, Image Element    # OpCode Dst Src1 Src2
+DefineOp	322, I1B_ModAvgV_I1B_V1D     # ModAvgV, Image Element    # OpCode Dst Src1 Src2
+DefineOp	323, I1B_MultiplyV_I1B_V1D   # MultiplyV, Image Element    # OpCode Dst Src1 Src2
+DefineOp	324, I1B_SubtractV_I1B_V1D   # SubtractV, Image Element     # OpCode Dst Src1 Src2
+
+DefineOp	330, I1B_NoiseV_V1D          # NoiseV, Image Element     # OpCode Dst Src
+    
+DefineOp	400, V1D_AvgPixel_I1B     # OpCode Dst Src
+DefineOp	401, V1D_MaxPixel_I1B     # OpCode Dst Src
+DefineOp	402, V1D_MinPixel_I1B     # OpCode Dst Src
+
+DefineOp	403, V1D_FGArea_I1B     # OpCode Dst Src
+DefineOp	404, V1D_BGArea_I1B     # OpCode Dst Src
+DefineOp	405, V1D_FGAreaV_I1B_V1D     # OpCode Dst Src1 Src2
+DefineOp	406, V1D_BGAreaV_I1B_V1D     # OpCode Dst Src1 Src2
+
+DefineOp	407, V1D_MassCenterBX_I1B     # OpCode Dst Src
+DefineOp	408, V1D_MassCenterBY_I1B     # OpCode Dst Src
+
+DefineOp	500, V1D_PSNR_I1B_I1B     # OpCode Dst Src1 Src2
+
+DefineOp	600, V1D_VNegate_V1D     # OpCode Dst Src
+
+DefineOp	601, V1D_VAdd_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	602, V1D_VAlgebraicProd_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	603, V1D_VAlgebraicSum_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	604, V1D_VDiff_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	605, V1D_VLogicalProd_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	606, V1D_VLogicalSum_V1D_V1D     # OpCode Dst Src1 Src2
+DefineOp	607, V1D_VSubtract_V1D_V1D     # OpCode Dst Src1 Src2
+
+DefineOp	610, V1D_Distance_V1D_V1D_V1D_V1D     # OpCode Dst Src1 Src2 Src3 Src4
+
+DefineOp	700, I1B_Select_I1B_I1B_V1D_V1D   # Select, SelectV, Image element    # OpCode Dst Src1 Src2 Src3 Src4
+DefineOp	701, V1D_Select_V1D_V1D           # Select, Value element   # OpCode Dst Src1 Src2
+DefineOp	702, V1D_Select_V1D_V1D_V1D_V1D   # SelectV, Value element    # OpCode Dst Src1 Src2 Src3 Src4
+
+
+# DefineOp	, Const
+# DefineOp	, Var
+# DefineOp	, Zero
+# DefineOp	, Print
+# DefineOp	, PrintMD5
+# DefineOp	, Alias
+
+# DefineOp	, Load
+# DefineOp	, SetValue
+# DefineOp	, Save
+
+# DefineOp	, LoadValue
+# DefineOp	, SaveValue
+# DefineOp	, LoadImage
+# DefineOp	, SaveImage
+# DefineOp	, SetSizeFromImage
+
+# DefineOp	, CacheIn
+# DefineOp	, CacheOut
+# DefineOp	, CacheLoad
+
+# DefineOp	, Gray                        # --> BGR2Gray(?))
+# DefineOp	, Red                         # --> Split3rd(?)
+# DefineOp	, Green                       # --> Split2nd(?)
+# DefineOp	, Blue                        # --> Split1st(?)
+# DefineOp	, Hue                         # --> Split1st(BGR2HSV(?))
+# DefineOp	, Saturation                  # --> Split2nd(BGR2HSV(?))
+# DefineOp	, Value                       # --> Split3rd(BGR2HSV(?))
+# DefineOp	, U                           # --> Split2nd(BGR2YUV(?))
+# DefineOp	, V                           # --> Split3rd(BGR2YUV(?))

@@ -1,0 +1,8 @@
+Include ..\TreeSerializerEngine\sample\Sample1.tsscript
+
+Tree  Tree1, (Max3x3(ImageAdd(Gray1)(Gray2)))
+
+PostProcess  "Save Tree1, FindFlower1.png"
+PostProcess  "Print Tree1"
+
+#Output  File "FindFlower.ppe"

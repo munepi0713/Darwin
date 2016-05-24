@@ -1,0 +1,360 @@
+
+
+アルゴリズムメモ。
+============
+
+
+Bloat対策
+
+* 理論
+  * removal bias理論 Soule, et.al.
+
+    [1] T. Soule and J. A. Foster, "Removal Bias: a New Cause of Code Growth
+    in Tree Based Evolutionary Programming", IEEE International 
+    Conference on Evolutionary Computation, 1998.
+	
+    [2] W.B. Langdon, T. SOule, R. Poli and J. A. Foster, "The Evolution of
+    Size and Shape", Advanced in Genetic Progiramming 3
+
+* 対策
+  * Fixed limit
+  
+    サイズに制限かける。
+	値に知識が必要。あるいは、その制限をかけてしまって、解が得られなくなる心配がないか、に課題。
+  
+  * Parsimony pressure
+  
+    サイズが小さくなるような圧力。サイズ大にペナルティ。
+	副作用ある、パラメータの指針が一定でない、などの課題あり。
+	
+  * crossover/mutation operatorの改造
+  
+  * 50-150% Fair Mutation
+  
+    [2]で述べられている方法。
+	取り除かれるサブツリーのサイズに対して、50-150%のサイズのランダムツリーを、代わりにする。
+	Operator改造の一手法だが、暗黙的なParsimony Pressureともいえる。
+
+  * Subtree Fair Mutation
+  
+    [2]で述べられている方法。
+	取り除かれるサブツリーのサイズに対して、同じサイズのサブツリーを、同じ木から探して交換する
+	Mutationではサイズが増加しないことを保証する手法
+    交換については、KozaのGPの中で、 述べられていたはず。Langdonは気づいていないな。
+  
+Garnet
+------
+
+0. Reset random generator.
+
+1. Selection
+
+    Select elite (archive) and candidate for next generation.
+	0 <= Narchive + Nselected <= Ni, where
+	Narchive is the given number of archived individuals, and
+	Nselected is the result number of selected individuals.
+
+2. Mating
+
+    Make parent pairs.
+
+3. Crossover
+
+4. Mutation
+
+5. Evaluation
+
+6. Generating Fitness Vector
+
+7. Rank/Sort
+
+  
+  
+Algorithm
+---------
+
+1. Treeの登録 (IVTree[])
+
+    * エイリアスで処理するので、通常はここは固定
+
+    // Stage A
+    (_Tree<0,0>)
+    (_Tree<0,1>)
+    (_Tree<1,0>)
+    (_Tree<1,1>)
+    ...
+    (_RawFit<0,0>)
+    (_RawFit<0,1>)
+    (_RawFit<1,0>)
+    (_RawFit<1,1>)
+    ... 
+    
+
+1. Aliasの登録
+
+    * エイリアス辞書は2個渡せるようにしよう
+    * 永続的、世代ごとに変わるものがあるので
+
+1. 定数の登録
+
+    * Ni, Ncとかの登録
+
+1. Aliasの解決 (IVTree[] --> IVTree[])  
+   (並列可能) resolveAlias(IVTree[], AliasDict)
+
+    ツリーに含まれる各要素のエイリアスがないか、エイリアス辞書から検索
+
+    * 基本ルール
+        * ツリーに含まれるノード名と一致するエイリアスがあったら、エイリアスの右辺と置換
+        * 置換は幅優先探索で実施していき、すべての葉に到達したら終了。ルートに戻って何度もやることはない
+    * 引数を持つエイリアスの置換
+        * ユニット Op(A) は エイリアス Op(_1) とマッチする
+        * (A)の部分は、エイリアスの右辺の(_1)に代入される
+        * 同様に、(_2), (_3), (_4) まで対応する
+    * 変数を持つエイリアスの置換
+        * ユニット Op<0> は エイリアス Op<x> とマッチする
+        * 置換された時点でx=0が代入され、エイリアスの右辺のxが0に置き換えられる (文字列操作で可能)
+
+    * この時点でわかる情報
+        * IVTreeの頂点数
+        * PPEGraphの頂点数 (=IVTreeの頂点数 x 2)
+
+1. 式の解決
+   (並列可能) resolveStatement(IVTree[], ConstDict)
+    
+    * ユニット Op[eq] は、[eq]部分が式eqの計算結果に置き換えられる
+    * ex. (Foo<0>) --> (Foo\<i>)=(Bar[i*5]) --> (Bar5)
+    * Ni, Nc, ... などは与えられる定数で、式の中で使える
+    * 式の解決は、Aliasの解決の後に行われるので、式の解決結果で全く異なるエイリアスに置換されるようなことはできない。あくまでも、StoreやSrcの番号を操作するところに使うイメージ。
+        
+1. IVTreeからIVGraphに統合する (IVTree[] --> IVGraph)
+   (並列可能) convertIVTreesToIVGraph(IVTree[]) --> IVGraph
+
+    * 共通部分が統合され、DAGが生成される。
+	* 共有された頂点には、共有数をfreqとして記録する。（共有されていない頂点は1）
+	* 統合するIVTreeは、頂点数を見て調整する。頂点数が多くなりすぎると、彩色に時間がかかりすぎる
+
+    * この時点でわかる情報
+        * 共通部分を削除したあとの IV 頂点数
+	
+1. IVGraphからPPEGraphへの変換 (IVGraph --> PPEGraph)
+   (並列可能) convertIVGraphToPPEGraph(IVGraph) --> PPEGraph
+
+    * IVVertex1つが、PPEVertexのペアに変換される
+
+    * この時点でわかる情報
+        * 共通部分を削除したあとの IV 頂点数
+
+1. Intron削除 (PPEGraph --> PPEGraph)
+   (並列可能) removeIntrons(PPEGraph) --> PPEGraph
+
+    * 置換の辞書をもとに削除していく
+        * Copy連鎖 (計算結果に変化を与えないMove)
+    * Sinkからつながっていないノード
+
+1. Copy --> Move変換 (PPEGraph --> PPEGraph)
+
+    * Copy連鎖削除を、省略した場合は、CopyをMoveに書き換える
+
+1. 彩色 (PPEGraph --> PPEGraph)
+   (並列可能) assignColors(PPEGraph[inout])
+
+    * ライングラフに変換。
+	  Sarkar-Serrano-Simons番号が大きいサブツリー側の頂点から順に処理していくことで、
+	  依存レジスタを最小化する。
+	* 彩色。
+	* PPEGraphに色を戻す。
+    * データ: ライングラフの頂点数、ライングラフのエッジ数、色数、最大degree
+
+1. Intron率の計算方法
+
+    * 元の値 = 全IVTreeの頂点数 * 2. (IとVなので2）
+	* Intronを除いた値 = 彩色に使ったPPEGraphの全頂点uについて、 sigma(freq[u])
+
+1. スクリプトに変換 generateScript(PPEGraph) -> String
+   (並列可能)
+
+1. 実行形式にコンパイル compile(Stream) --> Executable 
+   (並列可能)
+
+1. 実行 execute(Executable, Storage[inout])
+
+
+Data Types
+----------
+
+* IVA Tree (listS, vecS)
+  * Vertex Property = { label, color, index, depth }
+    * label:
+	* color:
+	* index:
+	* depth:
+* IVA Graph (vecS, vecS, directedS)
+  * Vertex Property = { label, tree }
+    * label
+	* tree
+* PPE Tree
+* PPE Graph (vecS, vecS, directedS)
+  * Vertex Property = { label, color, type, freq }
+    * label:
+	* color:
+	* type:
+    * freq:  the numbers of inbound edges.
+
+	
+食事制限型 Selection
+-------------------
+
+### 基本コンセプト
+
+* 世代にある量の食糧が与えられ、個体が消費。食糧が不足する個体は淘汰される。
+
+### 詳細なコンセプト
+
+* 消費量は、サイズが大きいほど大きい。
+* 食糧の総量は、Fitnessの総和が大きいほど大きい。優秀な個体が多いほどたくさんの食糧を得られるという考え方。
+    * これは難しいかも。
+* Multi Objectiveの場合は、個々のObjectにたいして食糧と消費を考える。
+* 食糧と消費の量について、絶対値は使わない。パラメータチューニング勝負をしたくない。
+* Top RankerのFitnessやサイズを基準として、食糧総量や各個体の消費量を決める
+* Rankが高いものから順に、消費していく。
+  下の者ほど淘汰されやすいが、必ずしも最下位が淘汰されるわけではない。
+  下位のほうにくると、残り食糧が少ないため、大きな個体は生き残れないので、最下位でも小さい個体が残ることがある。
+* 注意点として、主なMOEは、Fitnessが小さいほど良い個体としていること。
+    * 食糧を多く生み出すほうが良い個体＝Fitness小
+	* 消費が少ないほうが良い個体＝Size小
+	* 食糧の良し悪しは多少が逆転しているが、消費は小が良のまま。
+	  なので、どちらかの増減を変換する必要がある。
+	  単純にやると、個体の指標の大小が正しく反映されないので、注意が必要。
+	  
+
+### アルゴリズム試案
+
+* 食糧基準
+    * Rank 1の個体の、Fitnessの、要素ごとに平均をとる。 Rank1平均=(f1[1], f1[2], ...)
+	* 全個体のFitnessで、要素ごとにRank1平均を割る 個体稼ぎ=(f1[1]/fi[1], f1[2]/fi[2], ...)
+	* 個体稼ぎの総和を食糧とする (sum(f1[1]/fi[1]), sum(f1[2]/fi[2]), ...) = (F[1], F[2], ...)
+* 消費基準
+    * Rank 1の個体の、Sizeの平均をとる Rank1平均=S1
+	* 全個体のサイズを、Rank1平均で割ったものを、個体の消費量とする Si/S1=Ci
+* 消費
+    * Rank順に、食糧を引いていき、足りていれば生き残る。不足していたら淘汰
+	    * 初期値、F0[1]=F[1], F0[2]=F[2], ....
+		* i=1  F1[1]=F0[1]-Ci, F1[2]=F0[1]-Ci, ...
+		* i=2  F2[1]=F1[1]-Ci, F2[2]=F1[1]-Ci, ...
+		* 全要素について Fi[x] > Ci ならば、Fi+1[x] = Fi[x] - Ci として、個体i+1は選択
+		              Fi[x] < Ciなるものが一つでもあれば、 Fi+1[x] = Fi[x] として、個体i+1は淘汰
+* 個体が減った分は、ランダムに生成。
+    * Selectionに加えて、以降Mating, Crossover, Mutationに参加する。移民。					
+
+### Note:
+* 調和平均の総和をとると、結局、平均された数になる。Rank1の個体数
+	
+
+画像保存について
+-----------------
+
+* 画像は、Rank1のもののみ保存する
+* Sortで、正式ランクがつけられる。
+* Reproduce時点では、前のランクがあるか、その世代で生まれたものか、がわかる。
+* Evaluationは、その世代で生まれた個体しか実施しないので、画像がない
+* なので、過去世代の個体がRank1の場合は、画像が保存されない！
+* 画像生成したほうがいいかもしれない。
+
+* preRank:   前世代のランク, -1なら今世代で生まれたもの
+* tempIndex: 処理上の個体番号
+
+* すごく多いと時間がかかるので、対策考えるべし。
+    * ImageSavingInterval  100  (100世代経過後の保存タイミングで)
+    * ImageSavingInterval  1    (すべての保存タイミングで)
+    * ImageSavingInterval  0    (画像保存なし)
+	* ReportInterval  0    & ReportWhenImproved  False  &  reportTimeInterval  0  (保存なし)
+	* ReportInterval  1    (ReportWhenImproved, reportTimeInterval はdon't care)   (毎世代)
+	* ReportInterval  100  & ReportWhenImproved  False  &  reportTimeInterval  60 (前回保存から100世代経過後 or 前回保存から60秒経過後)
+	* ReportInterval  100  & ReportWhenImproved  False  &  reportTimeInterval  0  (前回保存から100世代経過後)
+	* ReportInterval  100  & ReportWhenImproved  True   &  reportTimeInterval  60 (前回保存から100世代経過後 or Fitness改善で or 前回保存から60秒経過後)
+	* ReportInterval  0    & ReportWhenImproved  True   &  reportTimeInterval  60 (Fitness改善 or 前回保存から60秒経過後)
+	* ReportInterval  0    & ReportWhenImproved  True   &  reportTimeInterval  0  (Fitness改善)
+	* ReportInterval  0    & ReportWhenImproved  False  &  reportTimeInterval  60 (前回保存から60秒経過後)
+
+ソートについて
+-----------------
+
+* Paretoフロントだから、同じグループにいるものは、少なくともどちらかは上回っているはず
+
+
+途中データの保存について
+------------------
+
+* プロジェクトごとに保存するもの
+	* コンフィグレーション .garnet_conf.txt
+    * チェックポイント    .garnet_cp.txt
+	* ベスト個体履歴   Project.csv
+* 世代ごとに保存するもの
+	* 全個体データ    generation.000000.txt
+	* Rank1画像     .garnet_result_C00_I0000_T000.png
+	
+
+	
+	
+マルチコア実行について
+----------------------
+
+* 要件
+	* 複数CPUコアでの実行
+	* GPUの同時使用
+	* CPUあふぃにてぃのサポート
+	* アフィニティの動的変更: プログラムをとめないで使用するCPUコアを変更可能
+	* 複数スレッドでの実行 (CPU数と独立した数を指定可能)
+	* スレッド数の動的変更: プログラムをとめないでスレッド数を変更可能
+	* GPU使用の動的変更: プログラムをとめないで使用ON/OFFを変更可能
+* 非要件
+	* マルチノード
+* コマンド
+    * --affinity=01111111,1   CPUのコア、GPUのコア。外部指定の場合。
+    * CPUAffinity 01111111,1  CPUのコア、GPUのコア。コンフィグ指定の場合。
+	    * 0=コア無効、1=コア有効、*=ワイルドカード
+		* デフォルトは、1*,0*
+        * 指定した数よりも論理コア数が少ない場合は、多い分は切り捨てられる。ex.) 01111111 で 論理コア4つの場合 0111 と解釈される
+		* 指定した数よりも論理コア数が多い場合は、1を補う。 ex.) 01111111 で 論理コア12個の場合 011111111111 と解釈される (1*を追加する)
+		* ワイルドカードがある場合は、それ以降直前の文字を繰り返す ex.) 01110* で 論理コア 8個の場合 01110000 と解釈される
+		* マルチGPUの場合、0番目のコア、1番目のコア・・・として指定する。
+		* CPUとGPUは別々に指定可能。ただし、全体として使用できるコアが1以上でなければエラー。
+    * NumMaxCPUs  7           (Obsolete) 11111110*,0*を指定したものとして解釈。(1の数が7つの後に0*、GPUは0*)
+    * --threads=15,1  CPUのスレッド数、GPUのスレッド数
+	* NumThreads 15,1 CPUのスレッド数、GPUのスレッド数
+	    * スレッド数。GPUは省略可能。省略すると0とみなされる
+		* デフォルトは、1
+		* CPUとGPUは別々に指定可能。ただし、合計が1以上でなければエラー。
+		
+
+2013-08-21 山本先生
+--------------------
+
+映像メディア学会のネタを改造して、
+
+１．二値化のネタ
+２．ひまわりとバラとかジャンルの違う花を入れたもの
+　・「黄色だよねー」とならないように
+　・
+
+例を抽象化しすぎるとわかりずらい
+・SVMに勝てなくなる
+・具体的な例でやる
+・ジェネリックの罠
+
+後に応用が控えている
+
+* 車の車種を認識するんだ、とか
+
+画像をネットワークとして扱う
+
+* オペレータ有限なんだからできることがわかってるじゃん
+* マスクを作るネタなら、オペレータ厳選して例えば5個とかにして、問題を構築する方がわかりやすいのでは
+
+
+結論
+
+* 前のやつのエッセンス版
+* コンパクトに
+

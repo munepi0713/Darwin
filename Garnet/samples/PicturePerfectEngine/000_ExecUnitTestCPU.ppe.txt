@@ -1,0 +1,250 @@
+#
+# 000_ExecUnitTestCPU
+#
+
+#Size	320, 240
+#Size	1024, 1024
+Size	256, 256
+
+Begin Archive
+	SV1D(0)	 0.5
+	SV1D(1)	 0.4
+	SV1D(2)	 0.3
+	SV1D(3)	 0.2
+	SI3B(0)	 @1.jpg
+	SI3B(1)	 @2.jpg
+	SI1B(0)	 @1.jpg
+	SI1B(1)	 @2.jpg
+        SS(0)    TestString
+        SS(1)    "==== ===== ===== ====="
+	SA1D(0)  0.1, -0.2, 0.3, -0.4, 0.5
+	RI1B(0)  @000_I1B_Zero.png
+	RI3B(1)  @000_I3B_Zero.png
+	RI1B(2)  @000_I1B_Move_I1B.png
+	RI3B(3)  @000_I3B_Move_I3B.png
+	RI1B(4)  @000_I1B_Split1st_I3B.png
+	RI1B(5)  @000_I1B_Split2nd_I3B.png
+	RI1B(6)  @000_I1B_Split3rd_I3B.png
+	RI3B(7)  @I3B_BGR2HSV_I3B.png
+	RI3B(8)  @I3B_BGR2YUV_I3B.png
+	RI1B(9)  @000_I1B_BGR2Gray_I3B.png
+	RI1B(10)  @000_I1B_Dilate3x3_I1B.png
+	RI1B(11)  @000_I1B_Erode3x3_I1B.png
+	RI1B(12) @000_I1B_Thin_I1B.png
+	RI1B(13) @000_I1B_Laplacian3x3_I1B.png
+	RI1B(14) @000_I1B_Laplacian2nd3x3_I1B.png
+	RI1B(15) @000_I1B_Median3x3_I1B.png
+	RI1B(16) @000_I1B_Sharpen3x3_I1B.png
+	RI1B(17) @000_I1B_Smooth3x3_I1B.png
+	RI1B(18) @000_I1B_Sobel3x3_I1B.png
+	RI1B(19) @000_I1B_SobelX3x3_I1B.png
+	RI1B(20) @000_I1B_SobelY3x3_I1B.png
+	RI1B(21) @000_I1B_Negate_I1B.png
+	RI1B(22) @000_I1B_ProjectionX_I1B.png
+	RI1B(23) @000_I1B_ProjectionY_I1B.png
+	RI1B(24) @000_I1B_Connection4_I1B.png
+	RI1B(25) @000_I1B_Connection8_I1B.png
+	RI1B(26) @000_I1B_Outline4_I1B.png
+	RI1B(27) @000_I1B_Outline8_I1B.png
+	RI1B(28) @000_I1B_Segment_I1B.png
+	RI1B(29) @000_I1B_Add_I1B_I1B.png
+	RI1B(30) @000_I1B_Diff_I1B_I1B.png
+	RI1B(31) @000_I1B_AlgebraicProd_I1B_I1B.png
+	RI1B(32) @000_I1B_AlgebraicSum_I1B_I1B.png
+	RI1B(33) @000_I1B_BoundedProd_I1B_I1B.png
+	RI1B(34) @000_I1B_LogicalProd_I1B_I1B.png
+	RI1B(35) @000_I1B_LogicalSum_I1B_I1B.png
+	RI1B(36) @000_I1B_Subtract_I1B_I1B.png
+	RI1B(37) @000_I1B_HighPass_I1B_V1D.png
+	RI1B(38) @000_I1B_LowPass_I1B_V1D.png
+	RI1B(39) @000_I1B_Threshold_I1B.png
+	RI1B(40) @000_I1B_ThresholdInv_I1B.png
+	RI1B(41) @000_I1B_ThresholdV_I1B_V1D.png
+	RI1B(42) @000_I1B_ThresholdInvV_I1B_V1D.png
+	RI1B(43) @000_I1B_Binarize_I1B.png
+	RI1B(44) @000_I1B_BinarizeInv_I1B.png
+	RI1B(45) @000_I1B_BinarizeV_I1B_V1D.png
+	RI1B(46) @000_I1B_BinarizeInvV_I1B_V1D.png
+	RI1B(47) @000_I1B_BigBlob4_I1B_V1D.png
+	RI1B(48) @000_I1B_BigBlob8_I1B_V1D.png
+	RI1B(49) @000_I1B_AddV_I1B_V1D.png
+	RI1B(50) @000_I1B_FillV_V1D.png
+	RI1B(51) @000_I1B_ModAvgV_I1B_V1D.png
+	RI1B(52) @000_I1B_MultiplyV_I1B_V1D.png
+	RI1B(53) @000_I1B_SubtractV_I1B_V1D.png
+	RI1B(54) @000_I1B_NoiseV_V1D.png
+	RI1B(55) @000_I1B_Select_I1B_I1B_V1D_V1D.png
+End Archive
+
+Begin Execution
+	Start
+	PrintHash_V1D                SV1D(0)
+	PrintHash_I1B                SI1B(0)
+	PrintHash_I3B                SI3B(0)
+	PrintHash_A1D                SA1D(0)
+	PrintValue_V1D               SV1D(0)
+	PrintValue_S                 SS(0)
+	PrintValue_A1D               SA1D(0)
+	V1D_Zero                     RV1D(0)
+	V1D_Move_V1D                 RV1D(1), SV1D(0)
+	V1D_AvgPixel_I1B             RV1D(2), SI1B(0)
+	V1D_MaxPixel_I1B             RV1D(3), SI1B(0)
+	V1D_MinPixel_I1B             RV1D(4), SI1B(0)
+	V1D_FGArea_I1B               RV1D(5), SI1B(0)
+	V1D_BGArea_I1B               RV1D(6), SI1B(0)
+	V1D_FGAreaV_I1B_V1D          RV1D(7), SI1B(0), SV1D(0)
+	V1D_BGAreaV_I1B_V1D          RV1D(8), SI1B(0), SV1D(0)
+	V1D_MassCenterBX_I1B         RV1D(9), SI1B(0)
+	V1D_MassCenterBY_I1B         RV1D(10), SI1B(0)
+	V1D_PSNR_I1B_I1B             RV1D(11), SI1B(0), SI1B(1)
+	V1D_VNegate_V1D              RV1D(12), SV1D(0)
+	V1D_VAdd_V1D_V1D             RV1D(13), SV1D(0), SV1D(1)
+	V1D_VAlgebraicProd_V1D_V1D   RV1D(14), SV1D(0), SV1D(1)
+	V1D_VAlgebraicSum_V1D_V1D    RV1D(15), SV1D(0), SV1D(1)
+	V1D_VDiff_V1D_V1D            RV1D(16), SV1D(0), SV1D(1)
+	V1D_VLogicalProd_V1D_V1D     RV1D(17), SV1D(0), SV1D(1)
+	V1D_VLogicalSum_V1D_V1D      RV1D(18), SV1D(0), SV1D(1)
+	V1D_VSubtract_V1D_V1D        RV1D(19), SV1D(0), SV1D(1)
+	V1D_Distance_V1D_V1D_V1D_V1D RV1D(20), SV1D(0), SV1D(1), SV1D(2), SV1D(3)
+	V1D_Select_V1D_V1D           RV1D(21), SV1D(0), SV1D(1)
+	V1D_Select_V1D_V1D_V1D_V1D   RV1D(22), SV1D(0), SV1D(1), SV1D(2), SV1D(3)
+	V1D_Adjust_V1D               RV1D(23), SV1D(0)
+	V1D_AverageA_A1D             RV1D(24), SA1D(0)
+	V1D_Invert_V1D               RV1D(25), SV1D(0)
+	V1D_MaxA_A1D                 RV1D(26), SA1D(0)
+	V1D_MinA_A1D                 RV1D(27), SA1D(0)
+	V1D_MSEA_A1D_V1D             RV1D(28), SA1D(0), SV1D(0)
+	V1D_NumA_A1D                 RV1D(29), SA1D(0)
+	V1D_NumEqA_A1D_V1D           RV1D(30), SA1D(0), SV1D(0)
+	V1D_NumGreaterA_A1D_V1D      RV1D(31), SA1D(0), SV1D(0)
+	V1D_NumGreaterEqA_A1D_V1D    RV1D(32), SA1D(0), SV1D(0)
+	V1D_NumLessA_A1D_V1D         RV1D(33), SA1D(0), SV1D(0)
+	V1D_NumLessEqA_A1D_V1D       RV1D(34), SA1D(0), SV1D(0)
+	V1D_PercentV_V1D_V1D         RV1D(35), SV1D(0), SV1D(1)
+	V1D_RMSA_A1D                 RV1D(36), SA1D(0)
+	V1D_Sqrt_V1D                 RV1D(37), SV1D(0)
+	V1D_StdevA_A1D               RV1D(38), SA1D(0)
+	V1D_SumA_A1D                 RV1D(39), SA1D(0)
+	V1D_VAddV_V1D_V1D            RV1D(40), SV1D(0), SV1D(1)
+	V1D_VDivV_V1D_V1D            RV1D(41), SV1D(0), SV1D(1)
+	V1D_VMultiplyV_V1D_V1D       RV1D(42), SV1D(0), SV1D(1)
+	V1D_VSignFlip_V1D            RV1D(43), SV1D(0)
+	I1B_Zero                     RI1B(0)
+	I3B_Zero                     RI3B(1)
+	I1B_Move_I1B                 RI1B(2), SI1B(0)
+	I3B_Move_I3B                 RI3B(3), SI3B(0)
+	I1B_Split1st_I3B             RI1B(4), SI3B(0)
+	I1B_Split2nd_I3B             RI1B(5), SI3B(0)
+	I1B_Split3rd_I3B             RI1B(6), SI3B(0)
+	I3B_BGR2HSV_I3B              RI3B(7), SI3B(0)
+	I3B_BGR2YUV_I3B              RI3B(8), SI3B(0)
+	I1B_BGR2Gray_I3B             RI1B(9), SI3B(0)
+	I1B_Dilate3x3_I1B            RI1B(10), SI1B(0)
+	I1B_Erode3x3_I1B             RI1B(11), SI1B(0)
+	I1B_Thin_I1B                 RI1B(12), SI1B(0)
+	I1B_Laplacian3x3_I1B         RI1B(13), SI1B(0)
+	I1B_Laplacian2nd3x3_I1B      RI1B(14), SI1B(0)
+	I1B_Median3x3_I1B            RI1B(15), SI1B(0)
+	I1B_Sharpen3x3_I1B           RI1B(16), SI1B(0)
+	I1B_Smooth3x3_I1B            RI1B(17), SI1B(0)
+	I1B_Sobel3x3_I1B             RI1B(18), SI1B(0)
+	I1B_SobelX3x3_I1B            RI1B(19), SI1B(0)
+	I1B_SobelY3x3_I1B            RI1B(20), SI1B(0)
+	I1B_Negate_I1B               RI1B(21), SI1B(0)
+	I1B_ProjectionX_I1B          RI1B(22), SI1B(0)
+	I1B_ProjectionY_I1B          RI1B(23), SI1B(0)
+	I1B_Connection4_I1B          RI1B(24), SI1B(0)
+	I1B_Connection8_I1B          RI1B(25), SI1B(0)
+#	I1B_Outline4_I1B             RI1B(26), SI1B(0)
+#	I1B_Outline8_I1B             RI1B(27), SI1B(0)
+#	I1B_Segment_I1B              RI1B(28), SI1B(0)
+	I1B_Add_I1B_I1B              RI1B(29), SI1B(0), SI1B(1)
+	I1B_Diff_I1B_I1B             RI1B(30), SI1B(0), SI1B(1)
+	I1B_AlgebraicProd_I1B_I1B    RI1B(31), SI1B(0), SI1B(1)
+	I1B_AlgebraicSum_I1B_I1B     RI1B(32), SI1B(0), SI1B(1)
+	I1B_BoundedProd_I1B_I1B      RI1B(33), SI1B(0), SI1B(1)
+	I1B_LogicalProd_I1B_I1B      RI1B(34), SI1B(0), SI1B(1)
+	I1B_LogicalSum_I1B_I1B       RI1B(35), SI1B(0), SI1B(1)
+	I1B_Subtract_I1B_I1B         RI1B(36), SI1B(0), SI1B(1)
+	I1B_HighPass_I1B_V1D         RI1B(37), SI1B(0), SV1D(0)
+	I1B_LowPass_I1B_V1D          RI1B(38), SI1B(0), SV1D(0)
+	I1B_Threshold_I1B            RI1B(39), SI1B(0)
+	I1B_ThresholdInv_I1B         RI1B(40), SI1B(0)
+	I1B_ThresholdV_I1B_V1D       RI1B(41), SI1B(0), SV1D(0)
+	I1B_ThresholdInvV_I1B_V1D    RI1B(42), SI1B(0), SV1D(0)
+	I1B_Binarize_I1B             RI1B(43), SI1B(0)
+	I1B_BinarizeInv_I1B          RI1B(44), SI1B(0)
+	I1B_BinarizeV_I1B_V1D        RI1B(45), SI1B(0), SV1D(0)
+	I1B_BinarizeInvV_I1B_V1D     RI1B(46), SI1B(0), SV1D(0)
+#	I1B_BigBlob4_I1B_V1D         RI1B(47), SI1B(0), SV1D(0)
+#	I1B_BigBlob8_I1B_V1D         RI1B(48), SI1B(0), SV1D(0)
+	I1B_AddV_I1B_V1D             RI1B(49), SI1B(0), SV1D(0)
+	I1B_FillV_V1D                RI1B(50), SV1D(0)
+	I1B_ModAvgV_I1B_V1D          RI1B(51), SI1B(0), SV1D(0)
+	I1B_MultiplyV_I1B_V1D        RI1B(52), SI1B(0), SV1D(0)
+	I1B_SubtractV_I1B_V1D        RI1B(53), SI1B(0), SV1D(0)
+#	I1B_NoiseV_V1D               RI1B(54), SV1D(0)
+	I1B_Select_I1B_I1B_V1D_V1D   RI1B(55), SI1B(0), SI1B(1), SV1D(0), SV1D(1)
+	A1D_Zero                     RA1D(0)
+	A1D_Move_A1D                 RA1D(1), SA1D(0)
+	A1D_AAbsolute_A1D            RA1D(2), SA1D(0)
+	A1D_AAddV_A1D_V1D            RA1D(3), SA1D(0), SV1D(0)
+	A1D_ADivV_A1D_V1D            RA1D(4), SA1D(0), SV1D(0)
+	A1D_ADivV_V1D_A1D            RA1D(5), SV1D(0), SA1D(0)
+	A1D_ASubtractV_V1D_A1D       RA1D(6), SV1D(0), SA1D(0)
+	A1D_ASubtractV_A1D_V1D       RA1D(7), SA1D(0), SV1D(0)
+	PrintValue_S                 SS(1)
+	PrintValue_V1D               RV1D(0)
+	PrintValue_V1D               RV1D(1)
+	PrintValue_V1D               RV1D(2)
+	PrintValue_V1D               RV1D(3)
+	PrintValue_V1D               RV1D(4)
+	PrintValue_V1D               RV1D(5)
+	PrintValue_V1D               RV1D(6)
+	PrintValue_V1D               RV1D(7)
+	PrintValue_V1D               RV1D(8)
+	PrintValue_V1D               RV1D(9)
+	PrintValue_V1D               RV1D(10)
+	PrintValue_V1D               RV1D(11)
+	PrintValue_V1D               RV1D(12)
+	PrintValue_V1D               RV1D(13)
+	PrintValue_V1D               RV1D(14)
+	PrintValue_V1D               RV1D(15)
+	PrintValue_V1D               RV1D(16)
+	PrintValue_V1D               RV1D(17)
+	PrintValue_V1D               RV1D(18)
+	PrintValue_V1D               RV1D(19)
+	PrintValue_V1D               RV1D(20)
+	PrintValue_V1D               RV1D(21)
+	PrintValue_V1D               RV1D(22)
+	PrintValue_V1D               RV1D(23)
+	PrintValue_V1D               RV1D(24)
+	PrintValue_V1D               RV1D(25)
+	PrintValue_V1D               RV1D(26)
+	PrintValue_V1D               RV1D(27)
+	PrintValue_V1D               RV1D(28)
+	PrintValue_V1D               RV1D(29)
+	PrintValue_V1D               RV1D(30)
+	PrintValue_V1D               RV1D(31)
+	PrintValue_V1D               RV1D(32)
+	PrintValue_V1D               RV1D(33)
+	PrintValue_V1D               RV1D(34)
+	PrintValue_V1D               RV1D(35)
+	PrintValue_V1D               RV1D(36)
+	PrintValue_V1D               RV1D(37)
+	PrintValue_V1D               RV1D(38)
+	PrintValue_V1D               RV1D(39)
+	PrintValue_V1D               RV1D(40)
+	PrintValue_V1D               RV1D(41)
+	PrintValue_V1D               RV1D(42)
+	PrintValue_V1D               RV1D(43)
+	PrintValue_A1D               RA1D(0)
+	PrintValue_A1D               RA1D(1)
+	PrintValue_A1D               RA1D(2)
+	PrintValue_A1D               RA1D(3)
+	PrintValue_A1D               RA1D(4)
+	PrintValue_A1D               RA1D(5)
+	PrintValue_A1D               RA1D(6)
+	PrintValue_A1D               RA1D(7)
+	End
+End Execution

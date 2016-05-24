@@ -1,0 +1,35 @@
+TARGET=TopoSort.exe
+SRCDIR=../../src/Garnet
+OBJS=TopoSort.obj Tree.obj TraceLevel.obj Dictionary.obj
+INCLUDES=/I../../include
+LIBDIR=../../lib
+CPP=cl
+CPPFLAGS=/EHsc /Ox $(INCLUDES)
+IMPORTS=$(LIBDIR)/PicturePerfectEngine.lib\
+		$(LIBDIR)/opencv/opencv_core245.lib\
+		$(LIBDIR)/opencv/opencv_imgproc245.lib\
+		$(LIBDIR)/opencv/opencv_highgui245.lib
+
+all: $(TARGET)
+	
+$(TARGET): $(OBJS)
+	$(CPP) $(CPPFLAGS) /Fe$(TARGET) $(OBJS)
+
+TopoSort.obj: TopoSort.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+Tree.obj: $(SRCDIR)/Tree.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+ThreadPool.obj: $(SRCDIR)/ThreadPool.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+TraceLevel.obj: $(SRCDIR)/TraceLevel.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+Dictionary.obj: $(SRCDIR)/Dictionary.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+clean:
+	del $(OBJS)
+	del $(TARGET)

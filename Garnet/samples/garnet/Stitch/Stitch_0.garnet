@@ -1,0 +1,41 @@
+Include "Default.configs"
+
+MaxGeneration	10000
+PopulationSize	100
+
+ImageWidth   64
+ImageHeight  64
+
+LeafCache              False
+SubtreeReduction       True
+SubtreeReductionDepth  300
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300
+Trace                  True
+NumThreads             10
+NumMaxCPUs             7
+
+Include "Default.aliases"
+Include "DefaultOperations.units"
+Unit (Gray0)
+Unit (Red0)
+Unit (Green0)
+Unit (Blue0)
+
+# Src0: Training Image.
+# Src1: Target Score. Image is not used.
+Task 1, 0, "Stitch.conf/Positive_1.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_2.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_3.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_4.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_5.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Negative_1.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_2.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_3.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_4.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_5.png", 0.0, "Stitch.conf/dummy.png", 0.0
+
+EvaluationFunction  "(PropNegate(ImageDiff(_Tree0)(Gray1)))"
+ScoringMethod	Average

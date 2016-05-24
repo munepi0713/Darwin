@@ -1,0 +1,283 @@
+Const  name, string
+	# Process by compiler.
+	# No code will be generated.
+Var	reg
+	V1D_Var	reg+10000
+	I1B_Var	reg+20000
+Zero	reg
+	I1B_Zero	reg+20000
+Print reg
+	PrintHash	reg+10000
+PrintMD5 reg
+	PrintHash	reg+20000
+Alias	reg, name
+	# Process by compiler
+	# No code will be generated.
+End
+	End
+Exit
+	End
+
+Load
+SetValue	reg0, value
+	S_V1D_Var	sreg
+	S_V1D_Load	sreg, value
+	V1D_MoveFrom	reg0v, sreg
+Save reg, name
+	S_Immediate     reserved(S), string
+	Save_I1B	reg+20000, reserved(S)
+LoadValue
+SaveValue
+LoadImage	reg0, string
+	S_Immediate    reserved(S), string
+	I3B_Load_S     reg0i, reserved(S)
+SaveImage
+SetSizeFromImage
+SetImageSize  param0, param1
+	SetImageSize	param0, param1
+
+Gray	reg0, reg1
+	I1B_BGR2Gray_I3B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg0v
+Red reg0, reg1
+	I1B_Split3rd_I3B reg0+20000, reg1+20000
+Green
+	I1B_Split2nd_I3B reg0+20000, reg1+20000
+Blue
+	I1B_Split1st_I3B reg0+20000, reg1+20000
+# Hue	   # --> Split1st(BGR2HSV(?))
+# Saturation # --> Split2nd(BGR2HSV(?))
+# Value      # --> Split3rd(BGR2HSV(?))
+U reg0, reg1         # --> Split2nd(BGR2YUV(?))
+	I3B_BGR2YUV_I3B   reserved(I3B), reg1i
+	I1B_Split2nd_I3B  reg0i, reserved(I3B)
+V reg0, reg1          # --> Split3rd(BGR2YUV(?))
+	I3B_BGR2YUV_I3B   reserved(I3B), reg1i
+	I1B_Split3rd_I3B  reg0i, reserved(I3B)
+Split3rd reg0, reg1
+	I1B_Split3rd_I3B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Split2nd reg0, reg1
+	I1B_Split2nd_I3B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Split1st reg0, reg1
+	I1B_Split1st_I3B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+BGR2HSV  reg0, reg1
+	I3B_BGR2HSV_I3B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+BGR2YUV  reg0, reg1
+	I3B_BGR2YUV_I3B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+
+Dilate3x3 reg0, reg1
+	I1B_Dilate3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Erode3x3 reg0, reg1
+	I1B_Erode3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Thin reg0, reg1
+	I1B_Thin_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Laplacian3x3 reg0, reg1
+	I1B_Laplacian3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Laplacian2nd3x3 reg0, reg1
+	I1B_Laplacian2nd3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Median3x3 reg0, reg1
+	I1B_Median3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Sharpen3x3 reg0, reg1
+	I1B_Sharpen3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Smooth3x3 reg0, reg1
+	I1B_Smooth3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Sobel3x3 reg0, reg1
+	I1B_Sobel3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+SobelX3x3 reg0, reg1
+	I1B_SobelX3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+SobelY3x3 reg0, reg1
+	I1B_SobelY3x3_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Negate reg0, reg1
+	I1B_Negate_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+ProjectionX reg0, reg1
+	I1B_ProjectionX_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+ProjectionY reg0, reg1
+	I1B_ProjectionY_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Connection4 reg0, reg1
+	I1B_Connection4_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Connection8 reg0, reg1
+	I1B_Connection8_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Outline4 reg0, reg1
+	I1B_Outline4_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Outline8 reg0, reg1
+	I1B_Outline8_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg0v
+Segment reg0, reg1
+	I1B_Segment_I1B reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+
+Threshold  reg0, reg1
+	I1B_Threshold_I1B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+ThresholdInv  reg0, reg1
+	I1B_ThresholdInv_I1B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+Binarize
+	I1B_Binarize_I1B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+BinarizeInv
+	I1B_BinarizeInv_I1B  reg0i, reg1i
+	V1D_Copy_V1D     reg0v, reg1v
+
+Add  reg0, reg1, reg2
+	I1B_Add_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+Diff  reg0, reg1, reg2
+	I1B_Diff_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+AlgebraicProd  reg0, reg1, reg2
+	I1B_AlgebraicProd_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+AlgebraicSum  reg0, reg1, reg2
+	I1B_AlgebraicSum_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+BoundedProd  reg0, reg1, reg2
+	I1B_BoundedProd_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+LogicalProd  reg0, reg1, reg2
+	I1B_LogicalProd_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+LogicalSum  reg0, reg1, reg2
+	I1B_LogicalSum_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+Subtract  reg0, reg1, reg2
+	I1B_Subtract_I1B_I1B  reg0i, reg1i, reg2i
+	V1D_Copy_V1D     reg0v, reg1v
+
+HighPass  reg0, reg1, reg2
+	I1B_HighPass_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+LowPass  reg0, reg1, reg2
+	I1B_LowPass_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+ThresholdV  reg0, reg1, reg2
+	I1B_ThresholdV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+ThresholdInvV  reg0, reg1, reg2
+	I1B_ThresholdInvV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+BinarizeV  reg0, reg1, reg2
+	I1B_BinarizeV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+BinarizeInvV  reg0, reg1, reg2
+	I1B_BinarizeInvV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+BigBlob4  reg0, reg1, reg2
+	I1B_BigBlob4_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+BigBlob8  reg0, reg1, reg2
+	I1B_BigBlob8_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+
+FillV  reg0, reg1
+	I1B_FillV_V1D  reg0i, reg1v
+	V1D_Copy_V1D     reg0v, reg1v
+
+AddV  reg0, reg1, reg2
+	I1B_AddV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+ModAvgV  reg0, reg1, reg2
+	I1B_ModAvgV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+MultiplyV  reg0, reg1, reg2
+	I1B_MultiplyV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+NoiseV  reg0, reg1, reg2
+	I1B_NoiseV_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+SubtractV  reg0, reg1, reg2
+	I1B_SubtractV_I1B_V1D  reg0i, reg1i, reg2v
+	V1D_Copy_V1D     reg0v, reg1v
+    
+AvgPixel  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_AvgPixel_I1B     reg0v, reg1i
+MaxPixel  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_MaxPixel_I1B     reg0v, reg1i
+MinPixel  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_MinPixel_I1B     reg0v, reg1i
+FGArea  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_FGArea_I1B     reg0v, reg1i
+BGArea  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_BGArea_I1B     reg0v, reg1i
+MassCenterBX  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_MassCenterBX_I1B     reg0v, reg1i
+MassCenterBY  reg0, reg1
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_MassCenterBY_I1B     reg0v, reg1i
+
+FGAreaV  reg0, reg1, reg2
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_FGAreaV_I1B_V1D     reg0v, reg1i, reg2v
+BGAreaV  reg0, reg1, reg2
+	I1B_Copy_I1B  reg0i, reg1i
+	V1D_BGAreaV_I1B_V1D     reg0v, reg1i, reg2v
+
+PSNR  reg0, reg1, reg2
+	I1B_Zero         reg0i
+	V1D_PSNR_I1B_I1B     reg0v, reg1i, reg2i
+Distance  reg0, reg1, reg2, reg3, reg4
+	I1B_Zero         reg0i
+	V1D_Distance_V1D_V1D_V1D_V1D     reg0v, reg1i, reg2i reg3i, reg4i
+
+VNegate  reg0, reg1
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VNegate_V1D     reg0v, reg1v
+
+VAdd  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VAdd_V1D_V1D     reg0v, reg1v, reg2v
+VAlgebraicProd  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VAlgebraicProd_V1D_V1D     reg0v, reg1v, reg2v
+VAlgebraicSum  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VAlgebraicSum_V1D_V1D     reg0v, reg1v, reg2v
+VDiff  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VDiff_V1D_V1D     reg0v, reg1v, reg2v
+VLogicalProd  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VLogicalProd_V1D_V1D     reg0v, reg1v, reg2v
+VLogicalSum  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VLogicalSum_V1D_V1D     reg0v, reg1v, reg2v
+VSubtract  reg0, reg1, reg2
+	I1B_Copy_I1B      reg0i, reg1i
+	V1D_VSubtract_V1D_V1D     reg0v, reg1v, reg2v
+
+Select  reg0, reg1, reg2
+	I1B_Select_I1B_I1B_V1D_V1D      reg0i, reg1i, reg2i, reg1v, reg2v
+	V1D_Select_V1D_V1D              reg0v, reg1v, reg2v
+SelectV  reg0, reg1, reg2, reg3, reg4
+	I1B_Select_I1B_I1B_V1D_V1D      reg0i, reg1i, reg2i, reg3v, reg4v
+	V1D_Select_V1D_V1D_V1D_V1D      reg0v, reg1v, reg2v, reg3v, reg4v
+
+TmoReinhard05

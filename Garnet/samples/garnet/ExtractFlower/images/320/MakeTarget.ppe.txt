@@ -1,0 +1,81 @@
+#
+# Make target images.
+#
+
+Size	320, 214
+
+Begin Archive
+	SI3B(0)	 @PHM02_0114.png
+	SI3B(1)	 @PHM02_0120.png
+	SI3B(2)	 @PHM02_0126.png
+	SI3B(3)	 @PHM02_0790.png
+	SI3B(4)	 @PHM08_0093.png
+	SI3B(5)	 @PHM08_0099.png
+	SI3B(6)	 @PHM08_0108.png
+	SI3B(7)	 @PHM08_0169.png
+	SI3B(8)	 @PHM08_0182.png
+	SI3B(9)	 @PHM08_0189.png
+
+	SI1B(10)	 @PHM02_0114_mask.png
+	SI1B(11)	 @PHM02_0120_mask.png
+	SI1B(12)	 @PHM02_0126_mask.png
+	SI1B(13)	 @PHM02_0790_mask.png
+	SI1B(14)	 @PHM08_0093_mask.png
+	SI1B(15)	 @PHM08_0099_mask.png
+	SI1B(16)	 @PHM08_0108_mask.png
+	SI1B(17)	 @PHM08_0169_mask.png
+	SI1B(18)	 @PHM08_0182_mask.png
+	SI1B(19)	 @PHM08_0189_mask.png
+
+	RI1B(0)	 @PHM02_0114_gray.png
+	RI1B(1)	 @PHM02_0120_gray.png
+	RI1B(2)	 @PHM02_0126_gray.png
+	RI1B(3)	 @PHM02_0790_gray.png
+	RI1B(4)	 @PHM08_0093_gray.png
+	RI1B(5)	 @PHM08_0099_gray.png
+	RI1B(6)	 @PHM08_0108_gray.png
+	RI1B(7)	 @PHM08_0169_gray.png
+	RI1B(8)	 @PHM08_0182_gray.png
+	RI1B(9)	 @PHM08_0189_gray.png
+
+	RI1B(10)	 @PHM02_0114_target.png
+	RI1B(11)	 @PHM02_0120_target.png
+	RI1B(12)	 @PHM02_0126_target.png
+	RI1B(13)	 @PHM02_0790_target.png
+	RI1B(14)	 @PHM08_0093_target.png
+	RI1B(15)	 @PHM08_0099_target.png
+	RI1B(16)	 @PHM08_0108_target.png
+	RI1B(17)	 @PHM08_0169_target.png
+	RI1B(18)	 @PHM08_0182_target.png
+	RI1B(19)	 @PHM08_0189_target.png
+End Archive
+
+Begin Execution
+	Start
+
+	# Gray
+	I1B_BGR2Gray_I3B             RI1B(0), SI3B(0)
+	I1B_BGR2Gray_I3B             RI1B(1), SI3B(1)
+	I1B_BGR2Gray_I3B             RI1B(2), SI3B(2)
+	I1B_BGR2Gray_I3B             RI1B(3), SI3B(3)
+	I1B_BGR2Gray_I3B             RI1B(4), SI3B(4)
+	I1B_BGR2Gray_I3B             RI1B(5), SI3B(5)
+	I1B_BGR2Gray_I3B             RI1B(6), SI3B(6)
+	I1B_BGR2Gray_I3B             RI1B(7), SI3B(7)
+	I1B_BGR2Gray_I3B             RI1B(8), SI3B(8)
+	I1B_BGR2Gray_I3B             RI1B(9), SI3B(9)
+
+	# Target
+	I1B_AlgebraicProd_I1B_I1B   RI1B(10), SI1B(10), RI1B(0)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(11), SI1B(11), RI1B(1)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(12), SI1B(12), RI1B(2)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(13), SI1B(13), RI1B(3)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(14), SI1B(14), RI1B(4)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(15), SI1B(15), RI1B(5)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(16), SI1B(16), RI1B(6)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(17), SI1B(17), RI1B(7)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(18), SI1B(18), RI1B(8)
+	I1B_AlgebraicProd_I1B_I1B   RI1B(19), SI1B(19), RI1B(9)
+	
+	End
+End Execution

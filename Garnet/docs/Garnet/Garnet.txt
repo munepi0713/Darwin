@@ -1,0 +1,944 @@
+﻿
+
+アルゴリズムメモ。
+
+
+Bloat対策
+
+* 理論
+  * removal bias理論 Soule, et.al.
+
+    [1] T. Soule and J. A. Foster, "Removal Bias: a New Cause of Code Growth
+    in Tree Based Evolutionary Programming", IEEE International 
+    Conference on Evolutionary Computation, 1998.
+	
+    [2] W.B. Langdon, T. SOule, R. Poli and J. A. Foster, "The Evolution of
+    Size and Shape", Advanced in Genetic Progiramming 3
+
+* 対策
+  * Fixed limit
+  
+    サイズに制限かける。
+	値に知識が必要。あるいは、その制限をかけてしまって、解が得られなくなる心配がないか、に課題。
+  
+  * Parsimony pressure
+  
+    サイズが小さくなるような圧力。サイズ大にペナルティ。
+	副作用ある、パラメータの指針が一定でない、などの課題あり。
+	
+  * crossover/mutation operatorの改造
+  
+  * 50-150% Fair Mutation
+  
+    [2]で述べられている方法。
+	取り除かれるサブツリーのサイズに対して、50-150%のサイズのランダムツリーを、代わりにする。
+	Operator改造の一手法だが、暗黙的なParsimony Pressureともいえる。
+
+  * Subtree Fair Mutation
+  
+    [2]で述べられている方法。
+	取り除かれるサブツリーのサイズに対して、同じサイズのサブツリーを、同じ木から探して交換する
+	Mutationではサイズが増加しないことを保証する手法
+    交換については、KozaのGPの中で、 述べられていたはず。Langdonは気づいていないな。
+  
+Garnet
+------
+
+0. Reset random generator.
+
+1. Selection
+
+    Select elite (archive) and candidate for next generation.
+	0 <= Narchive + Nselected <= Ni, where
+	Narchive is the given number of archived individuals, and
+	Nselected is the result number of selected individuals.
+
+2. Mating
+
+    Make parent pairs.
+
+3. Crossover
+
+4. Mutation
+
+5. Evaluation
+
+6. Generating Fitness Vector
+
+7. Rank/Sort
+
+  
+  
+Algorithm
+---------
+
+1. IVTreeからIVGraphに統合する (IVTree[] --> IVGraph)
+
+    * 共通部分が統合され、DAGが生成される。
+	* 共有された頂点には、共有数をfreqとして記録する。（共有されていない頂点は1）
+	
+1. IVGraphからPPEGraphへの変換 (IVGraph --> PPEGraph)
+
+    * IVVertex1つが、PPEVertexのペアに変換される
+
+1. Copy連鎖削除 (PPEGraph --> PPEGraph)
+
+    * Copy連鎖は計算結果に変化を与えないMoveなので削除
+
+1. Intron削除 (PPEGraph --> PPEGraph)
+
+    * Sinkからつながっていないノードは、Intronなので、削除
+
+1. Copy --> Move変換 (PPEGraph --> PPEGraph)
+
+    * Copy連鎖削除を、省略した場合は、CopyをMoveに書き換える
+
+1. 彩色 (PPEGraph --> PPEGraph)
+
+    * ライングラフに変換。
+	  Sarkar-Serrano-Simons番号が大きいサブツリー側の頂点から順に処理していくことで、
+	  依存レジスタを最小化する。
+	* 彩色。
+	* PPEGraphに色を戻す。
+    * データ: ライングラフの頂点数、ライングラフのエッジ数、色数、最大degree
+
+1. Intron率の計算方法
+
+    * 元の値 = 全IVTreeの頂点数 * 2. (IとVなので2）
+	* Intronを除いた値 = 彩色に使ったPPEGraphの全頂点uについて、 sigma(freq[u])
+
+
+1. Apply Genetic Program Operations
+
+1. Aggregate IVA Trees to a IVA Graph
+
+1. Break down a IVA Graph to a PPE Graph
+
+  1. Crack a IVA Operator to a trio of PPE Operators
+
+  1. Connect PPE Operators 
+
+1. Remove PPE Introns
+
+  * Calculate **Intron Ratio** by accumulating freq for all introns.
+
+  
+1. Register assignment
+
+  1. Convert g to a line graph.
+     vertices in g are processed by Sarkar-Serrano-Simons order
+	 to minimize dependencies.
+  
+  1. Assign colors.
+  
+
+
+Data Types
+----------
+
+* IVA Tree (listS, vecS)
+  * Vertex Property = { label, color, index, depth }
+    * label:
+	* color:
+	* index:
+	* depth:
+* IVA Graph (vecS, vecS, directedS)
+  * Vertex Property = { label, tree }
+    * label
+	* tree
+* PPE Tree
+* PPE Graph (vecS, vecS, directedS)
+  * Vertex Property = { label, color, type, freq }
+    * label:
+	* color:
+	* type:
+    * freq:  the numbers of inbound edges.
+
+	
+食事制限型 Selection
+-------------------
+
+### 基本コンセプト
+
+* 世代にある量の食糧が与えられ、個体が消費。食糧が不足する個体は淘汰される。
+
+### 詳細なコンセプト
+
+* 消費量は、サイズが大きいほど大きい。
+* 食糧の総量は、Fitnessの総和が大きいほど大きい。優秀な個体が多いほどたくさんの食糧を得られるという考え方。
+    * これは難しいかも。
+* Multi Objectiveの場合は、個々のObjectにたいして食糧と消費を考える。
+* 食糧と消費の量について、絶対値は使わない。パラメータチューニング勝負をしたくない。
+* Top RankerのFitnessやサイズを基準として、食糧総量や各個体の消費量を決める
+* Rankが高いものから順に、消費していく。
+  下の者ほど淘汰されやすいが、必ずしも最下位が淘汰されるわけではない。
+  下位のほうにくると、残り食糧が少ないため、大きな個体は生き残れないので、最下位でも小さい個体が残ることがある。
+* 注意点として、主なMOEは、Fitnessが小さいほど良い個体としていること。
+    * 食糧を多く生み出すほうが良い個体＝Fitness小
+	* 消費が少ないほうが良い個体＝Size小
+	* 食糧の良し悪しは多少が逆転しているが、消費は小が良のまま。
+	  なので、どちらかの増減を変換する必要がある。
+	  単純にやると、個体の指標の大小が正しく反映されないので、注意が必要。
+	  
+
+### アルゴリズム試案
+
+* 食糧基準
+    * Rank 1の個体の、Fitnessの、要素ごとに平均をとる。 Rank1平均=(f1[1], f1[2], ...)
+	* 全個体のFitnessで、要素ごとにRank1平均を割る 個体稼ぎ=(f1[1]/fi[1], f1[2]/fi[2], ...)
+	* 個体稼ぎの総和を食糧とする (sum(f1[1]/fi[1]), sum(f1[2]/fi[2]), ...) = (F[1], F[2], ...)
+* 消費基準
+    * Rank 1の個体の、Sizeの平均をとる Rank1平均=S1
+	* 全個体のサイズを、Rank1平均で割ったものを、個体の消費量とする Si/S1=Ci
+* 消費
+    * Rank順に、食糧を引いていき、足りていれば生き残る。不足していたら淘汰
+	    * 初期値、F0[1]=F[1], F0[2]=F[2], ....
+		* i=1  F1[1]=F0[1]-Ci, F1[2]=F0[1]-Ci, ...
+		* i=2  F2[1]=F1[1]-Ci, F2[2]=F1[1]-Ci, ...
+		* 全要素について Fi[x] > Ci ならば、Fi+1[x] = Fi[x] - Ci として、個体i+1は選択
+		              Fi[x] < Ciなるものが一つでもあれば、 Fi+1[x] = Fi[x] として、個体i+1は淘汰
+* 個体が減った分は、ランダムに生成。
+    * Selectionに加えて、以降Mating, Crossover, Mutationに参加する。移民。					
+
+### Note:
+* 調和平均の総和をとると、結局、平均された数になる。Rank1の個体数
+	
+
+画像保存について
+-----------------
+
+* 画像は、Rank1のもののみ保存する
+* Sortで、正式ランクがつけられる。
+* Reproduce時点では、前のランクがあるか、その世代で生まれたものか、がわかる。
+* Evaluationは、その世代で生まれた個体しか実施しないので、画像がない
+* なので、過去世代の個体がRank1の場合は、画像が保存されない！
+* 画像生成したほうがいいかもしれない。
+
+* preRank:   前世代のランク, -1なら今世代で生まれたもの
+* tempIndex: 処理上の個体番号
+
+* すごく多いと時間がかかるので、対策考えるべし。
+    * ImageSavingInterval  100  (100世代経過後の保存タイミングで)
+    * ImageSavingInterval  1    (すべての保存タイミングで)
+    * ImageSavingInterval  0    (画像保存なし)
+	* ReportInterval  0    & ReportWhenImproved  False  &  reportTimeInterval  0  (保存なし)
+	* ReportInterval  1    (ReportWhenImproved, reportTimeInterval はdon't care)   (毎世代)
+	* ReportInterval  100  & ReportWhenImproved  False  &  reportTimeInterval  60 (前回保存から100世代経過後 or 前回保存から60秒経過後)
+	* ReportInterval  100  & ReportWhenImproved  False  &  reportTimeInterval  0  (前回保存から100世代経過後)
+	* ReportInterval  100  & ReportWhenImproved  True   &  reportTimeInterval  60 (前回保存から100世代経過後 or Fitness改善で or 前回保存から60秒経過後)
+	* ReportInterval  0    & ReportWhenImproved  True   &  reportTimeInterval  60 (Fitness改善 or 前回保存から60秒経過後)
+	* ReportInterval  0    & ReportWhenImproved  True   &  reportTimeInterval  0  (Fitness改善)
+	* ReportInterval  0    & ReportWhenImproved  False  &  reportTimeInterval  60 (前回保存から60秒経過後)
+
+ソートについて
+-----------------
+
+* Paretoフロントだから、同じグループにいるものは、少なくともどちらかは上回っているはず
+
+
+途中データの保存について
+------------------
+
+* プロジェクトごとに保存するもの
+	* コンフィグレーション .garnet_conf.txt
+    * チェックポイント    .garnet_cp.txt
+	* ベスト個体履歴   Project.csv
+* 世代ごとに保存するもの
+	* 全個体データ    generation.000000.txt
+	* Rank1画像     .garnet_result_C00_I0000_T000.png
+	
+
+	
+	
+マルチコア実行について
+----------------------
+
+* 要件
+	* 複数CPUコアでの実行
+	* GPUの同時使用
+	* CPUあふぃにてぃのサポート
+	* アフィニティの動的変更: プログラムをとめないで使用するCPUコアを変更可能
+	* 複数スレッドでの実行 (CPU数と独立した数を指定可能)
+	* スレッド数の動的変更: プログラムをとめないでスレッド数を変更可能
+	* GPU使用の動的変更: プログラムをとめないで使用ON/OFFを変更可能
+* 非要件
+	* マルチノード
+* コマンド
+    * --affinity=01111111,1   CPUのコア、GPUのコア。外部指定の場合。
+    * CPUAffinity 01111111,1  CPUのコア、GPUのコア。コンフィグ指定の場合。
+	    * 0=コア無効、1=コア有効、*=ワイルドカード
+		* デフォルトは、1*,0*
+        * 指定した数よりも論理コア数が少ない場合は、多い分は切り捨てられる。ex.) 01111111 で 論理コア4つの場合 0111 と解釈される
+		* 指定した数よりも論理コア数が多い場合は、1を補う。 ex.) 01111111 で 論理コア12個の場合 011111111111 と解釈される (1*を追加する)
+		* ワイルドカードがある場合は、それ以降直前の文字を繰り返す ex.) 01110* で 論理コア 8個の場合 01110000 と解釈される
+		* マルチGPUの場合、0番目のコア、1番目のコア・・・として指定する。
+		* CPUとGPUは別々に指定可能。ただし、全体として使用できるコアが1以上でなければエラー。
+    * NumMaxCPUs  7           (Obsolete) 11111110*,0*を指定したものとして解釈。(1の数が7つの後に0*、GPUは0*)
+    * --threads=15,1  CPUのスレッド数、GPUのスレッド数
+	* NumThreads 15,1 CPUのスレッド数、GPUのスレッド数
+	    * スレッド数。GPUは省略可能。省略すると0とみなされる
+		* デフォルトは、1
+		* CPUとGPUは別々に指定可能。ただし、合計が1以上でなければエラー。
+		
+
+2013-08-21 山本先生
+--------------------
+
+映像メディア学会のネタを改造して、
+
+１．二値化のネタ
+２．ひまわりとバラとかジャンルの違う花を入れたもの
+　・「黄色だよねー」とならないように
+　・
+
+例を抽象化しすぎるとわかりずらい
+・SVMに勝てなくなる
+・具体的な例でやる
+・ジェネリックの罠
+
+後に応用が控えている
+
+* 車の車種を認識するんだ、とか
+
+画像をネットワークとして扱う
+
+* オペレータ有限なんだからできることがわかってるじゃん
+* マスクを作るネタなら、オペレータ厳選して例えば5個とかにして、問題を構築する方がわかりやすいのでは
+
+
+結論
+
+* 前のやつのエッセンス版
+* コンパクトに
+
+Commands
+=======
+
+newproj
+-------
+
+Create new project.
+
+	<Project Name>/
+		+---<Project Name>.garnet_proj.txt
+		+---<Project Name>.garnet_conf.txt
+		+---images/
+		|   +---Copy image files here.
+		+---reports/
+
+### Options
+* [project file]
+* --max-generation -G <max generation>
+	* 1 .. g: Set the max generation. If not set, the value specified by the configuration file will be used.
+* --random-cases -S <the number of random cases>
+	* 1 .. r: Make multiple cases with different initial random seed. default is 1.
+* --cross-validation -K <the number of cross validation>
+	* 0 (default): Use Task.
+	* 1 .. k: All Tasks and Tests are used for k-fold cross validation.
+* --directory  -d <directory>
+	* Specify the name of the project directory.
+	* If not set, the file name (without path and extension) of the configuration file will be used.
+	
+### Flow
+
+1. Load a case configuration file.
+2. Create project configurations with command line arguments.
+	* _RandomCases
+	* _MaxGeneration
+	* _CrossValidation
+3. Create directories.
+	* Error if the directory already exists, 
+	2.1 Create the project directory.
+	2.2 Create the image directory.
+	2.3 Create the reports directory.
+3. Copy images to <proj>/images/ directory.
+4. Create cases. (with overriding Random, Cross Validation)
+	* Following configurations for each case should be modified from the original configuration.
+		* Case name, like r00k00.
+		* Random seed.
+		* Image path.
+	* Case configurations will contain Alias and Unit parameters originally specified by separate files.
+	* Creation should be done with 'newcase' command.
+5. Save the project configuration.
+6. Done.
+
+
+newcase
+-------
+
+Create new case.
+
+	<Case name>/
+		+---<Case name>.garnet_conf.txt
+		+---reports/
+
+### Options
+* <project file>
+* --max-generation -G <max generation>
+	* 1 .. g: Set the max generation. If not set, the value specified by the configuration file will be used.
+* --random-seed -s <Random seed>
+	* seed: Set random seed. If not set, the value specified by the configuration file will be used.
+* --directory -d <directory>
+	* Specify the name of the project directory.
+	* If not set, the file name (without path and extension) of the configuration file will be used.
+	
+### Flow
+
+1. Load a configuration file.
+2. Override configurations by command line arguments.
+	* _RandomSeed
+	* _MaxGeneration
+3. Create directories.
+	* Error if the directory already exists
+	2.1 Create the case directory. _WorkingDirectory
+	2.2 Create the reports directory. _WorkingDirectory/reports/
+4. Save configuration. _WorkingDirectory/_WorkingDirectory.garnet_conf.txt
+
+run
+---
+
+Run a project (if .garnet_proj.txt exists), or a case.
+
+### Options
+* <project dir>
+* --max-generation -G <max generation>
+	* 1 .. g: Set the max generation. If not set, the value specified by the configuration file will be used.
+	
+### Flow
+
+1. If a case,
+	1. Load a configuration file from _ProjectName/_ProjectName.garnet_conf.txt
+		* Error if the file does not exist.
+	2. Override configurations by command line arguments.
+		* _MaxGeneration
+		* _InitialGeneration
+	3. Find the last result to determine the generation number to continue.	
+		* .garnet_cp.txt
+		* 000000/generation.000000.txt
+		* or generation 0.
+	4. Load or create initial generation.
+	5. Start evolution process.
+2. If a project,
+	1. Load a project configuration file from _ProjectName/_ProjectName.garnet_proj.txt
+		* Error if the file does not exist.
+	2. Override configurations by command line arguments.
+		* _MaxGeneration
+		* _InitialGeneration
+	
+update
+------
+
+Modify configurations of a project.
+
+### Options
+* <project dir>
+
+
+clean
+-----
+
+Remove intermediate information of a project (if .garnet_proj.txt exists), or a case.
+
+For a case:
+
+* <case>/.garnet_cp.txt
+* <case>/trace.------.txt
+* <case>/<generation>/.garnet_result_A_I0000_C00_T000.png
+
+For a project:
+
+* Remove same files for a case for all cases under the project.
+
+### Options
+* <project dir>
+	
+### Flow
+
+1. If a case,
+	1. Load a configuration file from _ProjectName/_ProjectName.garnet_conf.txt
+		* Error if the file does not exist.
+	2. For all generation directories to remove following files in the directories.
+		* <case>/<generation>/.garnet_result_A_I0000_C00_T000.png
+	3. Remove following files from the case directory.
+		* <case>/.garnet_cp.txt
+		* <case>/trace.------.txt
+
+distclean
+---------
+
+In addition to 'clean' command,
+remove all generated information of a project (if .garnet_proj.txt exists), or a case.
+
+For a case:
+
+* <case>/<generation>/generation.000000.txt
+* <case>/<generation> (directories)
+
+For a project:
+
+* Remove same files for a case for all cases under the project.
+* <proj>/reports/*
+* <proj>/index.html
+
+### Options
+* <project dir>
+
+report
+------
+
+Make reports.
+
+### Options
+* <project dir>
+* -r <report types>
+	* <report types> must be one or more following strings concatinated by ','
+	  {test, fitness, front, filters, intermediate}
+
+archive
+-------
+
+clean and zip data.
+
+### Options
+* <project dir>
+
+help
+----
+
+### Options
+none.
+
+
+Project
+=======
+
+	<Project Name>/
+		+---<Project Name>.garnet_proj.txt [in]
+		+---<Project Name>.garnet_conf.txt [in]
+		+---images/  [in]
+		+---reports/ [out]
+		+---index.html [out]
+		+---r00_k00/ [in]
+		|		+---<Case Name>.garnet_conf.txt [in]
+		|		+---.garnet_cp.txt   [out]
+		|		+---<Case Name>.csv [out]
+		|       +---reports/ [in]
+		|		|		+---index.html [out]
+		|		|		+---<Case Name>_g000000_i0000_c00.html [out]
+		|		|		+---<Case Name>_g000000_i0000_c00.graphml [out]
+		|		|		+---g000000_i0000_c00/ [out]
+		|		|				+---values.csv [out]
+		|		|				+---n000000.png [out]
+		|		|				+--- ... [out]
+		|		+---000000/ [out]
+		|		|		+---generation.000000.txt [out]
+		|		|		+---.garnet_result_A_I0000_C00_T000.png [out]
+		|		|		+--- ...
+		|		+---000001/
+		|		|		+--- ...
+		|		...
+		+---r00_k01/
+		|		+--- ...
+		+--- ...
+		+---r01_k00/
+		|		+--- ...
+		+--- ...
+
+Case
+====
+	<Case Name>/ [in]
+		+---<Case Name>.garnet_conf.txt [in]
+		+---.garnet_cp.txt   [out]
+		+---<Case Name>.csv [out]
+		+---reports/ [in]
+		|		+---index.html [out]
+		+---000000/ [out]
+		|		+---generation.000000.txt [out]
+		|		+---.garnet_result_A_I0000_C00_T000.png [out]
+		|		+--- ...
+		+---000001/
+		|		+--- ...
+		...
+
+
+Reports
+=======
+
+Changes of Fitness
+------------------
+
+### Output
+* Project Fitness Data (CSV) --> <proj>/reports/fitness_average.csv
+	* Generation#
+	* Average Best Individual's Fitness [0]
+	* Average Best Individual's Fitness [1]
+	* ..
+	* Average Rank 1 Average Fitness [0]
+	* Average Rank 1 Average Fitness [1]
+	* ..
+	* Average All Average Fitness [0]
+	* Average All Average Fitness [1]
+	* ..
+* Case Fitness Data (CSV) --> <case>/reports/fitness.csv
+	* Generation#
+	* Best Individual's Fitness [0]
+	* Best Individual's Fitness [1]
+	* ..
+	* Rank 1 Average Fitness [0]
+	* Rank 1 Average Fitness [1]
+	* ..
+	* All Average Fitness [0]
+	* All Average Fitness [1]
+	* ..
+* Graph (PNG)
+	* X axis: Generations
+	* Y axis: A fitness.
+
+### Requirements
+* Random cases: Average or Single
+* Generations: All
+* Individuals: All, or Rank 1 
+* Objectives: One selected.
+
+### Data source
+* <case>/000000/generation.000000.txt [out]
+	* Individual
+	* Rank
+	* FitnessV
+
+### Procedure
+
+1. Load the configuration.
+2. Determine a generation range for the finding. ([-g, -G] or [0, the last])
+3. For each generation, load generaiton.
+4. Output data.
+	4.1 Find the best individual, which is the closest to the utopia point. Write its data.
+	4.2 Average rank 1 individuals. Write its data.
+	4.3 Average all individuals. Write its data.
+
+Changes of the number of IV Filters
+-----------------------------------
+
+### Output
+* Graph (PNG)
+	* X axis: Generations
+	* Y axis: The number of IV filters.
+	* Layer:  IV Tree, IV Graph, PP Graph.
+
+### Requirements
+* Random cases: Average or Single
+* Generations: All
+* Individuals: All, or Rank 1 
+* Objectives: (n/a)
+
+### Data source
+* <case>/000000/generation.000000.txt [out]
+	* Individual
+	* Rank
+	* Vertices
+
+
+Motion of Pareto Front
+----------------------
+
+### Output
+* Graph (PNG)
+	* X axis: Objective #1
+	* Y axis: Objective #2
+	* Layer:  Generations.
+
+### Requirements
+* Random cases: Single
+* Generations: Selection (i.e. every 1000 gen)
+* Individuals: Rank 1
+* Objectives: Two selected.
+
+### Data source
+* <case>/000000/generation.000000.txt [out]
+	* Individual
+	* Rank
+	* FitnessV
+
+
+Test Results (test)
+-------------------
+
+### Output
+* Filtered Images (PNG)
+	* Images which are resulted by filtering TRAINING data with the generated tree. --> repots/g000000_i0000/test_c00_t00.png
+	* Images which are resulted by filtering TEST data with the generated tree. --> repots/g000000_i0000/test_c00_u00.png
+	* Result should contains the results of IV Tree, Raw fitness, and Fitness Vector.
+* Filtered Values (CSV) --> <case>/reports/g000000_i0000/test_values.csv
+	* Values which are resulted by filtering TRAINING data with the generated tree.
+	* Values which are resulted by filtering TEST data with the generated tree.
+	* Result should contains the results of IV Tree, Raw fitness, and Fitness Vector.
+		* Task/Test#.
+		* IV Tree [0]
+		* IV Tree [1]
+		* ..
+		* Raw Fitness [0]
+		* Raw Fitness [1]
+		* ..
+		* Fitness Vector [0]
+		* Fitness Vector [1]
+		* ..
+* Report (HTML) --> <case>/reports/g000000_i0000/test_report.html
+	* Readable report containing the materials above.
+
+### Requirements
+* Random cases: Single
+* Generations: Single (typically, the last generation.)
+* Individuals: Single (typically, the best of the last generation. the best is the nearest one by the utopia point.)
+* Objectives: All
+
+### Data source
+* <case>/000000/generation.000000.txt [out]
+	* Individual
+	* Rank        (to determine the best individual)
+	* FitnessV    (to determine the best individual)
+	* Chromosomes
+
+### Procedure
+
+1. Load the configuration.
+2. Load a generation. (-g Xxxx or search the last generation)
+3. Find the best individual, which is the closest to the utopia point.
+4. Evaluate the individual with GPEngine by enabling EVALUATE_TESTS flag.
+5. Save results.
+	
+
+Intermediate results of a Tree
+------------------------------
+
+### Output
+* Graph ML (.graphml)       --> <case>/reports/g000000_i0000_c00/<Case Name>_g000000_i0000_c00.graphml
+* Intermediate Images (PNG) --> <case>/reports/g000000_i0000_c00/n00000_t000.png
+* Intermediate Values (CSV) --> <case>/reports/g000000_i0000_c00/intermediate.csv
+* Report (HTML)             --> <case>/reports/g000000_i0000_c00/<Case Name>_g000000_i0000_c00.html
+	* Readable report containing the intermediate images and values.
+	* Node connections should be traced by clicking link.
+	* node N (op) --> node M (op) (click to go to node M)
+	    image image image image image (80 x h, click to enlarge)
+		value value value value value <-- table
+	* node N has anchor "#nodeN".
+
+### Requirements
+* Random cases: Single
+* Generations: Single (typically, the last generation.)
+* Individuals: Single (typically, the best of the last generation. the best is the nearest one by the utopia point.)
+* Objectives: (n/a)
+
+### Data source
+* <case>/000000/generation.000000.txt [out]
+	* Individual
+	* Rank        (to determine the best individual)
+	* FitnessV    (to determine the best individual)
+	* Chromosomes
+
+
+Configuration File
+==================
+
+Project Configurations (.garnet_proj.txt)
+----------------------
+
+### MaxGeneration : Integer
+
+### CrossValidation : Integer
+
+### RandomCases : Integer
+
+### Scenario : String
+
+An execution scenario.
+
+Scenario  run r00k00 -G 1000
+Scenario  clean r00k00
+Scenario  report r00k00 -g 1000
+Scenario  run r00k01 -G 1000
+Scenario  clean r00k01
+Scenario  report r00k01 -g 1000
+Scenario  run r01k00 -G 1000
+Scenario  clean r01k00
+Scenario  report r01k00 -g 1000
+Scenario  run r01k01 -G 1000
+Scenario  clean r01k01
+Scenario  report r01k01 -g 1000
+Scenario  run r00k00 -G 2000
+Scenario  clean r00k00
+Scenario  report r00k00 -g 2000
+...
+
+* Multiple: Yes
+
+### GenerationInterleave : Integer
+
+### ReportParetoFront : Bool
+
+### ReportFitness : Bool
+
+### ReportFilterCount : Bool
+
+### ReportGeneratedTree : Bool
+
+### ReportTreeDetail : Bool
+
+
+
+
+Control Flow
+============
+
+1. Global dispatch {newproj, newcase, run, update, report, clean, distclean, archive, help}
+1. 
+2. new
+	2.1 Create cases.
+
+Command Line Arguments.
+-------------------------
+
+### _Project (no name) : string
+
+A project name or a configuration file. Mandatory.
+It can be relative path.
+
+e.g.
+1. ExtractFlower
+2. ExtractFlower.garnet.txt
+
+1. If the command is newproj, _Project must contain the extension.
+
+### _Directory (d) : string
+
+A name of the working directory. Optional.
+e.g. ExtractFlower
+
+### _ReportTypes (r) : string
+
+Report types.
+
+### _Src0, ..., _Src9 (0, ..., 9) : string
+
+### _MaxGeneration (G) : integer
+
+### _InitialGeneration (g) : integer
+
+### _Input (i) : string
+
+### _Module (m) : string
+
+### _Output (o) : string
+
+### _RandomSeed (s) : integer
+
+### _Verbose (v) : boolean
+
+### _Trees (t) : string
+
+### _Dictionaries (a) : string
+
+### _CsvFileName (c) : string
+
+### _ResultFileName (f) : string
+
+### _SummaryFileName (h) : string
+
+### _SizeX (x) : integer
+
+### _SizeY (y) : integer
+
+### _Trace (T) : string
+
+
+Derived arguments.
+------------------
+
+### _ProjectName
+
+The file name part (without directory and extension) of _Project.
+
+### _WorkingDirectory : string
+
+A name of the working directory.
+
+1. If _Directory is specified, it will be used.
+2. Otherwise, _ProjectName will be used.
+
+### _CurrentDirectory : string
+
+The current directory.
+
+### _IsProject (boolean)
+
+True if *.garnet_proj.txt exists in the _WorkingDirectory directory.
+
+﻿Generation Log
+--------------
+
+### Requirements
+
+* 中断した実験を再開する場合に必要な情報の保存
+	+ 乱数シード (RandomSeed)
+	+ 個体の遺伝子 (Choromosomes)： ChromosomeID(Hash+NumVertices+NumEdges), SExp
+* 実験後に分析する場合に必要な情報の再生に必要な情報の保存、再生に時間のかかる情報の保存
+	+ 個体の適合度 (FitnessV)
+	+ 個体の生適合度 (RawFitnessV)
+	+ 個体の親 (Parents)
+		- ChromosomeID: 
+	+ 個体の遺伝子の交叉点 (Crossover)
+	+ 個体の遺伝子の突然変異点 (Mutation) 
+* 実験後に分析する場合に必要な情報の再生
+	+ 個体のランク (Rank) --> Chromosomesから復元
+	+ 個体の適合度 (FVector) --> FitnessVから復元
+	+ 個体の生適合度 (Raw Fitness) --> RawFitnessVから復元
+	+ 個体の遺伝子の頂点数 (Vertices) --> Chromosomesから復元
+	+ 個体の遺伝子のIGraph (IGraph) --> Chromosomesから復元
+	+ 個体の遺伝子のVGraph (VGraph) --> Chromosomesから復元
+	+ 個体の遺伝子のAGraph (AGraph) --> Chromosomesから復元
+
+### Contents
+
+	RandomSeed    1497428404
+	FitnessV      0, 0x4010e9f24cf3cfad, 0x4027781f45dcd9c7
+	RawFitnessV   0, 0, 0x3fdfeb851cdd9830, 0x3fe81377b96bb1f6, ...
+	RawFitnessV   0, 1, 0x3fbcf086d9dd1aa4, 0x3fe4538128cd4944, ...
+	Chromosomes   0, 0, 2301, (AlgebraicProd(Gray0)...
+	FitnessV      1, 0x4012dac3a980078a, 0x4017f072cd1d6888
+	RawFitnessV   1, 0, 0x3fd7eef483dd4c7f, 0x3fe11c9ae77eea7a, ...
+	RawFitnessV   1, 1, 0x3fd3547d7c78bdcc, 0x3fe0cf6f692bb0de, ...
+	Chromosomes   1, 0, 93d3, (AlgebraicProd(MaxPix...
+
+
+	
+
+### File
+
+* Plain Text
+    * generation_000000.txt
+* GZipped 
+    * generation_000000.txt.gz
+
+### Reporting
+
+	# Individual  0
+	Rank          0, 1
+	FitnessV      0, 0x4010e9f24cf3cfad, 0x4027781f45dcd9c7
+	# FVector     0,   4.228463,  11.734614
+	RawFitnessV   0, 0, 0x3fdfeb851cdd9830, 0x3fe81377b96bb1f6, ...
+	RawFitnessV   0, 1, 0x3fbcf086d9dd1aa4, 0x3fe4538128cd4944, ...
+	# Raw Fitness 0, 0, 0.589314, 0.49875, 0.752376, 1, 0.346086, 0.349357
+	# Raw Fitness 0, 1, 0.394997, 0.113045, 0.635193, 0.320514, 0.441144, 0.465087
+	# Vertices    0, 0, 5118
+	# Parents     0, -1, -1
+	# Crossover   0, 0, -1, -1
+	# Mutation    0, 0, 
+	# IGraph      0, 0, (RI1B[98](I1B_AlgebraicProd_I1B_I1B(I1B_...
+	# VGraph      0, 0, (RV1D[98](SV1D[0]))
+	# AGraph      0, 0, 
+	Chromosomes   0, 0, 2301, (AlgebraicProd(Gray0)(SubtractV(Ad...
+
+* 家系図も欲しい --> ChromosomeIDから復元
+	
+### Visualization
+
+* Not supported.

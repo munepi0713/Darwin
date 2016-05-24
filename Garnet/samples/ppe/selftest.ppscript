@@ -1,0 +1,426 @@
+SetSizeFromImage "1.jpg"
+
+I3B_Var     $1  # Original image I3B
+I1B_Var     $2  # Src image 1 I1B
+I1B_Var     $3  # Working I1B
+I3B_Var     $4  # Working I3B
+I1B_Var     $5  # Src image 2 I1B
+V1D_Var     $6  # Src value 1 V1D
+V1D_Var     $7  # Working V1D
+V1D_Var     $8  # Src value 2 V1D
+S_Var       $9  # String
+
+# Immediate
+V1D_Immediate $6, "0.45"
+V1D_Immediate $8, "0.32"
+
+# LoadImage
+S_Immediate $9, "1.jpg"
+I3B_Load_S $1, $9
+PrintHash_I3B  $1
+
+# Red
+I1B_Split3rd_I3B $2, $1
+S_Immediate $9, "Red.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# Green
+I1B_Split2nd_I3B $2, $1
+S_Immediate $9, "Green.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# Blue
+I1B_Split1st_I3B $2, $1
+S_Immediate $9, "Blue.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# U
+I3B_BGR2YUV_I3B  $4, $1
+I1B_Split2nd_I3B $2, $4
+S_Immediate $9, "U.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# V
+I3B_BGR2YUV_I3B  $4, $1
+I1B_Split3rd_I3B $2, $4
+S_Immediate $9, "V.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# Gray
+I1B_BGR2Gray_I3B $2, $1
+S_Immediate $9, "Gray.jpg"
+Save_I1B_S $2, $9
+PrintHash_I1B $2
+
+# Dilate3x3
+I1B_Dilate3x3_I1B  $3, $2
+S_Immediate $9, "Dilate3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Erode3x3
+I1B_Erode3x3_I1B  $3, $2
+S_Immediate $9, "Erode3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Thin
+I1B_Thin_I1B  $3, $2
+S_Immediate $9, "Thin.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Laplacian3x3
+I1B_Laplacian3x3_I1B  $3, $2
+S_Immediate $9, "Laplacian3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Laplacian2nd3x3
+I1B_Laplacian2nd3x3_I1B  $3, $2
+S_Immediate $9, "Laplacian2nd3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Median3x3
+I1B_Median3x3_I1B  $3, $2
+S_Immediate $9, "Median3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Sharpen3x3
+I1B_Sharpen3x3_I1B  $3, $2
+S_Immediate $9, "Sharpen3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Smooth3x3
+I1B_Smooth3x3_I1B  $3, $2
+S_Immediate $9, "Smooth3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Sobel3x3
+I1B_Sobel3x3_I1B  $3, $2
+S_Immediate $9, "Sobel3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# SobelX3x3
+I1B_SobelX3x3_I1B  $3, $2
+S_Immediate $9, "SobelX3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# SobelY3x3
+I1B_SobelY3x3_I1B  $3, $2
+S_Immediate $9, "SobelY3x3.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Negate
+I1B_Negate_I1B  $3, $2
+S_Immediate $9, "Negate.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ProjectionX
+I1B_ProjectionX_I1B  $3, $2
+S_Immediate $9, "ProjectionX.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ProjectionY
+I1B_ProjectionY_I1B  $3, $2
+S_Immediate $9, "ProjectionY.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Connection4
+I1B_Connection4_I1B  $3, $2
+S_Immediate $9, "Connection4.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Connection8
+I1B_Connection8_I1B  $3, $2
+S_Immediate $9, "Connection8.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Load src 2
+I3B_Load_S $1, $9
+S_Immediate $9, "2.jpg"
+I1B_BGR2Gray_I3B $5, $1
+PrintHash_I1B  $5
+
+# Add
+I1B_Add_I1B_I1B  $3, $2, $5
+S_Immediate $9, "Add.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Diff
+I1B_Diff_I1B_I1B  $3, $2, $5
+S_Immediate $9, "Diff.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# AlgebraicProd
+I1B_AlgebraicProd_I1B_I1B  $3, $2, $5
+S_Immediate $9, "AlgebraicProd.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# AlgebraicSum
+I1B_AlgebraicSum_I1B_I1B  $3, $2, $5
+S_Immediate $9, "AlgebraicSum.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# BoundedProd
+I1B_BoundedProd_I1B_I1B  $3, $2, $5
+S_Immediate $9, "BoundedProd.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# LogicalProd
+I1B_LogicalProd_I1B_I1B  $3, $2, $5
+S_Immediate $9, "LogicalProd.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# LogicalSum
+I1B_LogicalSum_I1B_I1B  $3, $2, $5
+S_Immediate $9, "LogicalSum.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Subtract
+I1B_Subtract_I1B_I1B  $3, $2, $5
+S_Immediate $9, "Subtract.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+
+# HighPass
+I1B_HighPass_I1B_V1D  $3, $2, $6
+S_Immediate $9, "HighPass.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# LowPass
+I1B_LowPass_I1B_V1D  $3, $2, $6
+S_Immediate $9, "LowPass.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+
+
+# Threshold
+I1B_Threshold_I1B  $3, $2
+S_Immediate $9, "Threshold.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ThresholdInv
+I1B_ThresholdInv_I1B  $3, $2
+S_Immediate $9, "ThresholdInv.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ThresholdV
+I1B_ThresholdV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "ThresholdV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ThresholdInvV
+I1B_ThresholdInvV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "ThresholdInvV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Binarize
+I1B_Binarize_I1B  $3, $2
+S_Immediate $9, "Binarize.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# BinarizeInv
+I1B_BinarizeInv_I1B  $3, $2
+S_Immediate $9, "BinarizeInv.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# BinarizeV
+I1B_BinarizeV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "BinarizeV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# BinarizeInvV
+I1B_BinarizeInvV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "BinarizeInvV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+
+# FillV
+I1B_FillV_V1D  $3, $6
+S_Immediate $9, "FillV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+
+# AddV
+I1B_AddV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "AddV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# ModAvgV
+I1B_ModAvgV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "ModAvgV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# MultiplyV
+I1B_MultiplyV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "MultiplyV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# SubtractV
+I1B_SubtractV_I1B_V1D  $3, $2, $6
+S_Immediate $9, "SubtractV.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+
+# AvgPixel
+V1D_AvgPixel_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# MaxPixel
+V1D_MaxPixel_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# MinPixel
+V1D_MinPixel_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# FGArea
+V1D_FGArea_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# BGArea
+V1D_BGArea_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# FGAreaV
+V1D_FGAreaV_I1B_V1D  $7, $2, $6
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# BGAreaV
+V1D_BGAreaV_I1B_V1D  $7, $2, $6
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# MassCenterBX
+V1D_MassCenterBX_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# MassCenterBY
+V1D_MassCenterBY_I1B  $7, $2
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# PSNR
+V1D_PSNR_I1B_I1B  $7, $2, $5
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# VNegate
+V1D_VNegate_V1D  $7, $6
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# VAdd
+V1D_VAdd_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VAlgebraicProd
+V1D_VAlgebraicProd_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VAlgebraicSum
+V1D_VAlgebraicSum_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VDiff
+V1D_VDiff_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VLogicalProd
+V1D_VLogicalProd_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VLogicalSum
+V1D_VLogicalSum_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# VSubtract
+V1D_VSubtract_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# Distance
+V1D_Distance_V1D_V1D_V1D_V1D  $7, $6, $8, $8, $6
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+# Select (Image)
+I1B_Select_I1B_I1B_V1D_V1D  $3, $2, $5, $6, $8
+S_Immediate $9, "Select.jpg"
+Save_I1B_S $3, $9
+PrintHash_I1B $3
+
+# Select (Value, Self)
+V1D_Select_V1D_V1D  $7, $6, $8
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+# Select (Value)
+V1D_Select_V1D_V1D_V1D_V1D  $7, $6, $8, $8, $6
+PrintHash_V1D $7
+PrintValue_V1D $7
+
+
+
+End

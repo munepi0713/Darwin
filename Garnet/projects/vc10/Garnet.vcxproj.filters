@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="GP Engine">
+      <UniqueIdentifier>{a197a0b0-d97b-464c-a3a9-b6f2d88e263c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GP Engine\Header Files">
+      <UniqueIdentifier>{0be3221b-3338-454e-934f-0a6afc1902de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GP Engine\Source Files">
+      <UniqueIdentifier>{25489426-fe57-46bf-b996-9941b908758f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers">
+      <UniqueIdentifier>{c9581a79-8d22-4cb8-8457-dab9aedc4fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Header Files">
+      <UniqueIdentifier>{3016dc85-d2a8-4f6f-be86-ac0500af36bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drivers\Source Files">
+      <UniqueIdentifier>{e53c4e45-56d2-4af5-a313-6ea7c2499a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{255f9b1a-3074-40cd-a113-b5f05b6334e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Header Files">
+      <UniqueIdentifier>{70c59893-2465-4e44-b4ed-7149dcdc3e41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Source Files">
+      <UniqueIdentifier>{d6db5519-6405-46ac-8805-ed4dbb8a283a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Garnet\Affinity.cpp">
+      <Filter>Utilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\ThreadPool.cpp">
+      <Filter>Utilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\RandomGenerator.cpp">
+      <Filter>Utilities\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Drivers.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\ConvertIVGraphToPPEGraph.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\ConvertIVTreesToIVGraph.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\GenerateScript.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\CompileIVTrees.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Dictionary.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Configuration.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\UniversalEngine.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\DefaultTreeBuilder.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Engine.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Generation.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Individual.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\Tree.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\TreeBuilder.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\ExecuteGarnet.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\CommonStrategy.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\BasicStrategy.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\TraceLevel.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\main.cpp">
+      <Filter>Drivers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Garnet\NSGA2Strategy.cpp">
+      <Filter>GP Engine\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Garnet\Configuration.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\UniversalEngine.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\DefaultTreeBuilder.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Engine.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Generation.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Individual.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Tree.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\TreeBuilder.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Dictionary.h">
+      <Filter>Drivers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\PPEGraph.h">
+      <Filter>Drivers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Drivers.h">
+      <Filter>Drivers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\IVGraph.h">
+      <Filter>Drivers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Affinity.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\ThreadPool.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\ConfigLoader.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\GetTime.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\InfoContainer.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\PrintRange.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\RandomGenerator.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\Text.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\TreeKernelCollins.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\Compiler.h">
+      <Filter>Utilities\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\CommonStrategy.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\BasicStrategy.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\Garnet.h">
+      <Filter>Drivers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\NSGA2Strategy.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Garnet\TreeKernelKashima.h">
+      <Filter>GP Engine\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

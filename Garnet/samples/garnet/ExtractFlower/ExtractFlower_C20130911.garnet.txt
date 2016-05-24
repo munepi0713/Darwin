@@ -1,0 +1,169 @@
+ImageWidth               160
+ImageHeight              107
+
+LeafCache                False
+SubtreeReduction         True
+SubtreeReductionType     Inter
+SubtreeReductionDepth    50
+SubtreeCache             False
+SubtreeCacheDepth        7
+SubtreeCacheLife         300
+ReportInterval           1
+ReportWhenImproved       True
+ReportTimeInterval       60
+ImageSavingInterval      1
+Debug                    False
+Trace                    False
+NumThreads               15
+CPUAffinity              01*, 0
+EnableOpenCL             False
+NumVerticesLimit         8000
+MaxInitialDepth          10
+MinInitialSize           20
+
+#Engine                   NGSA-II-SP-Fooding
+Engine                   NGSA-II-SP-Fooding
+Evaluator                (PSNR(AlgebraicProd(Tree0)(Gray2))(AlgebraicProd(Gray0)(Gray1)))
+Fitness                  (Invert(AverageA(RawFit0))), (Invert(MinA(RawFit0))), (Nodes)
+MaxGeneration            5000
+PopulationSize           100
+SelectionMethod          RouletteRule
+PreserveElite            True
+CrossoverRate            0.6
+CrossoverMethod          OnePoint
+MutationRate             0.033333
+MutationMethod           Random
+RandomSeed               675556231
+RandomAlgorithm          MT19977
+NumChromosomes           1
+FilterCountPenaltyWeight 0.000256466
+
+ScoringMethod            Minimum
+SimpleComparator         True
+Unit  (Gray0)
+Unit  (Red0)
+Unit  (Green0)
+Unit  (Blue0)
+Unit  (Dilate3x3(?))
+Unit  (Erode3x3(?))
+Unit  (Laplacian3x3(?))
+Unit  (Median3x3(?))
+Unit  (Sharpen3x3(?))
+Unit  (Smooth3x3(?))
+Unit  (Sobel3x3(?))
+Unit  (SobelX3x3(?))
+Unit  (SobelY3x3(?))
+Unit  (Negate(?))
+Unit  (ProjectionX(?))
+Unit  (ProjectionY(?))
+Unit  (Binarize(?))
+Unit  (BinarizeInv(?))
+Unit  (Add(?)(?))
+Unit  (AlgebraicProd(?)(?))
+Unit  (AlgebraicSum(?)(?))
+Unit  (BoundedProd(?)(?))
+Unit  (Diff(?)(?))
+Unit  (LogicalProd(?)(?))
+Unit  (LogicalSum(?)(?))
+Unit  (Subtract(?)(?))
+Unit  (HighPass(?)(?))
+Unit  (LowPass(?)(?))
+Unit  (ThresholdV(?)(?))
+Unit  (ThresholdInvV(?)(?))
+Unit  (BinarizeV(?)(?))
+Unit  (BinarizeInvV(?)(?))
+Unit  (AddV(?)(?))
+Unit  (ModAvgV(?)(?))
+Unit  (MultiplyV(?)(?))
+Unit  (SubtractV(?)(?))
+Unit  (FillV(?))
+Unit  (AvgPixel(?))
+Unit  (MaxPixel(?))
+Unit  (MinPixel(?))
+Unit  (VNegate(?))
+Unit  (VAdd(?)(?))
+Unit  (VAlgebraicProd(?)(?))
+Unit  (VAlgebraicSum(?)(?))
+Unit  (VDiff(?)(?))
+Unit  (VLogicalProd(?)(?))
+Unit  (VLogicalSum(?)(?))
+Unit  (VSubtract(?)(?))
+Unit  (Select(?)(?))
+Unit  (SelectV(?)(?)(?)(?))
+Alias (Blue0), (Blue(Src0))
+Alias (Blue1), (Blue(Src1))
+Alias (Blue2), (Blue(Src2))
+Alias (Blue3), (Blue(Src3))
+Alias (Blue4), (Blue(Src4))
+Alias (Blue5), (Blue(Src5))
+Alias (Blue6), (Blue(Src6))
+Alias (Blue7), (Blue(Src7))
+Alias (Blue8), (Blue(Src8))
+Alias (Blue9), (Blue(Src9))
+Alias (Gray0), (Gray(Src0))
+Alias (Gray1), (Gray(Src1))
+Alias (Gray2), (Gray(Src2))
+Alias (Gray3), (Gray(Src3))
+Alias (Gray4), (Gray(Src4))
+Alias (Gray5), (Gray(Src5))
+Alias (Gray6), (Gray(Src6))
+Alias (Gray7), (Gray(Src7))
+Alias (Gray8), (Gray(Src8))
+Alias (Gray9), (Gray(Src9))
+Alias (Green0), (Green(Src0))
+Alias (Green1), (Green(Src1))
+Alias (Green2), (Green(Src2))
+Alias (Green3), (Green(Src3))
+Alias (Green4), (Green(Src4))
+Alias (Green5), (Green(Src5))
+Alias (Green6), (Green(Src6))
+Alias (Green7), (Green(Src7))
+Alias (Green8), (Green(Src8))
+Alias (Green9), (Green(Src9))
+Alias (Hue0), (Hue(Src0))
+Alias (Hue1), (Hue(Src1))
+Alias (Hue2), (Hue(Src2))
+Alias (Hue3), (Hue(Src3))
+Alias (Hue4), (Hue(Src4))
+Alias (Red0), (Red(Src0))
+Alias (Red1), (Red(Src1))
+Alias (Red2), (Red(Src2))
+Alias (Red3), (Red(Src3))
+Alias (Red4), (Red(Src4))
+Alias (Red5), (Red(Src5))
+Alias (Red6), (Red(Src6))
+Alias (Red7), (Red(Src7))
+Alias (Red8), (Red(Src8))
+Alias (Red9), (Red(Src9))
+Alias (Saturation0), (Saturation(Src0))
+Alias (Saturation1), (Saturation(Src1))
+Alias (Saturation2), (Saturation(Src2))
+Alias (Saturation3), (Saturation(Src3))
+Alias (Saturation4), (Saturation(Src4))
+Alias (U0), (U(Src0))
+Alias (U1), (U(Src1))
+Alias (U2), (U(Src2))
+Alias (U3), (U(Src3))
+Alias (U4), (U(Src4))
+Alias (U5), (U(Src5))
+Alias (U6), (U(Src6))
+Alias (U7), (U(Src7))
+Alias (U8), (U(Src8))
+Alias (U9), (U(Src9))
+Alias (V0), (V(Src0))
+Alias (V1), (V(Src1))
+Alias (V2), (V(Src2))
+Alias (V3), (V(Src3))
+Alias (V4), (V(Src4))
+Alias (V5), (V(Src5))
+Alias (V6), (V(Src6))
+Alias (V7), (V(Src7))
+Alias (V8), (V(Src8))
+Alias (V9), (V(Src9))
+
+Task 1, 0, "images/320/PHM02_0120.png", 0, "images/320/PHM02_0120_mask.png", 0, "images/320/PHM02_0120_weight.png", 0
+Task 1, 0, "images/320/PHM02_0126.png", 0, "images/320/PHM02_0126_mask.png", 0, "images/320/PHM02_0126_weight.png", 0
+Task 1, 0, "images/320/PHM02_0790.png", 0, "images/320/PHM02_0790_mask.png", 0, "images/320/PHM02_0790_weight.png", 0
+Task 1, 0, "images/320/PHM08_0093.png", 0, "images/320/PHM08_0093_mask.png", 0, "images/320/PHM08_0093_weight.png", 0
+Task 1, 0, "images/320/PHM08_0189.png", 0, "images/320/PHM08_0189_mask.png", 0, "images/320/PHM08_0189_weight.png", 0
+

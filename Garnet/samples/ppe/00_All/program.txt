@@ -1,0 +1,162 @@
+SetSizeFromImage "1.jpg"
+
+Var $1
+Var $2
+Load $1, "1.jpg"
+Print $1
+
+Red $2, $1
+Save $2, "Red.jpg"
+Print $2
+Green $2, $1
+Save $2, "Green.jpg"
+Print $2
+Blue $2, $1
+Save $2, "Blue.jpg"
+Print $2
+
+U $2, $1
+Save $2, "U.jpg"
+Print $2
+V $2, $1
+Save $2, "V.jpg"
+Print $2
+Gray $2, $1
+Save $2, "Gray.jpg"
+Print $2
+
+Var $3
+Sharpen3x3 $3, $2
+Save $3, "Sharpen3x3.jpg"
+Print $3
+Smooth3x3 $3, $2
+Save $3, "Smooth3x3.jpg"
+Print $3
+SobelH3x3 $3, $2
+Save $3, "SobelH3x3.jpg"
+Print $3
+SobelV3x3 $3, $2
+Save $3, "SobelV3x3.jpg"
+Print $3
+Laplacian3x3 $3, $2
+Save $3, "Laplacian3x3.jpg"
+Print $3
+Laplacian2nd3x3 $3, $2
+Save $3, "Laplacian2nd3x3.jpg"
+Print $3
+Median3x3 $3, $2
+Save $3, "Median3x3.jpg"
+Print $3
+Max3x3 $3, $2
+Save $3, "Max3x3.jpg"
+Print $3
+Min3x3 $3, $2
+Save $3, "Min3x3.jpg"
+Print $3
+Negate $3, $2
+Save $3, "Negate.jpg"
+Print $3
+
+Var $4
+Gray $2, $1
+Gray $3, $1
+ImageAdd $4, $2, $3
+Save $4, "ImageAdd.jpg"
+Print $4
+ImageDiff $4, $2, $3
+Save $4, "ImageDiff.jpg"
+Print $4
+ImageBoundedProd $4, $2, $3
+Save $4, "ImageBoundedProd.jpg"
+Print $4
+ImageAlgebraicProd $4, $2, $3
+Save $4, "ImageAlgebraicProd.jpg"
+Print $4
+ImageAlgebraicSum $4, $2, $3
+Save $4, "ImageAlgebraicSum.jpg"
+Print $4
+ImageLogicalProd $4, $2, $3
+Save $4, "ImageLogicalProd.jpg"
+Print $4
+ImageLogicalSum $4, $2, $3
+Save $4, "ImageLogicalSum.jpg"
+Print $4
+
+PropAvg $4, $2
+Save $4, "PropAvg.jpg"
+Print $4
+PropMax $4, $2
+Save $4, "PropMax.jpg"
+Print $4
+PropMin $4, $2
+Save $4, "PropMin.jpg"
+Print $4
+#PropArea $4, $2
+#Save $4, "PropArea.jpg"
+#Print $4
+
+PropAvg $3, $2
+PropMinus10 $4, $3
+Save $4, "PropMinus10.jpg"
+Print $4
+PropMinus20 $4, $3
+Save $4, "PropMinus20.jpg"
+Print $4
+PropMinus33 $4, $3
+Save $4, "PropMinus33.jpg"
+Print $4
+PropMinus50 $4, $3
+Save $4, "PropMinus50.jpg"
+Print $4
+PropPlus10 $4, $3
+Save $4, "PropMinus10.jpg"
+Print $4
+PropPlus20 $4, $3
+Save $4, "PropPlus20.jpg"
+Print $4
+PropPlus33 $4, $3
+Save $4, "PropPlus33.jpg"
+Print $4
+PropPlus50 $4, $3
+Save $4, "PropPlus50.jpg"
+Print $4
+PropPlus100 $4, $3
+Save $4, "PropPlus100.jpg"
+Print $4
+PropNegate $4, $3
+Save $4, "PropNegate.jpg"
+Print $4
+
+PropAvg $3, $2
+AddProp $4, $3
+Save $4, "AddProp.jpg"
+Print $4
+BinarizeProp $4, $3
+Save $4, "BinarizeProp.jpg"
+Print $4
+FillProp $4, $3
+Save $4, "FillProp.jpg"
+Print $4
+HighPassProp $4, $3
+Save $4, "HighPassProp.jpg"
+Print $4
+LowPassProp $4, $3
+Save $4, "LowPassProp.jpg"
+Print $4
+MultiplyProp $4, $3
+Save $4, "MultiplyProp.jpg"
+Print $4
+SubtractProp $4, $3
+Save $4, "SubtractProp.jpg"
+Print $4
+ModAvgProp $4, $3
+Save $4, "ModAvgProp.jpg"
+Print $4
+
+Gray $2, $1
+Gray $3, $1
+PSNR $4, $2, $3
+Save $4, "PSNR.jpg"
+Print $4
+
+End

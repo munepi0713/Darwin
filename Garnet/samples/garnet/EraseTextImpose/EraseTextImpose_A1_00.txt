@@ -1,0 +1,139 @@
+#
+#  Binarize Test
+#
+
+### System Flags ###
+
+EnableOpenCL        False
+NumVerticesLimit    5000
+NumThreads          7
+NumMaxCPUs          8
+Trace               False
+ReportInterval	    100
+ReportWhenImproved  True
+ReportTimeInterval  60
+ImageSavingInterval	100
+
+
+### GP Parameters ###
+
+MaxGeneration	3000
+PopulationSize	100
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed	    675556231  # 00
+#RandomSeed	    123456789  # 01
+#RandomSeed	    987654321  # 02
+RandomAlgorithm	MT19977
+PreserveElite   True
+MinInitialSize  20
+Engine          NGSA-II-Strong-SP-Fooding
+
+
+### Problem Parameters ###
+
+ImageWidth      160
+ImageHeight     120
+NumChromosomes  3
+Evaluator       "(MaskPSNR(Tree0)(Red1)(Gray2))", "(MaskPSNR(Tree0)(Red1)(Negate(Gray2)))"
+Fitness         "(Invert(Average0))", "(Invert(Min0))", "(Const_1)"
+
+
+### Tasks ###
+# Leave one out
+# [0] Challenge, [1] Answer
+
+Test 1, 0, images/imposed1/PHM02_0001.png, 0, images/orig/PHM02_0001.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0021.png, 0, images/orig/PHM02_0021.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0041.png, 0, images/orig/PHM02_0041.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0061.png, 0, images/orig/PHM02_0061.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0081.png, 0, images/orig/PHM02_0081.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0101.png, 0, images/orig/PHM02_0101.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0121.png, 0, images/orig/PHM02_0121.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0141.png, 0, images/orig/PHM02_0141.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0161.png, 0, images/orig/PHM02_0161.png, 0, images/text/Impose1.png, 0
+Task 1, 0, images/imposed1/PHM02_0181.png, 0, images/orig/PHM02_0181.png, 0, images/text/Impose1.png, 0
+
+
+### Alias ###
+Include "Default.aliases"
+Alias   (Average0) (VLogicalProd(AverageA(RawFit0))(AverageA(RawFit1)))
+Alias   (Min0) (VLogicalProd(MinA(RawFit0))(MinA(RawFit1)))
+
+### Units ###
+Unit    (Gray0)
+Unit    (Red0)
+Unit    (Green0)
+Unit    (Blue0)
+##Unit	(Hue0)
+##Unit	(Saturation0)
+
+Unit	(Dilate3x3(?))
+Unit	(Erode3x3(?))
+#Unit    (Thin(?))
+Unit	(Laplacian3x3(?))
+#Unit	(Laplacian2nd3x3(?))
+Unit	(Median3x3(?))
+Unit	(Sharpen3x3(?))
+Unit	(Smooth3x3(?))
+Unit	(Sobel3x3(?))
+Unit	(SobelX3x3(?))
+Unit	(SobelY3x3(?))
+Unit	(Negate(?))
+Unit	(ProjectionX(?))
+Unit	(ProjectionY(?))
+#Unit	(Connection4(?))
+#Unit	(Connection8(?))
+Unit	(Threshold(?))
+Unit	(ThresholdInv(?))
+Unit	(Binarize(?))
+Unit	(BinarizeInv(?))
+Unit	(Add(?)(?))
+Unit	(AlgebraicProd(?)(?))
+Unit	(AlgebraicSum(?)(?))
+Unit	(BoundedProd(?)(?))
+Unit	(Diff(?)(?))
+Unit	(LogicalProd(?)(?))
+Unit	(LogicalSum(?)(?))
+Unit	(Subtract(?)(?))
+Unit	(HighPass(?)(?))
+Unit	(LowPass(?)(?))
+Unit	(ThresholdV(?)(?))
+Unit	(ThresholdInvV(?)(?))
+Unit	(BinarizeV(?)(?))
+Unit	(BinarizeInvV(?)(?))
+#Unit	(BigBlob4(?)(?))
+#Unit	(BigBlob8(?)(?))
+Unit	(AddV(?)(?))
+Unit	(ModAvgV(?)(?))
+Unit	(MultiplyV(?)(?))
+Unit	(SubtractV(?)(?))
+Unit	(FillV(?))
+#Unit	(NoiseV(?))
+Unit	(AvgPixel(?))
+Unit	(MaxPixel(?))
+Unit	(MinPixel(?))
+#Unit	(PSNR(?)(?))
+Unit	(VNegate(?))
+Unit	(VAdd(?)(?))
+Unit	(VAlgebraicProd(?)(?))
+Unit	(VAlgebraicSum(?)(?))
+Unit	(VDiff(?)(?))
+Unit	(VLogicalProd(?)(?))
+Unit	(VLogicalSum(?)(?))
+Unit	(VSubtract(?)(?))
+Unit	(Select(?)(?))
+Unit	(SelectV(?)(?)(?)(?))
+
+
+### Obsolete but can't omit ###
+ScoringMethod   Minimum
+FilterCountPenaltyWeight 0.000256466
+SimpleComparator True
+LeafCache              False
+SubtreeReduction       True
+SubtreeReductionDepth  50
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300

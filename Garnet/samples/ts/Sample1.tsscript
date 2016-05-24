@@ -1,0 +1,126 @@
+
+
+Unit	(SobelH3x3(?))
+Unit	(SobelV3x3(?))
+Unit	(Sharpen3x3(?))
+Unit	(Smooth3x3(?))
+Unit	(Max3x3(?))
+Unit	(Median3x3(?))
+Unit	(Min3x3(?))
+Unit	(Laplacian3x3(?))
+Unit	(Negate(?))
+Unit	(ImageAdd(?)(?))
+Unit	(ImageDiff(?)(?))
+Unit	(ImageBoundedProd(?)(?))
+Unit	(ImageAlgebraicProd(?)(?))
+Unit	(ImageAlgebraicSum(?)(?))
+Unit	(ImageLogicalProd(?)(?))
+Unit	(ImageLogicalSum(?)(?))
+Unit	(AddProp(?))
+Unit	(BinarizeProp(?))
+Unit	(FillProp(?))
+Unit	(HighPassProp(?))
+Unit	(LowPassProp(?))
+Unit	(MultiplyProp(?))
+Unit	(SubtractProp(?))
+Unit	(ModAvgProp(?))
+Unit	(NoiseProp(?))
+#Unit	(LargeAreaProp(?))
+#Unit	(SmallAreaProp(?))
+Unit	(PropAvg(?))
+Unit	(PropMax(?))
+Unit	(PropMin(?))
+#Unit	(PropArea(?))
+Unit	(PropMinus10(?))
+Unit	(PropMinus20(?))
+Unit	(PropMinus33(?))
+Unit	(PropMinus50(?))
+Unit	(PropNegate(?))
+Unit	(PropPlus10(?))
+Unit	(PropPlus20(?))
+Unit	(PropPlus33(?))
+Unit	(PropPlus50(?))
+Unit	(PropPlus100(?))
+
+Alias	(Red0),	(Red(Src0))
+Alias	(Red1),	(Red(Src1))
+Alias	(Red2),	(Red(Src2))
+Alias	(Red3),	(Red(Src3))
+Alias	(Red4),	(Red(Src4))
+Alias	(Red5),	(Red(Src5))
+Alias	(Red6),	(Red(Src6))
+Alias	(Red7),	(Red(Src7))
+Alias	(Red8),	(Red(Src8))
+Alias	(Red9),	(Red(Src9))
+Alias	(Green0),	(Green(Src0))
+Alias	(Green1),	(Green(Src1))
+Alias	(Green2),	(Green(Src2))
+Alias	(Green3),	(Green(Src3))
+Alias	(Green4),	(Green(Src4))
+Alias	(Green5),	(Green(Src5))
+Alias	(Green6),	(Green(Src6))
+Alias	(Green7),	(Green(Src7))
+Alias	(Green8),	(Green(Src8))
+Alias	(Green9),	(Green(Src9))
+Alias	(Blue0),	(Blue(Src0))
+Alias	(Blue1),	(Blue(Src1))
+Alias	(Blue2),	(Blue(Src2))
+Alias	(Blue3),	(Blue(Src3))
+Alias	(Blue4),	(Blue(Src4))
+Alias	(Blue5),	(Blue(Src5))
+Alias	(Blue6),	(Blue(Src6))
+Alias	(Blue7),	(Blue(Src7))
+Alias	(Blue8),	(Blue(Src8))
+Alias	(Blue9),	(Blue(Src9))
+Alias	(Gray0),	(Gray(Src0))
+Alias	(Gray1),	(Gray(Src1))
+Alias	(Gray2),	(Gray(Src2))
+Alias	(Gray3),	(Gray(Src3))
+Alias	(Gray4),	(Gray(Src4))
+Alias	(Gray5),	(Gray(Src5))
+Alias	(Gray6),	(Gray(Src6))
+Alias	(Gray7),	(Gray(Src7))
+Alias	(Gray8),	(Gray(Src8))
+Alias	(Gray9),	(Gray(Src9))
+Alias	(U0),	(U(Src0))
+Alias	(U1),	(U(Src1))
+Alias	(U2),	(U(Src2))
+Alias	(U3),	(U(Src3))
+Alias	(U4),	(U(Src4))
+Alias	(U5),	(U(Src5))
+Alias	(U6),	(U(Src6))
+Alias	(U7),	(U(Src7))
+Alias	(U8),	(U(Src8))
+Alias	(U9),	(U(Src9))
+Alias	(V0),	(V(Src0))
+Alias	(V1),	(V(Src1))
+Alias	(V2),	(V(Src2))
+Alias	(V3),	(V(Src3))
+Alias	(V4),	(V(Src4))
+Alias	(V5),	(V(Src5))
+Alias	(V6),	(V(Src6))
+Alias	(V7),	(V(Src7))
+Alias	(V8),	(V(Src8))
+Alias	(V9),	(V(Src9))
+
+#Leaf  Src1,  "source.bmp", 0.0
+#Leaf  Src2,  "_ans.bmp", 0.0
+#Leaf  Src3,  "_wei.bmp", 0.0
+
+Leaf  Src1,  "1.jpg", 0.0
+Leaf  Src2,  "1.jpg", 0.0
+Leaf  Src3,  "1.jpg", 0.0
+
+LeafCache              True
+SubtreeReduction       True
+SubtreeReductionDepth  30
+SubtreeCache           True
+SubtreeCacheDepth      9
+SubtreeCacheLife       300
+
+Tree  Tree0, (ImageDiff(Negate(ImageAdd(Gray1)(Gray2)))(ImageAdd(Gray1)(Gray2)))
+
+PostProcess  "Save Tree0, FindFlower0.png"
+PostProcess  "Print Tree0"
+
+#Output  File "FindFlower.ppe"

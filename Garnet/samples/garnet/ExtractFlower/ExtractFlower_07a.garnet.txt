@@ -1,0 +1,142 @@
+### GP Parameters ###
+Engine          Dummy
+EnableOpenCL    False
+
+MaxGeneration	3000
+PopulationSize	100
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed	675556231
+#RandomSeed	123456789
+RandomAlgorithm	MT19977
+ReportInterval	1
+#NumChromosomes  2
+#Evaluator       "(PSNR(AlgebraicProd(Tree0)(Gray(Src2)))(AlgebraicProd(Gray(Src1))(Gray(Src2))))", "(Gray(Src2))"
+#Fitness         "(RawFit0)", "(RawFit1)", "(VAddV(RawFit0)(RawFit1))"
+
+NumChromosomes  1
+#Evaluator       "(Tree0)", "(AlgebraicProd(Tree0)(Gray(Src2)))", "(AlgebraicProd(Gray(Src0))(Gray(Src2)))", "(PSNR(AlgebraicProd(Tree0)(Gray(Src2)))(AlgebraicProd(Gray(Src0))(Gray(Src2))))"
+#Evaluator       "(Tree0)", "(AlgebraicProd(Tree0)(Gray(Src2)))", "(AlgebraicProd(Gray(Src0))(Gray(Src2)))", "(PSNR(AlgebraicProd(Tree0)(Gray(Src2)))(AlgebraicProd(Gray(Src0))(Gray(Src2))))", "(PSNR(Tree0)(Zero))"
+Evaluator       "(PSNR(AlgebraicProd(Tree0)(Gray(Src2)))(AlgebraicProd(Gray(Src0))(Gray(Src1))))"
+#Fitness         "(RawFit0)", "(Nodes)", "(ExecTime)", "(Invert(DistCollins))"
+#Fitness         "(RawFit0)", "(Nodes)", "(Invert(DistCollins))"
+Fitness         "(RawFit0)"
+
+ScoringMethod   Minimum
+
+#ImageWidth      320
+#ImageHeight     214
+#ImageWidth      160
+#ImageHeight     107
+ImageWidth      256
+ImageHeight     256
+#ImageWidth      128
+#ImageHeight     128
+
+
+### Obsolete ###
+FilterCountPenaltyWeight 0.000256466
+SimpleComparator True
+
+### Execution Options ###
+LeafCache              False
+SubtreeReduction       True
+SubtreeReductionDepth  50
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300
+NumThreads             3
+NumMaxCPUs             8
+Trace                  False
+
+### Tasks ###
+# Src0: Training Image.
+# Src1: Target Image.
+# Src2: Weigth Image.
+
+Task 1, 0, images/PHM02_0114.JPG, 0.1, images/PHM02_0114_target.png, 0, images/PHM02_0114_weight.png, 0.5
+Task 1, 0, images/PHM02_0120.JPG, 0.2, images/PHM02_0120_target.png, 0, images/PHM02_0120_weight.png, 0.5
+Task 1, 0, images/PHM02_0126.JPG, 0.3, images/PHM02_0126_target.png, 0, images/PHM02_0126_weight.png, 0.5
+
+Test 1, 0, images/PHM02_0115.JPG, 0, images/dummy.png, 0, images/dummy.png, 0
+Test 1, 0, images/PHM02_0116.JPG, 0, images/dummy.png, 0, images/dummy.png, 0
+Test 1, 0, images/PHM02_0119.JPG, 0, images/dummy.png, 0, images/dummy.png, 0
+Test 1, 0, images/PHM02_0127.JPG, 0, images/dummy.png, 0, images/dummy.png, 0
+Test 1, 0, images/PHM02_0128.JPG, 0, images/dummy.png, 0, images/dummy.png, 0
+
+### Alias ###
+Include "Default.aliases"
+
+### Units ###
+#Unit    (Const_0.16666)
+#Unit    (Diff(Hue0)(Const_0.16666))  # Yellow for Hue
+#Unit    (Dilate3x3(Erode3x3(?)))
+
+#Unit	(Gray(Src0))
+#Unit	(Red(Src0))
+#Unit	(Green(Src0))
+#Unit	(Blue(Src0))
+Unit    (Gray0)
+Unit    (Red0)
+Unit    (Green0)
+Unit    (Blue0)
+##Unit	(Hue0)
+##Unit	(Saturation0)
+
+Unit	(Dilate3x3(?))
+Unit	(Erode3x3(?))
+#Unit    (Thin(?))
+Unit	(Laplacian3x3(?))
+#Unit	(Laplacian2nd3x3(?))
+Unit	(Median3x3(?))
+Unit	(Sharpen3x3(?))
+Unit	(Smooth3x3(?))
+Unit	(Sobel3x3(?))
+Unit	(SobelX3x3(?))
+Unit	(SobelY3x3(?))
+Unit	(Negate(?))
+Unit	(ProjectionX(?))
+Unit	(ProjectionY(?))
+#Unit	(Connection4(?))
+#Unit	(Connection8(?))
+Unit	(Threshold(?))
+Unit	(ThresholdInv(?))
+Unit	(Binarize(?))
+Unit	(BinarizeInv(?))
+Unit	(Add(?)(?))
+Unit	(AlgebraicProd(?)(?))
+Unit	(AlgebraicSum(?)(?))
+Unit	(BoundedProd(?)(?))
+Unit	(Diff(?)(?))
+Unit	(LogicalProd(?)(?))
+Unit	(LogicalSum(?)(?))
+Unit	(Subtract(?)(?))
+Unit	(HighPass(?)(?))
+Unit	(LowPass(?)(?))
+Unit	(ThresholdV(?)(?))
+Unit	(ThresholdInvV(?)(?))
+Unit	(BinarizeV(?)(?))
+Unit	(BinarizeInvV(?)(?))
+#Unit	(BigBlob4(?)(?))
+#Unit	(BigBlob8(?)(?))
+Unit	(AddV(?)(?))
+Unit	(ModAvgV(?)(?))
+Unit	(MultiplyV(?)(?))
+Unit	(SubtractV(?)(?))
+Unit	(FillV(?))
+#Unit	(NoiseV(?))
+Unit	(AvgPixel(?))
+Unit	(MaxPixel(?))
+Unit	(MinPixel(?))
+#Unit	(PSNR(?)(?))
+Unit	(VNegate(?))
+Unit	(VAdd(?)(?))
+Unit	(VAlgebraicProd(?)(?))
+Unit	(VAlgebraicSum(?)(?))
+Unit	(VDiff(?)(?))
+Unit	(VLogicalProd(?)(?))
+Unit	(VLogicalSum(?)(?))
+Unit	(VSubtract(?)(?))
+Unit	(Select(?)(?))
+Unit	(SelectV(?)(?)(?)(?))

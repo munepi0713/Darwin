@@ -1,0 +1,20 @@
+TARGET=../../bin/Impose.exe
+SRCDIR=../../src/Garnet
+OBJS=Impose.obj
+INCLUDES=/I../../include
+CPP=cl
+CPPFLAGS=/EHsc /Ox $(INCLUDES)
+IMPORT=/link /LIBPATH:"..\..\lib\opencv" "opencv_core245.lib" "opencv_highgui245.lib" "opencv_imgproc245.lib"
+
+all: $(TARGET)
+
+
+$(TARGET): $(OBJS)
+	$(CPP) $(CPPFLAGS) /Fe$(TARGET) $(OBJS) $(IMPORT)
+
+Impose.obj: Impose.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+clean:
+	del $(OBJS)
+	del $(TARGET)

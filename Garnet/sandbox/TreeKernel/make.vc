@@ -1,0 +1,22 @@
+TARGET=TreeKernel.exe
+SRCDIR=../../src/Garnet
+OBJS=TreeKernel.obj Tree.obj
+INCLUDES=/I../../include
+CPP=cl
+CPPFLAGS=/EHsc /Ox $(INCLUDES)
+
+all: $(TARGET)
+	
+
+$(TARGET): $(OBJS)
+	$(CPP) $(CPPFLAGS) /Fe$(TARGET) $(OBJS)
+
+TreeKernel.obj: TreeKernel.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+Tree.obj: $(SRCDIR)/Tree.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+clean:
+	del $(OBJS)
+	del $(TARGET)

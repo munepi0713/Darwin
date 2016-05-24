@@ -1,0 +1,23 @@
+MaxGeneration	10
+PopulationSize	50
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed	675556231
+RandomAlgorithm	MT19977
+ReportInterval	1
+NumChromosomes  1
+
+ImageWidth      256
+ImageHeight     256
+
+LeafCache              False
+SubtreeReduction       False
+SubtreeReductionDepth  30
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300
+NumThreads             1
+NumMaxCPUs             1
+
+ScoringMethod	Min

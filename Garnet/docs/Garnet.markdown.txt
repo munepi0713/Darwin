@@ -1,0 +1,146 @@
+Garnet
+======
+
+
+モジュール
+-----
+
+* Garnet
+    * シェル
+* GarnetEngine
+    * GPのエンジン
+    * Treeの処理だけ
+    * 画像処理は含まない
+    * IVTreeも認識しない
+    * API
+        * getAllTerminals()
+            * ターミナルデータの事前ロードに使う
+* GarnetStrategy
+    * GPのステージの外部定義
+    * ACTITStrategy
+    * CommonStrategy
+    * IVTreeStrategy
+    * NSGA2Strategy
+* 木の操作
+    * TreeManipulator
+        * GPが使う
+    * 走査
+        * traverse()
+        * Evaluatorが使う。ツリーからスクリプトの形に変更する
+    * エイリアス解決
+        * GP、Evaluatorが使う
+        * AliasDictionary
+    * 暗黙的Unit登録
+        * Unitコマンドで明示的に登録されていないノードを登録する (Const_Nなど)
+        * ツリーを与える
+* IVTreeStrategy
+    * IVTreeの内部構造を把握
+    * PPEを呼び出す
+* PicturePerfectEngine
+    * 画像処理部分
+* GarnetDashboard
+    * GarnetのGUI
+* GarnetUtility
+    * GPと直接関係がないユーティリティ
+* PicturePerfect
+    * PicturePerfectEngineのコマンドライン用シェル
+	
+// Create working directory
+// Load configuration file.
+
+// Create GA Engine
+// Set affinity control
+// Prepare directories
+// Prepare initial generation.
+// Perform GP.
+	
+アルゴリズム
+--------
+
+結局のところ必要なのは、
+
+* Tree
+* RawFit
+* Fitness (Standardized Fitness)
+
+IVTreeEvaluatorとして評価すべきツリーはそれだけでよくて、Chromosomeを登録するのはAliasとして登録すれば良い。
+しかし、数値の部分がコロコロ変わると面倒なので、何とかシンプルにしたい
+
+すなわち、
+
+	// Stage A
+	(_Tree<0,0>)
+	(_Tree<0,1>)
+	(_Tree<1,0>)
+	(_Tree<1,1>)
+	...
+	(_RawFit<0,0>)
+	(_RawFit<0,1>)
+	(_RawFit<1,0>)
+	(_RawFit<1,1>)
+	... 
+
+	// Stage B
+	(_Fitness<0,0>)
+	(_Fitness<0,1>)
+	(_Fitness<1,0>)
+	(_Fitness<1,1>)
+	...
+
+なお、tは変わってもツリーの構造に影響ないので、ここの変数には含めず、アーカイブ側の操作で対応する。
+
+必要なAliasが下。
+
+	// Stage A
+	(_Tree<i,c>)=(IVStore[i*Nc+c](Chromosome<i,c>))
+	(_RawFit<i,r>)=(VStore[i*Nr+r+1000](Evaluator<r>))
+	(Tree0)=(_Tree<i,0>)
+	(Tree1)=(_Tree<i,1>)
+
+	// Stage B
+	(_Fitness<i,f>)=(VStore[i*Nf+f](Standardizer<f>))
+	(RawFit0)=(_RawFitA<i,0>)
+	(RawFit1)=(_RawFitA<i,1>)
+
+展開されるとこうなる。
+
+	// Stage A
+	(_Tree<0,0>)=(IVStore0(Chromosome<0,0>))
+	(_Tree<0,1>)=(IVStore1(Chromosome<0,1>))
+	(_Tree<1,0>)=(IVStore2(Chromosome<1,0>))
+	...
+	(_RawFit<0,0>)=(VStore1000(Evaluator<0>))
+	(_RawFit<0,1>)=(VStore1001(Evaluator<1>))
+	(_RawFit<1,0>)=(VStore1002(Evaluator<0>))
+	...
+
+	// Stage B
+	(_Fitness<0,0>)=(VStore0(Standardizer<0>))
+	(_Fitness<0,1>)=(VStore1(Standardizer<1>))
+	(_Fitness<1,0>)=(VStore2(Standardizer<0>))
+	...
+
+
+
+evaluateTree
+
+    * ツリー
+    * エイリアス辞書
+    * 定数辞書
+    * ストレージ
+
+evaluateFitness
+
+    * ツリー
+    * エイリアス辞書
+    * 定数辞書
+    * ストレージ
+
+
+
+-----
+
+
+
+TaskとTreeは分けない。
+

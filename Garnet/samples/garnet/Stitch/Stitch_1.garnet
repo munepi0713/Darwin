@@ -1,0 +1,32 @@
+Include "Default.garnet"
+
+MaxGeneration	10000
+PopulationSize	100
+
+ImageWidth   64
+ImageHeight  64
+
+LeafCache              False
+SubtreeReduction       False
+SubtreeReductionDepth  30
+SubtreeReductionType   Inter
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300
+Trace                  False
+
+# Src0: Training Image.
+# Src1: Target Score. Image is not used.
+Task 1, 0, "Stitch.conf/Positive_0.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_2.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_3.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_4.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Positive_5.png", 0.0, "Stitch.conf/dummy.png", 1.0
+Task 1, 0, "Stitch.conf/Negative_0.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_2.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_3.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_4.png", 0.0, "Stitch.conf/dummy.png", 0.0
+Task 1, 0, "Stitch.conf/Negative_5.png", 0.0, "Stitch.conf/dummy.png", 0.0
+
+EvaluationFunction  "(PropNegate(ImageDiff(_Tree0)(Gray1)))"
+ScoringMethod	Average

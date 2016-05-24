@@ -1,0 +1,3 @@
+Var $1
+Load $1, "1.jpg"
+End

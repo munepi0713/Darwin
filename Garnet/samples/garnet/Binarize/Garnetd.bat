@@ -1,0 +1,1 @@
+..\..\..\bin\Garnetd.exe %*

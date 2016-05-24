@@ -1,0 +1,70 @@
+﻿Generation Log
+--------------
+
+### Requirements
+
+* 中断した実験を再開する場合に必要な情報の保存
+	+ 乱数シード (RandomSeed)
+	+ 個体のランク (Rank)
+	+ 個体の遺伝子 (Choromosomes)： ChromosomeID(Hash+NumVertices+NumEdges), SExp
+* 実験後に分析する場合に必要な情報の再生に必要な情報の保存、再生に時間のかかる情報の保存
+	+ 個体の適合度 (FitnessV)
+	+ 個体の生適合度 (RawFitnessV)
+	+ 個体の親 (Parents)
+		- ChromosomeID: 
+	+ 個体の遺伝子の交叉点 (Crossover)
+	+ 個体の遺伝子の突然変異点 (Mutation) 
+* 実験後に分析する場合に必要な情報の再生
+	+ 個体の適合度 (FVector) --> FitnessVから復元
+	+ 個体の生適合度 (Raw Fitness) --> RawFitnessVから復元
+	+ 個体の遺伝子の頂点数 (Vertices) --> Chromosomesから復元
+	+ 個体の遺伝子のIGraph (IGraph) --> Chromosomesから復元
+	+ 個体の遺伝子のVGraph (VGraph) --> Chromosomesから復元
+	+ 個体の遺伝子のAGraph (AGraph) --> Chromosomesから復元
+
+### Contents
+
+	RandomSeed    1497428404
+	FitnessV      0, 0x4010e9f24cf3cfad, 0x4027781f45dcd9c7
+	RawFitnessV   0, 0, 0x3fdfeb851cdd9830, 0x3fe81377b96bb1f6, ...
+	RawFitnessV   0, 1, 0x3fbcf086d9dd1aa4, 0x3fe4538128cd4944, ...
+	Chromosomes   0, 0, 2301, (AlgebraicProd(Gray0)...
+	FitnessV      1, 0x4012dac3a980078a, 0x4017f072cd1d6888
+	RawFitnessV   1, 0, 0x3fd7eef483dd4c7f, 0x3fe11c9ae77eea7a, ...
+	RawFitnessV   1, 1, 0x3fd3547d7c78bdcc, 0x3fe0cf6f692bb0de, ...
+	Chromosomes   1, 0, 93d3, (AlgebraicProd(MaxPix...
+
+
+	
+
+### File
+
+* Plain Text
+    * generation_000000.txt
+* GZipped 
+    * generation_000000.txt.gz
+
+### Reporting
+
+	# Individual  0
+	Rank          0, 1
+	FitnessV      0, 0x4010e9f24cf3cfad, 0x4027781f45dcd9c7
+	# FVector     0,   4.228463,  11.734614
+	RawFitnessV   0, 0, 0x3fdfeb851cdd9830, 0x3fe81377b96bb1f6, ...
+	RawFitnessV   0, 1, 0x3fbcf086d9dd1aa4, 0x3fe4538128cd4944, ...
+	# Raw Fitness 0, 0, 0.589314, 0.49875, 0.752376, 1, 0.346086, 0.349357
+	# Raw Fitness 0, 1, 0.394997, 0.113045, 0.635193, 0.320514, 0.441144, 0.465087
+	# Vertices    0, 0, 5118
+	# Parents     0, -1, -1
+	# Crossover   0, 0, -1, -1
+	# Mutation    0, 0, 
+	# IGraph      0, 0, (RI1B[98](I1B_AlgebraicProd_I1B_I1B(I1B_...
+	# VGraph      0, 0, (RV1D[98](SV1D[0]))
+	# AGraph      0, 0, 
+	Chromosomes   0, 0, 2301, (AlgebraicProd(Gray0)(SubtractV(Ad...
+
+* 家系図も欲しい --> ChromosomeIDから復元
+	
+### Visualization
+
+* Not supported.

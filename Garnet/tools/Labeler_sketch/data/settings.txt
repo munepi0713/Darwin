@@ -1,0 +1,2 @@
+#DataDir=X:\Data\Stitch01
+DataDir=D:\Munehiro\Study\experiments\2012-02-05, PanoStitch\TestImages

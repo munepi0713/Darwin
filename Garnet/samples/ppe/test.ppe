@@ -1,0 +1,42 @@
+# (ImageDiff(Negate(ImageAdd(Gray1)(Gray2)))(ImageAdd(Gray1)(Gray2)))
+
+# (Max3x3(ImageAdd(Gray1)(Gray2)))
+
+Var $0
+Var $1
+Var $2
+Var $3
+Var $4
+Var $5
+Var $6
+Var $7
+Var $8
+Var $9
+Var $10
+Var $11
+Var $12
+LoadImage $0 "1.jpg"
+SetValue  $0 0
+Gray $1 $0
+LoadImage $2 "1.jpg"
+SetValue  $2 0
+Gray $3 $2
+ImageAdd $4 $3 $1
+Negate $5 $4
+ImageDiff $6 $4 $5
+Alias $6, Tree0
+LoadImage $7 "1.jpg"
+SetValue  $7 0
+Gray $8 $7
+LoadImage $9 "1.jpg"
+SetValue  $9 0
+Gray $10 $9
+ImageAdd $11 $10 $8
+Max3x3 $12 $11
+Alias $12, Tree1
+Save Tree0, FindFlower0.png
+Print Tree0
+Save Tree1, FindFlower1.png
+Print Tree1
+Exit
+----- 29.3974[msec]

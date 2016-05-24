@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="0_Engine">
+      <UniqueIdentifier>{127b820c-0c57-40b7-a0c2-63a8bd884dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Engine\Operator">
+      <UniqueIdentifier>{14086a20-9c4a-4ae1-adc9-e439b49c7b53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="9_Documents">
+      <UniqueIdentifier>{977d7743-2a68-4da8-929b-e5c9855f9406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Processor">
+      <UniqueIdentifier>{8e05f704-e78a-48da-a630-21540598335f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Processor\Source Files">
+      <UniqueIdentifier>{b39b221d-b1c0-4b6b-ab7d-2fcf92319dce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="1_Processor\Header Files">
+      <UniqueIdentifier>{178c355e-1b41-4d84-a076-bfe9dd71ff0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Engine\Header Files">
+      <UniqueIdentifier>{861fda66-ce72-465b-b581-ce96db9853c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="0_Engine\Source Files">
+      <UniqueIdentifier>{3860475f-6e29-4576-9647-0816a477d8af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="8_Utilities">
+      <UniqueIdentifier>{5b3d3582-938e-4929-89f8-1d576fbd24b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\_3rdparty\maxflow-v3.01.src\maxflow.cpp">
+      <Filter>0_Engine\Operator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\_3rdparty\maxflow-v3.01.src\graph.cpp">
+      <Filter>0_Engine\Operator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\Archive.cpp">
+      <Filter>1_Processor\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\Engine1.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\PicturePerfectEngine.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraAF.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraIF.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraIFg.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraMU.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraRehearse.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\SakuraVF.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PicturePerfectEngine\Storage.cpp">
+      <Filter>0_Engine\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\Common\GetTime.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\InlineSprintf.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\IntTypes.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\Parse.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\Text.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\StopWatch.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\Statistics.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Archive.h">
+      <Filter>1_Processor\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Engine1.h">
+      <Filter>0_Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\PicturePerfectEngine.h">
+      <Filter>0_Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Storage.h">
+      <Filter>0_Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\ConfigLoader.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Exception.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Executable.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Common\InfoContainer.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Program.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PicturePerfectEngine\Vector.h">
+      <Filter>8_Utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\docs\PicturePerfectEngine\PicturePerfectEngine.tex">
+      <Filter>9_Documents</Filter>
+    </None>
+  </ItemGroup>
+</Project>

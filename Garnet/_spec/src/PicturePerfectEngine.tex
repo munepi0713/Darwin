@@ -1,0 +1,133 @@
+\documentclass{jsbook}
+
+\title{Picture Perfect Engine Specification}
+
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Command Reference}
+
+\section{Command Reference}
+
+\subsection{Basic Command}
+
+\subsubsection{End}
+
+End processing.
+
+\begin{verbatim}
+End
+\end{verbatim}
+
+\subsubsection{var}
+
+Declare new register.
+
+\begin{verbatim}
+var <register>
+\end{verbatim}
+
+\subsubsection{Load}
+
+Load an image from filename to register.
+The file format depends on the system configuration.
+
+\begin{verbatim}
+Load <register> <filename>
+\end{verbatim}
+
+\subsubsection{Hoge}
+
+\begin{verbatim}
+\end{verbatim}
+
+\subsubsection{Save}
+
+Save an image from register to filename.
+The file format depends on the system configuration.
+
+\begin{verbatim}
+Save <register> <filename>
+\end{verbatim}
+
+\subsubsection{Print}
+
+Print a property from register to the standard output.
+
+\begin{verbatim}
+Print <register>
+\end{verbatim}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Command Reference}
+
+\section{}
+
+\paragraph{-1, -2, -3, ...}
+Source image.
+
+\paragraph{-o}
+Destination image.
+If not specified, "result.png" is used as default.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Test Specification}
+
+\section{Stream Processing}
+
+\subsection{Minimum Program}
+
+\begin{verbatim}
+End
+\end{verbatim}
+
+
+\subsection{Variable Definition}
+
+\begin{verbatim}
+Var $1
+End
+\end{verbatim}
+
+\subsection{Load JPEG Image}
+
+\begin{verbatim}
+Var $1
+Load $1, "1.jpg"
+End
+\end{verbatim}
+
+\subsection{Load PNG Image}
+
+\begin{verbatim}
+Var $1
+Load $1, "1.png"
+End
+\end{verbatim}
+
+\subsection{Save PNG Image}
+
+\begin{verbatim}
+Var $1
+Load $1, "1.jpg"
+Save $1, "result.png"
+End
+\end{verbatim}
+
+
+\begin{itemize}
+	\item{Var}
+	\item{Src1}
+	\item{Src2}
+	\item{Src3}
+\end{itemize}
+
+
+\end{document}

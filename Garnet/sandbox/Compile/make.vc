@@ -1,0 +1,34 @@
+TARGET=Compile.exe
+SRCDIR=../../src/Garnet
+OBJS=Compile.obj Tree.obj ConvertIVGraphToPPEGraph.obj TraceLevel.obj Dictionary.obj GenerateScript.obj
+INCLUDES=/I../../include
+CPP=cl
+CPPFLAGS=/EHsc /Ox $(INCLUDES)
+
+all: $(TARGET)
+	
+
+$(TARGET): $(OBJS)
+	$(CPP) $(CPPFLAGS) /Fe$(TARGET) $(OBJS)
+
+Compile.obj: Compile.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+Dictionary.obj: $(SRCDIR)/Dictionary.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+Tree.obj: $(SRCDIR)/Tree.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+TraceLevel.obj: $(SRCDIR)/TraceLevel.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+	
+ConvertIVGraphToPPEGraph.obj: $(SRCDIR)/ConvertIVGraphToPPEGraph.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+GenerateScript.obj: $(SRCDIR)/GenerateScript.cpp
+	$(CPP) /c $(CPPFLAGS) $?
+
+clean:
+	del $(OBJS)
+	del $(TARGET)

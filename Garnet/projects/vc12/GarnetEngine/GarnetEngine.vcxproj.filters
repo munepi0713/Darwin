@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Genetic Programming">
+      <UniqueIdentifier>{95c4c8ce-bfff-4ae3-b33c-19d17b923f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Genetic Programming\ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Genetic Programming\ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{449cb6de-259b-4311-97fa-b11315e90a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy">
+      <UniqueIdentifier>{41898ac6-40d3-4a16-b2ec-cfa4c9e9d73c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy\ソース ファイル">
+      <UniqueIdentifier>{c2a53356-d446-4666-926e-32ccce3e1fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strategy\ヘッダー ファイル">
+      <UniqueIdentifier>{adfdf9e7-2a95-4c4a-9e7f-c555ecea704b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\Garnet\Chromosome.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\Configuration.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\Generation.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\GPEngine.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\Individual.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\TreeBuilder.h">
+      <Filter>Genetic Programming\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\StrategyBuilder.h">
+      <Filter>Strategy\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\StrategyFactory.h">
+      <Filter>Strategy\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\Garnet\Strategy.h">
+      <Filter>Strategy\ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Garnet\Chromosome.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\Configuration.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\Generation.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\GPEngine.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\Individual.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\TreeBuilder.cpp">
+      <Filter>Genetic Programming\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Garnet\StrategyBuilder.cpp">
+      <Filter>Strategy\ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

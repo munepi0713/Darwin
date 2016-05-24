@@ -1,0 +1,230 @@
+### Common ###
+MaxGeneration	10000
+PopulationSize	100
+CrossoverRate	0.6
+MutationRate	0.033333
+RandomSeed	675556231
+#RandomSeed	123456789
+RandomAlgorithm	MT19977
+ReportInterval	1
+NumChromosomes  1
+FilterCountPenaltyWeight 0.000256466
+# FilterCountPenaltyWeight 0.00256466
+
+ImageWidth      128
+ImageHeight     128
+
+LeafCache              False
+SubtreeReduction       True
+SubtreeReductionDepth  400
+SubtreeReductionType   Intra
+SubtreeCache           False
+SubtreeCacheDepth      7
+SubtreeCacheLife       300
+NumThreads             8
+NumMaxCPUs             7
+Trace                  False
+
+### Tasks ###
+# Src0: Training Image.
+# Src1: Answer X coord.
+# Src2: Answer Y coord.
+
+# Bark.0011
+Task 1, 0, "image\Bark.0011.0000.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0002.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0005.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0007.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0008.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0011.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0013.png", 0, image\dummy.png, 1.0
+Task 1, 0, "image\Bark.0011.0015.png", 0, image\dummy.png, 1.0
+
+# Brick.0001
+Task 1, 0, "image\Brick.0001.0000.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0002.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0005.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0007.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0008.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0010.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0013.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Brick.0001.0015.png", 0, image\dummy.png, 0.0
+
+# Fabric.0000
+Task 1, 0, "image\Fabric.0000.0000.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0002.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0005.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0007.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0008.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0010.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0013.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Fabric.0000.0015.png", 0, image\dummy.png, 0.0
+
+# Food.0000
+Task 1, 0, "image\Food.0000.0000.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0002.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0005.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0007.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0008.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0010.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0013.png", 0, image\dummy.png, 0.0
+Task 1, 0, "image\Food.0000.0015.png", 0, image\dummy.png, 0.0
+
+### Tests ###
+# Bark.0011
+Test 1, 0, "image\Bark.0011.0000.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0001.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0002.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0003.png", 0, image\dummy.png, 1.0
+
+Test 1, 0, "image\Bark.0011.0004.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0005.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0006.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0007.png", 0, image\dummy.png, 1.0
+
+Test 1, 0, "image\Bark.0011.0008.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0009.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0010.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0011.png", 0, image\dummy.png, 1.0
+
+Test 1, 0, "image\Bark.0011.0012.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0013.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0014.png", 0, image\dummy.png, 1.0
+Test 1, 0, "image\Bark.0011.0015.png", 0, image\dummy.png, 1.0
+
+# Brick.0001
+Test 1, 0, "image\Brick.0001.0000.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0001.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0002.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0003.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Brick.0001.0004.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0005.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0006.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0007.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Brick.0001.0008.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0009.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0010.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0011.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Brick.0001.0012.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0013.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0014.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Brick.0001.0015.png", 0, image\dummy.png, 0.0
+
+# Fabric.0000
+Test 1, 0, "image\Fabric.0000.0000.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0001.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0002.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0003.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Fabric.0000.0004.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0005.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0006.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0007.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Fabric.0000.0008.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0009.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0010.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0011.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Fabric.0000.0012.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0013.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0014.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Fabric.0000.0015.png", 0, image\dummy.png, 0.0
+
+# Food.0000
+Test 1, 0, "image\Food.0000.0000.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0001.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0002.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0003.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Food.0000.0004.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0005.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0006.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0007.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Food.0000.0008.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0009.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0010.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0011.png", 0, image\dummy.png, 0.0
+
+Test 1, 0, "image\Food.0000.0012.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0013.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0014.png", 0, image\dummy.png, 0.0
+Test 1, 0, "image\Food.0000.0015.png", 0, image\dummy.png, 0.0
+
+### Alias ###
+Include "Default.aliases"
+
+### Units ###
+
+Unit	(Gray0)
+#Unit	(Red0)
+#Unit	(Green0)
+#Unit	(Blue0)
+#Unit	(Hue0)
+#Unit	(Saturation0)
+
+Unit	(Dilate3x3(?))
+Unit	(Erode3x3(?))
+#Unit    (Thin(?))
+Unit	(Laplacian3x3(?))
+#Unit	(Laplacian2nd3x3(?))
+Unit	(Median3x3(?))
+Unit	(Sharpen3x3(?))
+Unit	(Smooth3x3(?))
+Unit	(Sobel3x3(?))
+Unit	(SobelX3x3(?))
+Unit	(SobelY3x3(?))
+Unit	(Negate(?))
+Unit	(ProjectionX(?))
+Unit	(ProjectionY(?))
+#Unit	(Connection4(?))
+#Unit	(Connection8(?))
+#Unit	(Threshold(?))
+#Unit	(ThresholdInv(?))
+#Unit	(Binarize(?))
+#Unit	(BinarizeInv(?))
+Unit	(Add(?)(?))
+Unit	(AlgebraicProd(?)(?))
+Unit	(AlgebraicSum(?)(?))
+Unit	(BoundedProd(?)(?))
+Unit	(Diff(?)(?))
+Unit	(LogicalProd(?)(?))
+Unit	(LogicalSum(?)(?))
+Unit	(Subtract(?)(?))
+Unit	(HighPass(?)(?))
+Unit	(LowPass(?)(?))
+Unit	(ThresholdV(?)(?))
+Unit	(ThresholdInvV(?)(?))
+Unit	(BinarizeV(?)(?))
+Unit	(BinarizeInvV(?)(?))
+#Unit	(BigBlob4(?)(?))
+#Unit	(BigBlob8(?)(?))
+Unit	(AddV(?)(?))
+Unit	(ModAvgV(?)(?))
+Unit	(MultiplyV(?)(?))
+Unit	(SubtractV(?)(?))
+Unit	(FillV(?))
+#Unit	(NoiseV(?))
+Unit	(AvgPixel(?))
+Unit	(MaxPixel(?))
+Unit	(MinPixel(?))
+#Unit	(PSNR(?)(?))
+Unit	(VNegate(?))
+Unit	(VAdd(?)(?))
+Unit	(VAlgebraicProd(?)(?))
+Unit	(VAlgebraicSum(?)(?))
+Unit	(VDiff(?)(?))
+Unit	(VLogicalProd(?)(?))
+Unit	(VLogicalSum(?)(?))
+Unit	(VSubtract(?)(?))
+Unit	(Select(?)(?))
+Unit	(SelectV(?)(?)(?)(?))
+
+### Evaluation ###
+EvaluationFunction  "(_Tree0)"
+ScoringMethod	 Cluster2
+SimpleComparator True

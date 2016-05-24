@@ -1,0 +1,802 @@
+\documentclass[]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={},
+            pdftitle={},
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=magenta,
+            pdfborder={0 0 0}}
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{0}
+
+\author{}
+\date{}
+
+\begin{document}
+
+{
+\hypersetup{linkcolor=black}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\section{Commands}\label{commands}
+
+\subsection{newproj}\label{newproj}
+
+Create new project.
+
+\begin{verbatim}
+<Project Name>/
+    +---<Project Name>.garnet_proj.txt
+    +---<Project Name>.garnet_conf.txt
+    +---images/
+    |       +---Copy image files here.
+    +---reports/
+\end{verbatim}
+
+\subsubsection{Options}\label{options}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project file\textgreater{}
+\item
+  --max-generation -G \textless{}max generation\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    1 .. g: Set the max generation. If not set, the value specified by
+    the configuration file will be used.
+  \end{itemize}
+\item
+  --random-cases -S \textless{}the number of random cases\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    1 .. r: Make multiple cases with different initial random seed.
+    default is 1.
+  \end{itemize}
+\item
+  --cross-validation -K \textless{}the number of cross
+  validation\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    0 (default): Use Task.
+  \item
+    1 .. k: All Tasks and Tests are used for k-fold cross validation.
+  \end{itemize}
+\item
+  --directory -d \textless{}directory\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Specify the name of the project directory.
+  \item
+    If not set, the file name (without path and extension) of the
+    configuration file will be used.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Flow}\label{flow}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Load a configuration file.
+\item
+  Create directories.
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Error if the directory already exists, 2.1 Create the project
+    directory. 2.2 Create the image directory. 2.3 Create the reports
+    directory.
+  \end{itemize}
+\item
+  Copy images to \textless{}proj\textgreater{}/images/ directory.
+\item
+  Create cases. (Random, Cross Validation) 4.1 Call newcase.
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Following configurations for each case should be modified from the
+    original configuration.
+
+    \begin{itemize}
+    \itemsep1pt\parskip0pt\parsep0pt
+    \item
+      Case name, as r00\_k00.
+    \item
+      Random seed.
+    \item
+      Image path.
+    \end{itemize}
+  \item
+    Case configurations will contain Alias and Unit parameters
+    originally specified by separate files.
+  \end{itemize}
+\item
+  Save the project configuration.
+\item
+  Done.
+\end{enumerate}
+
+\subsection{newcase}\label{newcase}
+
+Create new case.
+
+\begin{verbatim}
+<Case name>/
+    +---<Case name>.garnet_conf.txt
+    +---reports/
+\end{verbatim}
+
+\subsubsection{Options}\label{options-1}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project file\textgreater{}
+\item
+  --max-generation -G \textless{}max generation\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    1 .. g: Set the max generation. If not set, the value specified by
+    the configuration file will be used.
+  \end{itemize}
+\item
+  --random-seed -s \textless{}Random seed\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    seed: Set random seed. If not set, the value specified by the
+    configuration file will be used.
+  \end{itemize}
+\item
+  --directory -d \textless{}directory\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Specify the name of the project directory.
+  \item
+    If not set, the file name (without path and extension) of the
+    configuration file will be used.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Flow}\label{flow-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Load a configuration file.
+\item
+  Create directories.
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Error if the directory already exists, 2.1 Create the case
+    directory. 2.2 Create the reports directory.
+  \end{itemize}
+\item
+  Save configuration.
+\end{enumerate}
+
+\subsection{run}\label{run}
+
+Run a project (if .garnet\_proj.txt exists), or a case.
+
+\subsubsection{Options}\label{options-2}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\item
+  --max-generation -G \textless{}max generation\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    1 .. g: Set the max generation. If not set, the value specified by
+    the configuration file will be used.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Flow}\label{flow-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Load a configuration file.
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Error if the directory does not exist.
+  \end{itemize}
+\item
+  Find the last result to determine the generation number to continue.
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    .garnet\_cp.txt
+  \item
+    000000/generation.000000.txt
+  \item
+    or generation 0.
+  \end{itemize}
+\item
+  Load or create initial generation.
+\item
+  Start evolution process.
+\end{enumerate}
+
+\subsection{update}\label{update}
+
+Modify configurations of a project.
+
+\subsubsection{Options}\label{options-3}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\end{itemize}
+
+\subsection{clean}\label{clean}
+
+Remove intermediate information of a project (if .garnet\_proj.txt
+exists), or a case.
+
+For a case:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/.garnet\_cp.txt
+\item
+  \textless{}case\textgreater{}/\textless{}Project
+  Name\textgreater{}.csv
+\item
+  \textless{}case\textgreater{}/\textless{}generation\textgreater{}/.garnet\_result\_A\_I0000\_C00\_T000.png
+\end{itemize}
+
+For a project:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Remove same files for a case for all cases under the project.
+\end{itemize}
+
+\subsubsection{Options}\label{options-4}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\end{itemize}
+
+\subsection{distclean}\label{distclean}
+
+In addition to `clean' command, remove all generated information of a
+project (if .garnet\_proj.txt exists), or a case.
+
+For a case:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/\textless{}generation\textgreater{}/generation.000000.txt
+\item
+  \textless{}case\textgreater{}/\textless{}generation\textgreater{}
+  (directories)
+\end{itemize}
+
+For a project:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Remove same files for a case for all cases under the project.
+\item
+  \textless{}proj\textgreater{}/reports/*
+\item
+  \textless{}proj\textgreater{}/index.html
+\end{itemize}
+
+\subsubsection{Options}\label{options-5}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\end{itemize}
+
+\subsection{report}\label{report}
+
+Make reports.
+
+\subsubsection{Options}\label{options-6}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\end{itemize}
+
+\subsection{archive}\label{archive}
+
+clean and zip data.
+
+\subsubsection{Options}\label{options-7}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}project dir\textgreater{}
+\end{itemize}
+
+\subsection{help}\label{help}
+
+\subsubsection{Options}\label{options-8}
+
+none.
+
+\section{Project}\label{project}
+
+\begin{verbatim}
+<Project Name>/
+    +---<Project Name>.garnet_proj.txt [in]
+    +---<Project Name>.garnet_conf.txt [in]
+    +---images/  [in]
+    +---reports/ [out]
+    +---index.html [out]
+    +---r00_k00/ [in]
+    |       +---<Case Name>.garnet_conf.txt [in]
+    |       +---.garnet_cp.txt   [out]
+    |       +---<Case Name>.csv [out]
+    |       +---reports/ [in]
+    |       |       +---index.html [out]
+    |       |       +---<Case Name>_g000000_i0000_c00.html [out]
+    |       |       +---<Case Name>_g000000_i0000_c00.graphml [out]
+    |       |       +---g000000_i0000_c00/ [out]
+    |       |               +---values.csv [out]
+    |       |               +---n000000.png [out]
+    |       |               +--- ... [out]
+    |       +---000000/ [out]
+    |       |       +---generation.000000.txt [out]
+    |       |       +---.garnet_result_A_I0000_C00_T000.png [out]
+    |       |       +--- ...
+    |       +---000001/
+    |       |       +--- ...
+    |       ...
+    +---r00_k01/
+    |       +--- ...
+    +--- ...
+    +---r01_k00/
+    |       +--- ...
+    +--- ...
+\end{verbatim}
+
+\section{Case}\label{case}
+
+\begin{verbatim}
+<Case Name>/ [in]
+    +---<Case Name>.garnet_conf.txt [in]
+    +---.garnet_cp.txt   [out]
+    +---<Case Name>.csv [out]
+    +---reports/ [in]
+    |       +---index.html [out]
+    +---000000/ [out]
+    |       +---generation.000000.txt [out]
+    |       +---.garnet_result_A_I0000_C00_T000.png [out]
+    |       +--- ...
+    +---000001/
+    |       +--- ...
+    ...
+\end{verbatim}
+
+\section{Reports}\label{reports}
+
+\subsection{Changes of Fitness}\label{changes-of-fitness}
+
+\subsubsection{Output}\label{output}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Graph (PNG)
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    X axis: Generations
+  \item
+    Y axis: A fitness.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Requirements}\label{requirements}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Random cases: Average or Single
+\item
+  Generations: All
+\item
+  Individuals: All, or Rank 1
+\item
+  Objectives: One selected.
+\end{itemize}
+
+\subsubsection{Data source}\label{data-source}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/000000/generation.000000.txt {[}out{]}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Individual
+  \item
+    Rank
+  \item
+    FitnessV
+  \end{itemize}
+\end{itemize}
+
+\subsection{Changes of the number of IV
+Filters}\label{changes-of-the-number-of-iv-filters}
+
+\subsubsection{Output}\label{output-1}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Graph (PNG)
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    X axis: Generations
+  \item
+    Y axis: The number of IV filters.
+  \item
+    Layer: IV Tree, IV Graph, PP Graph.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Requirements}\label{requirements-1}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Random cases: Average or Single
+\item
+  Generations: All
+\item
+  Individuals: All, or Rank 1
+\item
+  Objectives: (n/a)
+\end{itemize}
+
+\subsubsection{Data source}\label{data-source-1}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/000000/generation.000000.txt {[}out{]}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Individual
+  \item
+    Rank
+  \item
+    Vertices
+  \end{itemize}
+\end{itemize}
+
+\subsection{Motion of Pareto Front}\label{motion-of-pareto-front}
+
+\subsubsection{Output}\label{output-2}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Graph (PNG)
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    X axis: Objective \#1
+  \item
+    Y axis: Objective \#2
+  \item
+    Layer: Generations.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Requirements}\label{requirements-2}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Random cases: Single
+\item
+  Generations: Selection (i.e.~every 1000 gen)
+\item
+  Individuals: Rank 1
+\item
+  Objectives: Two selected.
+\end{itemize}
+
+\subsubsection{Data source}\label{data-source-2}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/000000/generation.000000.txt {[}out{]}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Individual
+  \item
+    Rank
+  \item
+    FitnessV
+  \end{itemize}
+\end{itemize}
+
+\subsection{Test Results}\label{test-results}
+
+\subsubsection{Output}\label{output-3}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Filtered Images (PNG) --\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Images which are resulted by filtering TRAINING data with the
+    generated tree.
+  \item
+    Images which are resulted by filtering TEST data with the generated
+    tree.
+  \item
+    Result should contains the results of IV Tree, Raw fitness, and
+    Fitness Vector.
+  \end{itemize}
+\item
+  Filtered Values (CSV) --\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Values which are resulted by filtering TRAINING data with the
+    generated tree.
+  \item
+    Values which are resulted by filtering TEST data with the generated
+    tree.
+  \item
+    Result should contains the results of IV Tree, Raw fitness, and
+    Fitness Vector.
+  \end{itemize}
+\item
+  Report (HTML) --\textgreater{}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Readable report containing the materials above.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Requirements}\label{requirements-3}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Random cases: Single
+\item
+  Generations: Single (typically, the last generation.)
+\item
+  Individuals: Single (typically, the best of the last generation. the
+  best is the nearest one by the utopia point.)
+\item
+  Objectives: All
+\end{itemize}
+
+\subsubsection{Data source}\label{data-source-3}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/000000/generation.000000.txt {[}out{]}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Individual
+  \item
+    Rank (to determine the best individual)
+  \item
+    FitnessV (to determine the best individual)
+  \item
+    Chromosomes
+  \end{itemize}
+\end{itemize}
+
+\subsection{Intermediate results of a
+Tree}\label{intermediate-results-of-a-tree}
+
+\subsubsection{Output}\label{output-4}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Graph ML (.graphml) --\textgreater{}
+  \textless{}case\textgreater{}/reports/\textless{}Case
+  Name\textgreater{}\emph{g000000}i0000\_c00.graphml
+\item
+  Intermediate Images (PNG) --\textgreater{}
+  \textless{}case\textgreater{}/reports/g000000\_i0000\_c00/n00000.png
+\item
+  Intermediate Values (CSV) --\textgreater{}
+  \textless{}case\textgreater{}/reports/g000000\_i0000\_c00/values.csv
+\item
+  Report (HTML) --\textgreater{}
+  \textless{}case\textgreater{}/reports/g000000\_i0000\_c00.html
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Readable report containing the intermediate images and values.
+  \item
+    Node connections should be traced by clicking link.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Requirements}\label{requirements-4}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Random cases: Single
+\item
+  Generations: Single (typically, the last generation.)
+\item
+  Individuals: Single (typically, the best of the last generation. the
+  best is the nearest one by the utopia point.)
+\item
+  Objectives: (n/a)
+\end{itemize}
+
+\subsubsection{Data source}\label{data-source-4}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textless{}case\textgreater{}/000000/generation.000000.txt {[}out{]}
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Individual
+  \item
+    Rank (to determine the best individual)
+  \item
+    FitnessV (to determine the best individual)
+  \item
+    Chromosomes
+  \end{itemize}
+\end{itemize}
+
+\section{Configuration File}\label{configuration-file}
+
+\subsection{Project Configurations}\label{project-configurations}
+
+\subsubsection{CrossValidation (Integer)}\label{crossvalidation-integer}
+
+\subsubsection{RandomCases (Integer)}\label{randomcases-integer}
+
+\subsubsection{ReportParetoFront (Bool)}\label{reportparetofront-bool}
+
+\subsubsection{ReportFitness (Bool)}\label{reportfitness-bool}
+
+\subsubsection{ReportFilterCount (Bool)}\label{reportfiltercount-bool}
+
+\subsubsection{ReportGeneratedTree
+(Bool)}\label{reportgeneratedtree-bool}
+
+\subsubsection{ReportTreeDetail (Bool)}\label{reporttreedetail-bool}
+
+\section{Control Flow}\label{control-flow}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Global dispatch \{newproj, newcase, run, update, report, clean,
+  distclean, archive, help\}
+\item
+\item
+  new 2.1 Create cases.
+\end{enumerate}
+
+\subsection{Command Line Arguments.}\label{command-line-arguments.}
+
+\subsubsection{\_Project (string)}\label{project-string}
+
+A project name.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  If -d is specified, use the specified name.
+\item
+  Otherwise, the file name (without path and extension) of the
+  configuration file will be used.
+\end{enumerate}
+
+\subsubsection{\_IsProject (boolean)}\label{isproject-boolean}
+
+\end{document}

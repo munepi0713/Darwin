@@ -1,0 +1,32 @@
+Generation   0
+RandomSeed   123456789
+
+# Individual  0
+Rank          0, 1
+FitnessV      0, 0x0
+RawFitnessV   0, 0, 0x0
+Chromosomes   0, 0, 0000, (Gray0)
+
+# Individual  1
+Rank          1, 1
+FitnessV      1, 0x0
+RawFitnessV   1, 0, 0x0
+Chromosomes   1, 0, 0000, (Red0)
+
+# Individual  2
+Rank          2, 1
+FitnessV      2, 0x0
+RawFitnessV   2, 0, 0x0
+Chromosomes   2, 0, 0000, (Green0)
+
+# Individual  3
+Rank          3, 1
+FitnessV      3, 0x0
+RawFitnessV   3, 0, 0x0
+Chromosomes   3, 0, 0000, (Blue0)
+
+# Individual  4
+Rank          4, 1
+FitnessV      4, 0x0
+RawFitnessV   4, 0, 0x0
+Chromosomes   4, 0, 0000, (Smooth3x3(Gray0))

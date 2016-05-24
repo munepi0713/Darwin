@@ -1,0 +1,4 @@
+var $1
+Load $1, "1.jpg"
+Save $1, "result.png"
+End

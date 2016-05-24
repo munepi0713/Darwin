@@ -1,0 +1,3 @@
+
+..\..\bin\ppe < program.txt
+

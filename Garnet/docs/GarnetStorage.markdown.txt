@@ -1,0 +1,207 @@
+Storage
+=======
+
+評価時は、論理ストレージにマッピングして並び替えたモノでアクセスする
+
+* ストレージレイアウト
+	* Constant	Nk個
+	* Task	Nt個
+		* Src (Task)	Ns個
+	* Test	Nu個
+		* Src (Test)	Ns個
+	* Task	Nt個
+		* Individual	Ni個
+			* Tree (Task)	Nc個
+	* Test	Nu個
+		* Individual	Ni個
+			* Tree (Test)	Nc個
+	* Task	Nt個
+		* Individual	Ni個
+			* RawFit (Task)	Nr個
+	* Test	Nu個
+		* Individual	Ni個
+			* RawFit (Test)	Nr個
+	* Individual	Ni
+		* RawFit List (Task)	Nr個
+		* RawFit List (Test)	Nr個
+		* Fitness	Nf個
+
+### アドレス空間
+
+[メモリ種別]
+
+* CPU
+* GPU
+
+[目的種別]
+
+* Register
+* Source
+* Result
+
+[データ型] 
+
+* V1D
+* I1D
+* I3D
+* I1B
+* I3B
+* S
+* A1D
+* L
+
+データ型ごとに、0x1000000個(0x000000-0xFFFFFF)のアドレスを使用可能。
+
+同じアドレスだが、データ型の違うものを、「ペア」（グループ）とみることもできる。
+
+
+### Storage
+
+データ格納。
+
+1つのストレージは
+
+### Archive
+
+Storageに、便利な関数を加えたもの。
+
+
+### Executable
+
+
+----
+
+Storage
+-------
+
+Factory + Template Method + Decorator
+
+
+### Storage
+
+Template and Storage interface.
+
+*Component* in the Decorator pattern.
+
+	+ virtual ~Storage() = 0;
+
+	// Public factory methods.
+	+ static StoragePtr  createInstance(const cv::Size& imageSize);
+	
+	// Public methods.
+	+ virtual void                    clear() = 0;
+	+ virtual const cv::Size&         getImageSize() const = 0;
+	+ virtual uint32_t                getNumSlots() const = 0;
+	+ virtual DataSlot*               getSlot(uint32_t address) const = 0; 
+	+ virtual const DataSlot*         getSlot(uint32_t address) const = 0; 
+
+	// Public template methods.
+	+ template <typename T> T&        at(uint32_t addr); // getSlot()
+	+ template <typename T> const T&  at(uint32_t addr) const; // getSlot()
+	+ bool                            exists(uint32_t address) const; // getSlot()
+	+ bool             	              validate(uint32_t address) const; // getSlot() and validation
+	
+	// Public static utility methods.
+	+ static uint32_t     decodeAddress(const std::string& exp);
+	+ static const char*  toDataTypeName(uint32_t dataType);
+
+### MemoryStorage : Storage
+
+*ConcreteComponent* in the Decorator pattern.
+
+	+ MemoryStorage(const cv::Size& size);
+	+ virtual ~MemoryStorage();
+
+	+ virtual void       clear();
+	+ virtual cv::Size   getImageSize() const { return _size; }
+	+ virtual DataSlot*  getSlot(uint32_t address);
+	+ virtual uint32_t   getNumSlots() const;
+
+    - DataMap        _registers;
+	- cv::Size       _size;
+	- mutable Mutex  _mutex;
+
+### StorageDecorator : Storage
+
+*Decorator* in the Decorator pattern.
+
+	+ StorageDecorator(StoragePtr storage);
+
+	// Public methods.
+	//+ void                 clear() = 0;
+	//+ DataSlot*            getSlot(uint32_t address) = 0; 
+	//+ const cv::Size&      getImageSize() const = 0;
+	//+ uint32_t             getNumSlots() const = 0;
+
+	// Protected methods.
+	# StoragePtr           getStorage();
+
+	// Private fields.
+	- StoragePtr _storage;
+
+### StorageMapper : StorageDecorator
+
+*ConcreteDecorator* in the Decorator pattern.
+
+	+ virtual ~StorageMapper() {}
+	
+	+ virtual void       clear();
+	+ virtual DataSlot*  getSlot(uint32_t address);
+	+ virtual cv::Size   getImageSize() const;
+	+ virtual uint32_t   getNumSlots() const;
+
+	+ static StoragePtr  createInstance(const std::vector<Block>& blocks);
+
+	# Blocks::iterator       findBlock(uint32_t address);
+	# Blocks::const_iterator findBlock(uint32_t address) const;
+	- StorageMapper(const std::vector<Block>& blocks);
+	- Blocks      _blocks;
+
+---
+
+### Archive : StorageDecorator
+
+*ConcreteDecorator* in the Decorator pattern.
+
+	+ Archive(const Archive& x) : _storage(x._storage) {}
+	+ virtual ~Archive();
+	
+	+ virtual void            clear();
+	+ virtual cv::Size        getImageSize() const;
+	+ virtual DataSlot*       getSlot(uint32_t address);
+	+ virtual uint32_t        getNumSlots() const;
+
+	// Public 	
+	+ const double&           valueAt(uint32_t address) const;
+	+ double&                 valueAt(uint32_t address);
+	+ double                  getValue(uint32_t address) const;
+	+ void                    setValue(uint32_t address, double value);
+	
+	+ const cv::Mat&          imageAt(uint32_t address) const;
+	+ cv::Mat&                imageAt(uint32_t address);
+	+ const cv::Mat&          getImage(uint32_t address) const;
+	+ void                    loadImage(uint32_t address, const std::string& filename);
+	+ void                    saveImage(uint32_t address, const std::string& filename);
+	
+	+ const std::wstring&     stringAt(uint32_t address) const;
+	+ std::wstring&           stringAt(uint32_t address);
+	+ const std::wstring&     getString(uint32_t address) const;
+	+ void                    setString(uint32_t address, const std::wstring& value);
+	
+	+ const Vector<double>&   arrayAt(uint32_t address) const;
+	+ Vector<double>&         arrayAt(uint32_t address);
+	+ const Vector<double>&   getArray(uint32_t address) const;
+	+ void                    setArray(uint32_t address, const Vector<double>& value);
+	
+	+ const Vector<uint32_t>& listAt(uint32_t address) const;
+	+ Vector<uint32_t>&       listAt(uint32_t address);
+	+ const Vector<uint32_t>& getList(uint32_t address) const;
+	+ void                    setList(uint32_t address, const Vector<uint32_t>& value);		
+	
+	+ void                    load(std::istream& ins);
+	+ void                    save(std::istream& ins);
+	
+ 	+ static ArchivePtr createInstance(const cv::Size& imageSize);
+	+ static ArchivePtr createInstance(StoragePtr storage);
+	
+	- Archive(StoragePtr storage);
